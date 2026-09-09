@@ -65,6 +65,17 @@ public sealed class Project
     public List<ProjectLink> Links { get; set; } = [];
     public List<ProjectImage> Screenshots { get; set; } = [];
     public List<MiniGame> MiniGames { get; set; } = [];
+    public List<ProjectSection> Sections { get; set; } = [];
+    public List<GameVideo> Videos { get; set; } = [];
+    public bool ShowDevelopmentNotice { get; set; } = true;
+}
+public sealed class ProjectSection
+{
+    public string Title { get; set; } = "";
+    public string Summary { get; set; } = "";
+    public string[] Paragraphs { get; set; } = [];
+    public ProjectImage? Image { get; set; }
+    public string? Caption { get; set; }
 }
 public sealed class MiniGame
 {

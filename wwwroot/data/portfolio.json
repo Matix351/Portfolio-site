@@ -11,13 +11,46 @@
       "slug": "bonnies-farmville",
       "title": "Bonnie's Farmville",
       "category": "games/2d",
-      "summary": "A 2D game. Gameplay and project details coming soon.",
-      "status": "Details coming soon",
-      "role": "Developer",
-      "tags": ["2D"],
+      "summary": "A Unity farming-economy minigame for the upcoming Nintendo Switch 2 title 40in1 GameCollection Vol3, featuring a data-driven farming grid and autonomous companion AI.",
+      "status": "WorkInProgress",
+      "role": "Gameplay systems & tools developer",
+      "tags": ["Unity", "C#", "2D", "Nintendo Switch 2", "ScriptableObjects", "A* Pathfinding"],
       "image": "images/bonnies-farmville.png",
       "imageAlt": "Bonnie's Farmville title artwork featuring a rabbit with a watering can, vegetable plots, and farm animals",
-      "overview": ["Bonnie's Farmville is a 2D game. This placeholder will be updated with gameplay, features, and development notes."],
+      "overview": ["Bonnie's Farmville connects a data-driven world grid with autonomous companion AI. Gameplay configuration is separated from runtime logic, so new farm layouts, crops, items, prices, and upgrades can be authored without rewriting the underlying systems."],
+      "videos": [{ "title": "Bonnie's Farmville · Gameplay", "youtubeId": "GD5AzCywbek" }],
+      "showDevelopmentNotice": false,
+      "sections": [
+        {
+          "title": "Data-driven farming grid",
+          "summary": "A reusable authoring pipeline that turns visual tile painting into structured runtime data for farming interactions and navigation.",
+          "paragraphs": [
+            "I created a tile-based data layer that converts painted Unity Tilemaps into reusable gameplay properties for individual grid cells. Designers can mark diggable areas, walkable paths, water sources, placement zones, and NPC obstacles directly in the Scene view. An editor component collects these layers into a serialized ScriptableObject containing the coordinates and property values used at runtime.",
+            "The runtime grid manager translates between world and cell coordinates, combines multiple properties for each cell, validates player actions, and stores temporary state such as dug soil, watering, planted seeds, and crop growth. The same data source is shared with other systems."
+          ],
+          "image": { "url": "images/bonnies-farmville/01_data_driven_farming_grid_portfolio.png", "alt": "Unity Scene views showing painted Diggable and Path tilemap layers beside a serialized grid-property list in the Inspector" },
+          "caption": "Painted Diggable and Path layers are converted into a serialized per-cell property list used by gameplay systems at runtime."
+        },
+        {
+          "title": "Companion AI and pathfinding",
+          "summary": "Lightweight companion behaviour combining authored navigation data, A* routing, movement states, avoidance, and recovery logic.",
+          "paragraphs": [
+            "I developed an unlockable companion system with grid-aware A* pathfinding. Pets roam near the player, begin following when the distance becomes too large, and stop at a comfortable range instead of overlapping the character. Their movement queries the same walkability and obstacle data used by the farming grid.",
+            "The behaviour includes safe spawn selection, player avoidance, directional animation, idle timing, failed-path handling, and teleport recovery when the companion is separated by an extreme distance. Paths are calculated only when a new destination is selected, avoiding unnecessary searches every frame while still responding to player movement."
+          ],
+          "image": { "url": "images/bonnies-farmville/02_companion_ai_pathfinding_portfolio.png", "alt": "In-game companion beside the player, paired with the authored navigation tilemap and serialized grid data in Unity" },
+          "caption": "The companion uses the authored Path and obstacle layers for A* navigation while roaming near and following the player."
+        },
+        {
+          "title": "Item and crop definitions",
+          "summary": "Shared ScriptableObject definitions connect inventory, shops, crops, and progression.",
+          "paragraphs": [
+            "I built a shared item-data pipeline that drives inventory limits, seed prices, crop rewards, tool tiers, and shop presentation. Item and crop definitions are stored in ScriptableObjects, making it straightforward to add new items without changing the underlying gameplay systems."
+          ],
+          "image": { "url": "images/bonnies-farmville/03_economy_shops_progression_portfolio.png", "alt": "Runtime crop shop beside Unity Inspector panels for Item and Crop ScriptableObject configuration" },
+          "caption": "The runtime shop uses shared Item and Crop ScriptableObject definitions for prices, inventory limits, crop rewards, and upgrades."
+        }
+      ],
       "featured": false
     },
     {
