@@ -8,6 +8,19 @@
   },
   "projects": [
     {
+      "slug": "bonnies-farmville",
+      "title": "Bonnie's Farmville",
+      "category": "games/2d",
+      "summary": "A 2D game. Gameplay and project details coming soon.",
+      "status": "Details coming soon",
+      "role": "Developer",
+      "tags": ["2D"],
+      "image": "images/bonnies-farmville.png",
+      "imageAlt": "Bonnie's Farmville title artwork featuring a rabbit with a watering can, vegetable plots, and farm animals",
+      "overview": ["Bonnie's Farmville is a 2D game. This placeholder will be updated with gameplay, features, and development notes."],
+      "featured": false
+    },
+    {
       "slug": "power-washer-hero",
       "title": "Power Washer Hero",
       "category": "games/3d",
