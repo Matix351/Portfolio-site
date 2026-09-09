@@ -203,9 +203,40 @@
       "overview": ["Bachelor’s thesis: Using Social Engineering Methods in a Mobile Game.", "Developed the game concept, MVP design, and a working Android prototype with a responsive UI that adapts to different screen resolutions.", "Researched scientific literature and mobile games to analyze engagement, retention, and monetization techniques."]
     },
     {
-      "slug": "ai-pathfinding", "title": "Learning to Find a Path", "category": "other", "summary": "A reinforcement learning experiment that trains an agent to navigate toward a moving target.",
-      "status": "Proof of concept", "role": "Developer", "tags": ["Unity", "C#", "Reinforcement learning"], "art": "path",
-      "overview": ["A Unity/C# proof of concept using reinforcement learning to train an AI agent to navigate toward a dynamically changing target."]
+      "slug": "ai-pathfinding", "title": "Unity ML-Agents Pathfinding", "category": "other",
+      "summary": "A Unity ML-Agents navigation simulation trained with PPO across 20 parallel environments for 500,000 steps, achieving a peak mean reward of 0.951.",
+      "status": "Proof of concept", "role": "Developer",
+      "tags": ["Unity", "Unity ML-Agents", "Reinforcement Learning", "PPO", "Neural Networks", "TensorBoard"],
+      "image": "images/unity-ml-pathfinding/parallel-environments.png",
+      "imageAlt": "Twenty Unity training environments with blue cubes and yellow spheres on red, green, and dark platforms",
+      "overview": [
+        "This project explores how reinforcement learning can solve a dynamic pathfinding task. I created a Unity training environment in which an autonomous agent moves along the X and Z axes, searches for a randomly placed target, and learns to avoid obstacle walls. Reaching the target gives the agent a +1 reward, while hitting a wall results in a -1 penalty and resets the episode.",
+        "To speed up learning, I ran 20 training environments in parallel and trained the agent with Proximal Policy Optimization (PPO) for 500,000 steps. The experiment reached a peak mean reward of 0.951 and maintained a mean reward of approximately 0.9 near the end of training, demonstrating reliable learned navigation."
+      ],
+      "showDevelopmentNotice": false,
+      "sections": [
+        {
+          "title": "Trained navigation agent",
+          "paragraphs": ["The trained agent navigates around obstacles to reach a target whose position changes between episodes."],
+          "image": { "url": "images/unity-ml-pathfinding/navigation-environment.png", "alt": "Blue cube and yellow sphere in a Unity navigation environment with a green platform" }
+        },
+        {
+          "title": "Parallel training environments",
+          "paragraphs": ["Twenty copies of the environment run simultaneously, allowing the model to collect experience faster and encounter more starting conditions during training."],
+          "image": { "url": "images/unity-ml-pathfinding/parallel-environments.png", "alt": "Twenty copies of the navigation environment running in a five-by-four arrangement" }
+        },
+        {
+          "title": "Training results",
+          "paragraphs": ["The recorded training metrics show a clear improvement in cumulative reward and shorter episodes as the agent learns a more effective navigation policy."],
+          "image": { "url": "images/unity-ml-pathfinding/training-results.png", "alt": "PPO training results over 500,000 steps: cumulative reward rises toward 0.9 with a peak mean reward of 0.951, while episode length decreases" }
+        }
+      ],
+      "screenshotsHeading": "Environment details.",
+      "screenshots": [
+        { "url": "images/unity-ml-pathfinding/red-platform.png", "alt": "Navigation environment showing the cube and sphere on a red platform." },
+        { "url": "images/unity-ml-pathfinding/yellow-sphere.png", "alt": "Close-up of the yellow sphere used in the training environment." },
+        { "url": "images/unity-ml-pathfinding/blue-cube.png", "alt": "Close-up of the blue cube used in the training environment." }
+      ]
     }
   ]
 }

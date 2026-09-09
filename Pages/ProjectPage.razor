@@ -58,7 +58,7 @@
         @if (project.Screenshots.Count > 0)
         {
             <section class="screenshots-section" aria-labelledby="screenshots-heading">
-                <h2 id="screenshots-heading">Gameplay screenshots.</h2>
+                <h2 id="screenshots-heading">@project.ScreenshotsHeading</h2>
                 <div class="screenshot-gallery @(project.Screenshots.Count == 1 ? "single-image" : "")">
                 @foreach (var shot in project.Screenshots)
                 {
