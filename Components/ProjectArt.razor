@@ -1,0 +1,10 @@
+<div class="project-art @Project.Art" aria-hidden="true">
+    @if (Project.Art == "framework")
+    { <div class="node node-top">Inventory</div><div class="node node-left">Dialogue</div><div class="node core">M<span>MaCster</span></div><div class="node node-right">Interaction</div><div class="node node-bottom">Save / Load</div> }
+    else if (Project.Art == "mobile")
+    { <div class="phone"><div class="phone-island"></div><span>GOOD THINGS.</span><div class="phone-product">✳</div><div class="phone-lines"></div><div class="phone-button"></div></div><span class="art-caption">ANDROID / DEVELOPMENT</span> }
+    else
+    { <div class="path-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="art-caption">EXPERIMENT / AI</span> }
+    <span class="illustration-label">Concept illustration</span>
+</div>
+@code { [Parameter, EditorRequired] public Project Project { get; set; } = default!; }

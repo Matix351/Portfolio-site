@@ -1,0 +1,7 @@
+@page "/games"
+<PageTitle>Games — Mateusz Ciszek</PageTitle>
+<section class="page-heading"><p class="eyebrow">WORK / GAMES</p><h1>Built to be <em>played.</em></h1><p>From arcade mechanics to 3D worlds. And the tools that make building them possible.</p></section>
+<ContentView Context="content">
+    <div class="category-tiles">@foreach (var category in PortfolioContent.Categories.Where(c => c.Path.StartsWith("games/"))) { <a href="@category.Path" class="category-tile"><span class="eyebrow">@category.Number / EXPLORE</span><span class="category-symbol">@category.Symbol</span><h2>@category.Name <span>↗</span></h2><p>@category.Description</p></a> }</div>
+    <section class="section"><div class="section-heading"><h2>Games & development tools</h2><span class="section-note">A closer look at the work.</span></div><div class="project-grid">@foreach (var project in content.Projects.Where(p => p.Category.StartsWith("games/"))) { <ProjectCard Project="project" /> }</div></section>
+</ContentView>

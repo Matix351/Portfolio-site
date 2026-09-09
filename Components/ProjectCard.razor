@@ -1,0 +1,9 @@
+<article class="project-card">
+    <a class="card-image" href="projects/@Project.Slug" tabindex="-1" aria-hidden="true">
+        @if (!string.IsNullOrWhiteSpace(Project.Image)) { <img src="@Project.Image" alt="" loading="lazy" /> }
+        else { <ProjectArt Project="Project" /> }
+        <span class="card-arrow">↗</span>
+    </a>
+    <div class="card-body"><span class="eyebrow">@Project.Status</span><h3><a href="projects/@Project.Slug">@Project.Title</a></h3><p>@Project.Summary</p><div class="tags">@foreach (var tag in Project.Tags) { <span>@tag</span> }</div></div>
+</article>
+@code { [Parameter, EditorRequired] public Project Project { get; set; } = default!; }

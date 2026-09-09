@@ -1,0 +1,11 @@
+.minigame-list { margin-top: 28px; }
+.game-videos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 20px 0; }
+.game-videos.single-video { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 600px) { .game-videos { grid-template-columns: minmax(0, 1fr); } }
+.minigame-entry { border-top: 1px solid var(--line); padding: 28px 0; }
+.minigame-entry h3 { font-size: 25px; margin-bottom: 14px; color: var(--text); }
+.minigame-entry p { margin-bottom: 12px; }
+.minigame-entry ul { color: var(--muted); padding-left: 20px; margin: 12px 0 0; font-size: 14px; }
+.minigame-entry li { padding-left: 4px; margin-bottom: 10px; }
+.minigame-entry li::marker { color: var(--accent); }
+.minigame-entry .button { margin-top: 15px; }

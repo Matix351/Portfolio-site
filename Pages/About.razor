@@ -1,0 +1,9 @@
+@page "/about"
+<PageTitle>About & Contact — Mateusz Ciszek</PageTitle>
+<ContentView Context="content">
+    <div class="about-intro-grid">
+    <section class="page-heading"><p class="eyebrow">ABOUT / THE DEVELOPER</p><h1>Curious by nature.<br /><em>Developer</em> by craft.</h1><p>@content.Profile.Bio</p></section>
+    <section class="skills-panel"><p class="eyebrow">MY TOOLKIT</p><h2>Under the hood.</h2><div class="tags">@foreach (var skill in content.Profile.Skills) { <span>@skill</span> }</div><div class="principles"><p>Modular architecture</p><p>Event-driven systems</p><p>Interface-driven design</p><p>Readable, reusable code</p></div></section>
+    </div>
+    <section class="about-banner" id="contact"><p class="eyebrow">ELSEWHERE / CONTACT</p><h2>Explore what I’m building.</h2><p>Find my code and projects on GitHub.</p><div class="hero-actions"><a class="button primary" href="@content.Profile.Github" target="_blank" rel="noopener noreferrer">Visit my GitHub ↗</a>@if (!string.IsNullOrWhiteSpace(content.Profile.ContactEmail)) { <a class="button secondary" href="mailto:@content.Profile.ContactEmail">Get in touch ↗</a> }@if (!string.IsNullOrWhiteSpace(content.Profile.ContactUrl)) { <a class="button secondary" href="@content.Profile.ContactUrl" target="_blank" rel="noopener noreferrer">Contact ↗</a> }</div></section>
+</ContentView>

@@ -1,0 +1,43 @@
+@page "/projects/{Slug}"
+<ContentView Context="content">
+    @{ var project = content.Projects.FirstOrDefault(p => p.Slug == Slug); }
+    @if (project is null) { <PageTitle>Project not found — Mateusz Ciszek</PageTitle><NotFound /> }
+    else
+    {
+        <PageTitle>@project.Title — Mateusz Ciszek</PageTitle>
+        <section class="page-heading detail-heading"><a class="eyebrow breadcrumb" href="@project.Category">← @PortfolioContent.Categories.First(c => c.Path == project.Category).Name.ToUpperInvariant()</a><h1>@project.Title</h1><p>@project.Summary</p><div class="tags">@foreach (var tag in project.Tags) { <span>@tag</span> }</div></section>
+        @if (!string.IsNullOrWhiteSpace(project.Image)) { <div class="detail-cover"><img src="@project.Image" alt="@project.ImageAlt" /></div> }
+        else { <div class="detail-cover illustrated"><ProjectArt Project="project" /></div> }
+        <div class="detail-layout"><aside><div class="detail-meta"><span class="eyebrow">MY ROLE</span><p>@project.Role</p><span class="eyebrow">PROJECT STATUS</span><p>@project.Status</p></div>@foreach (var link in project.Links.Where(l => !string.IsNullOrWhiteSpace(l.Url))) { <a class="button secondary" href="@link.Url" target="_blank" rel="noopener noreferrer">@link.Label ↗</a> }</aside><article class="project-story"><p class="eyebrow">THE PROJECT</p><h2>Behind the build.</h2>@foreach (var paragraph in project.Overview) { <p>@paragraph</p> }
+        @if (!string.IsNullOrWhiteSpace(project.Challenge)) { <h2>The challenge</h2><p>@project.Challenge</p> }
+        @if (!string.IsNullOrWhiteSpace(project.Solution)) { <h2>The approach</h2><p>@project.Solution</p> }
+        @if (!string.IsNullOrWhiteSpace(project.Lessons)) { <h2>What I learned</h2><p>@project.Lessons</p> }
+        @if (project.MiniGames.Count > 0)
+        {
+            <h2>Mini-games I built.</h2>
+            <div class="minigame-list">
+            @foreach (var game in project.MiniGames)
+            {
+                <section class="minigame-entry">
+                    <h3>@game.Title</h3>
+                    <p>@game.Description</p>
+                    @if (game.Videos.Count > 0)
+                    {
+                        <div class="game-videos @(game.Videos.Count == 1 ? "single-video" : "")">@foreach (var video in game.Videos) { <GameplayVideo @key="video.YoutubeId" Video="video" /> }</div>
+                    }
+                    @if (game.TechnicalNotes.Length > 0)
+                    {
+                        <ul>@foreach (var note in game.TechnicalNotes) { <li>@note</li> }</ul>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(game.VideoUrl))
+                    { <a class="button secondary" href="@game.VideoUrl" target="_blank" rel="noopener noreferrer">Watch @game.Title gameplay ↗</a> }
+                </section>
+            }
+            </div>
+        }
+        @if (project.Screenshots.Count > 0) { <h2>A look inside.</h2>@foreach (var shot in project.Screenshots) { <figure><a href="@shot.Url" target="_blank" rel="noopener noreferrer"><img src="@shot.Url" alt="@shot.Alt" loading="lazy" /></a><figcaption>@shot.Alt</figcaption></figure> } }
+        @if (!string.IsNullOrWhiteSpace(project.VideoUrl)) { <a class="button secondary" href="@project.VideoUrl" target="_blank" rel="noopener noreferrer">Watch gameplay ↗</a> }
+        <div class="project-update"><span class="status-dot"></span> Detailed development notes and additional media coming soon.</div></article></div>
+    }
+</ContentView>
+@code { [Parameter] public string Slug { get; set; } = ""; }

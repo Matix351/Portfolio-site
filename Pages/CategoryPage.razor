@@ -1,0 +1,21 @@
+@page "/games/{Kind}"
+@page "/android"
+@page "/other"
+@inject NavigationManager Navigation
+<PageTitle>@(category?.Name ?? "Page not found") — Mateusz Ciszek</PageTitle>
+@if (category is null) { <NotFound /> }
+else
+{
+    <section class="page-heading"><a class="eyebrow breadcrumb" href="@(category.Path.StartsWith("games/") ? "games" : "")">← @(category.Path.StartsWith("games/") ? "GAMES" : "HOME") / @category.Name.ToUpperInvariant()</a><h1>@category.Title</h1><p>@category.Description</p></section>
+    @if (category.Path.StartsWith("games/")) { <nav class="category-tabs" aria-label="Game categories">@foreach (var item in PortfolioContent.Categories.Where(c => c.Path.StartsWith("games/"))) { <NavLink href="@item.Path">@item.Name</NavLink> }</nav> }
+    <ContentView Context="content">
+        @{ var projects = content.Projects.Where(p => p.Category == category.Path).ToList(); }
+        @if (projects.Count == 0) { <section class="empty-state"><span class="empty-symbol">@category.Symbol</span><p class="eyebrow">PROJECT SHOWCASE / COMING SOON</p><h2>More to the story.</h2><p>I’ve worked on 2D minigames in Unity, including arcade and tilemap-based gameplay. Individual project write-ups, screenshots, and gameplay videos will be added here.</p><a class="text-link" href="about">Explore my experience →</a></section> }
+        else { <div class="project-grid category-projects">@foreach (var project in projects) { <ProjectCard Project="project" /> }</div><p class="content-note">More screenshots, gameplay, and project notes will be added as the collection grows.</p> }
+    </ContentView>
+}
+@code {
+    [Parameter] public string? Kind { get; set; }
+    private Category? category;
+    protected override void OnParametersSet() { var path = Navigation.ToBaseRelativePath(Navigation.Uri).Split('?', '#')[0].TrimEnd('/'); category = PortfolioContent.Categories.FirstOrDefault(c => c.Path == path); }
+}

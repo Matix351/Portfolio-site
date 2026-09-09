@@ -1,0 +1,10 @@
+@inject PortfolioContent Store
+@if (content is not null) { @ChildContent(content) }
+else if (failed) { <section class="page-heading"><p class="eyebrow">Connection interrupted</p><h1>Let’s try that again.</h1><p>Project information couldn’t load. Check your connection and try again.</p><button class="button primary" @onclick="Load">Retry</button></section> }
+else { <div class="content-loading" role="status">Loading projects…</div> }
+@code {
+    [Parameter, EditorRequired] public RenderFragment<Content> ChildContent { get; set; } = default!;
+    private Content? content; private bool failed;
+    protected override Task OnInitializedAsync() => Load();
+    private async Task Load() { failed = false; try { content = await Store.Load(); } catch { failed = true; } }
+}

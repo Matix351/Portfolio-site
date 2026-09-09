@@ -1,0 +1,18 @@
+<div class="gameplay-video">
+    @if (playing)
+    {
+        <iframe src="@($"https://www.youtube-nocookie.com/embed/{Video.YoutubeId}?autoplay=1")" title="@Video.Title" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    }
+    else
+    {
+        <button class="video-preview" @onclick="() => playing = true" aria-label="@($"Play {Video.Title}")">
+            <img src="@($"https://i.ytimg.com/vi/{Video.YoutubeId}/hqdefault.jpg")" alt="" loading="lazy" />
+            <span class="play-icon" aria-hidden="true">▶</span>
+        </button>
+    }
+    <a href="@($"https://www.youtube.com/watch?v={Video.YoutubeId}")" target="_blank" rel="noopener noreferrer">@Video.Title <span>↗</span></a>
+</div>
+@code {
+    [Parameter, EditorRequired] public GameVideo Video { get; set; } = default!;
+    private bool playing;
+}

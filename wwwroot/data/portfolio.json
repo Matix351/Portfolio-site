@@ -1,0 +1,105 @@
+{
+  "profile": {
+    "name": "Mateusz Ciszek", "role": "C# & Unity Developer",
+    "bio": "I build games and the systems behind them. My work spans 2D and 3D gameplay, reusable Unity tools, and Android applications. I care about responsive interactions, maintainable code, and giving a good idea room to grow.",
+    "github": "https://github.com/Matix351", "contactEmail": null, "contactUrl": null,
+    "skills": ["C#", "Unity", ".NET", "Kotlin", "Java", "Firebase", "HLSL / ShaderLab", "Compute shaders", "ScriptableObjects", "Editor tooling", "Git", "Profiling & optimization"],
+    "experience": []
+  },
+  "projects": [
+    {
+      "slug": "100-in-1-game-collection",
+      "title": "100 in 1 Game Collection",
+      "videoUrl": "https://www.youtube.com/playlist?list=PLZmCU3JJnpCQ",
+      "category": "games/2d",
+      "summary": "A selection of mini-games I designed and programmed in Unity and C# for 100 in 1 Game Collection on Nintendo Switch and Steam.",
+      "status": "Released", "role": "Mini-game design & programming",
+      "tags": ["Unity", "C#", "2D", "Nintendo Switch", "Steam"],
+      "image": "images/100-in-1-game-collection.jpg",
+      "imageAlt": "100 in 1 Game Collection cover featuring a collage of its arcade mini-games",
+      "overview": ["These are the mini-games I designed and programmed for the collection, along with selected mechanics and technical contributions."],
+      "links": [{ "label": "Nintendo eShop", "url": "https://www.nintendo.com/us/store/products/100-in-1-game-collection-switch/" }],
+      "miniGames": [
+        {
+          "title": "Rabbit Hopper",
+          "videos": [{ "title": "Rabbit Hopper · Gameplay", "youtubeId": "lIr8WMcqn80" }],
+          "description": "A Frogger-inspired crossing game with traffic that reacts to the player: school buses slow down nearby, while sports cars accelerate. Fire hydrants launch the player forward, creating shortcuts through the level."
+        },
+        {
+          "title": "Space Doggo",
+          "videos": [{ "title": "Space Doggo · Gameplay", "youtubeId": "m6vOt4zYVrU" }],
+          "description": "A Pang-inspired arcade game in which a space-faring dog battles waves of bouncing aliens. Blaster upgrades and power-ups help the player clear each level."
+        },
+        {
+          "title": "Sweets Crusher",
+          "videos": [{ "title": "Sweets Crusher · Gameplay", "youtubeId": "8q3ETvWL0sQ" }],
+          "description": "Control food claws along the X-axis to grab descending sweets and reposition them into vertical match-three combinations. Clear the board and use power-ups to prevent it from overflowing."
+        },
+        {
+          "title": "Reversi",
+          "videos": [{ "title": "Reversi · Gameplay 01", "youtubeId": "KQolEP8KK9M" }, { "title": "Reversi · Gameplay 02", "youtubeId": "NGP0fFSWhpQ" }],
+          "description": "Classic Reversi with an AI opponent designed to offer a competitive but approachable challenge.",
+          "technicalNotes": ["AI balancing: the main challenge was making the opponent strategically capable without making it frustratingly difficult to beat."]
+        },
+        {
+          "title": "Cosmic Painter",
+          "videos": [{ "title": "Cosmic Painter · Gameplay", "youtubeId": "BJ25ATQKJ5A" }],
+          "description": "A Qix-inspired game where a painter claims sections of a canvas with a magical brush. Roaming ink containers undo progress, while power-ups provide temporary boosts and protection."
+        },
+        {
+          "title": "Dinosaurs Mania",
+          "videos": [{ "title": "Dinosaurs Mania · Prehistoric level", "youtubeId": "cbXKHf_3VXc" }, { "title": "Dinosaurs Mania · Boss battle", "youtubeId": "yuT1VsUP0pc" }],
+          "description": "An Elasto Mania-inspired motorcycle game set in a prehistoric world. Precise bike control and physics-based movement let players climb, flip, and ride across challenging terrain.",
+          "technicalNotes": ["Additional feature: boss battle."]
+        },
+        {
+          "title": "CatPotionCraft",
+          "videos": [{ "title": "CatPotionCraft · Gameplay", "youtubeId": "khnv_NIZ_jg" }],
+          "description": "A potion-themed puzzle game starring a magical cat. Aim potions and match colorful ingredients to clear the board while balancing quick reactions with careful planning."
+        },
+        {
+          "title": "Bombastic Witch",
+          "videos": [{ "title": "Bombastic Witch · Analog-stick movement", "youtubeId": "AW_p8HKuDks" }, { "title": "Bombastic Witch · Ring of Fire", "youtubeId": "5lOUXCYF8qA" }, { "title": "Bombastic Witch · Teleports", "youtubeId": "FyFie5LG4Vc" }],
+          "description": "A Bomberman-inspired game where a witch uses explosive spells to fight enchanted crows. Navigate grid-based arenas, destroy obstacles, and set traps.",
+          "technicalNotes": ["Analog-stick grid movement: interpolated movement and trajectory adjustments near obstacles guide the player around corners and reduce abrupt stops.", "Versus-mode features: Ring of Fire and teleport mechanics."]
+        },
+        {
+          "title": "Dungeon Dragons",
+          "videos": [{ "title": "Dungeon Dragons · Gameplay", "youtubeId": "d5q62QSwrhE" }, { "title": "Dungeon Dragons · Co-op mode", "youtubeId": "4WrRqD8QnnM" }],
+          "description": "A Battle City-inspired game where a dragon defends its land against invading Vikings. Breathe fire, destroy obstacles, and outmaneuver enemies in maze-like arenas.",
+          "technicalNotes": ["Additional feature: co-op mode."]
+        }
+      ]
+    },
+    {
+      "slug": "a-game-about-clicking-a-rock", "title": "A Game About Clicking A Rock", "category": "games/3d",
+      "summary": "One rock. A growing mining operation. A 3D incremental game about turning a simple click into an automated empire.",
+      "status": "Steam · Coming soon", "role": "Game design & programming", "tags": ["Unity", "C#", "3D", "Incremental"], "featured": true,
+      "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4740410/87027dfc07b812e2c01e049518beab6a32aafdec/header.jpg",
+      "imageAlt": "A Game About Clicking A Rock official game artwork",
+      "overview": ["A personal Unity project built around mining, upgrades, and automated workers. Available to explore on itch.io, with a Steam store page for the upcoming PC release.", "Built data-driven ore balancing and progression using ScriptableObjects, event-driven resource updates, English/Polish localization, and a guided first-run tutorial.", "Implemented autosave, JSON save/load, exportable encoded save codes, and finite-state-machine worker AI with node-based movement."],
+      "links": [{ "label": "Wishlist on Steam", "url": "https://store.steampowered.com/app/4740410/A_Game_About_Clicking_A_Rock/" }, { "label": "Play on itch.io", "url": "https://sleeplessdogstudio.itch.io/a-game-about-clicking-a-rock" }],
+      "screenshots": [{ "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4740410/ddce3fce9ef370b03cc54aad8e80bc6ae6525708/ss_ddce3fce9ef370b03cc54aad8e80bc6ae6525708.1920x1080.jpg", "alt": "Official gameplay screenshot from A Game About Clicking A Rock on Steam" }]
+    },
+    {
+      "slug": "macster-framework", "title": "MaCster Unity Framework", "category": "games/tools", "summary": "A modular foundation for gameplay, from inventories and interactions to node-based dialogue tools.",
+      "status": "Private library", "role": "Systems & tools developer", "tags": ["Unity", "C#", "Editor tools"], "art": "framework", "featured": true,
+      "overview": ["A private C#/Unity library of reusable gameplay systems and editor tools.", "Includes saving, object pooling, inventory management, shop/cart logic, 3D interaction, player movement, and dialogue graphs.", "Uses ScriptableObject data, interface-based contracts, and event-driven UI flows. The xNode dialogue tooling supports conditional branches, player responses, action nodes, and runtime playback."]
+    },
+    {
+      "slug": "mobile-commerce", "title": "Mobile E-Commerce App", "category": "android", "summary": "An Android shopping application covering products, purchases, and order tracking.",
+      "status": "Personal project", "role": "Application developer", "tags": ["Kotlin", "Firebase", "Android"], "art": "mobile", "featured": true,
+      "overview": ["Built a mobile e-commerce application in Kotlin with Android Studio and Google Firebase.", "Implemented product and order management, user registration, purchasing, and order tracking/history. Designed and implemented the Firebase database."]
+    },
+    {
+      "slug": "mobile-game-thesis", "title": "Mobile Game · Engineering Thesis", "category": "android", "summary": "A working Android game prototype exploring engagement and player retention through academic research.",
+      "status": "Academic prototype", "role": "Research, design & programming", "tags": ["Unity", "Android", "Research"], "art": "mobile",
+      "overview": ["Bachelor’s thesis: Using Social Engineering Methods in a Mobile Game.", "Developed the game concept, MVP design, and a working Android prototype with a responsive UI that adapts to different screen resolutions.", "Researched scientific literature and mobile games to analyze engagement, retention, and monetization techniques."]
+    },
+    {
+      "slug": "ai-pathfinding", "title": "Learning to Find a Path", "category": "other", "summary": "A reinforcement learning experiment that trains an agent to navigate toward a moving target.",
+      "status": "Proof of concept", "role": "Developer", "tags": ["Unity", "C#", "Reinforcement learning"], "art": "path",
+      "overview": ["A Unity/C# proof of concept using reinforcement learning to train an AI agent to navigate toward a dynamically changing target."]
+    }
+  ]
+}

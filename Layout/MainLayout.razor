@@ -1,0 +1,20 @@
+﻿@inherits LayoutComponentBase
+
+@implements IDisposable
+@inject NavigationManager Navigation
+<a class="skip-link" href="@(Navigation.Uri.Split('#')[0] + "#main")">Skip to content</a>
+<header class="site-header">
+    <a class="brand" href="" aria-label="Mateusz Ciszek home"><span class="brand-mark">m<span>.</span>c</span><span>Mateusz Ciszek<span class="brand-role">C# & Unity Developer</span></span></a>
+    <button class="menu-toggle" aria-expanded="@menuOpen.ToString().ToLowerInvariant()" aria-controls="primary-nav" @onclick="() => menuOpen = !menuOpen">@(menuOpen ? "Close ×" : "Menu ☰")</button>
+    <nav id="primary-nav" class="@(menuOpen ? "open" : "")" aria-label="Main navigation">
+        <NavLink href="" Match="NavLinkMatch.All">Home</NavLink><NavLink href="games">Games</NavLink><NavLink href="android">Android</NavLink><NavLink href="other">Other projects</NavLink><NavLink href="about">About / Contact <span aria-hidden="true">↗</span></NavLink>
+    </nav>
+</header>
+<main id="main" tabindex="-1">@Body</main>
+<footer><div><a class="brand-mark" href="" aria-label="Back to home">m<span>.</span>c</a><span>Built with curiosity. And C#.</span></div><span>© @DateTime.UtcNow.Year Mateusz Ciszek</span><a href="https://github.com/Matix351" target="_blank" rel="noopener noreferrer">GitHub ↗</a></footer>
+@code {
+    private bool menuOpen;
+    protected override void OnInitialized() => Navigation.LocationChanged += Changed;
+    private void Changed(object? sender, LocationChangedEventArgs e) { menuOpen = false; InvokeAsync(StateHasChanged); }
+    public void Dispose() => Navigation.LocationChanged -= Changed;
+}
