@@ -23,7 +23,7 @@
                 @if (section.Image is not null)
                 {
                     <figure>
-                        <a href="@section.Image.Url" target="_blank" rel="noopener noreferrer" aria-label="@($"Open full-size image: {section.Title}")"><img src="@section.Image.Url" alt="@section.Image.Alt" loading="lazy" /></a>
+                        <a href="@section.Image.Url" data-image-preview aria-haspopup="dialog" aria-label="@($"Open full-size image: {section.Title}")"><img src="@section.Image.Url" alt="@section.Image.Alt" loading="lazy" /></a>
                         @if (!string.IsNullOrWhiteSpace(section.Caption)) { <figcaption>@section.Caption</figcaption> }
                     </figure>
                 }
@@ -63,7 +63,7 @@
                 <div class="screenshot-gallery @(project.Screenshots.Count == 1 ? "single-image" : "")">
                 @foreach (var shot in project.Screenshots)
                 {
-                    <figure><a href="@shot.Url" target="_blank" rel="noopener noreferrer" aria-label="@($"Open full-size screenshot: {shot.Alt}")"><img src="@shot.Url" alt="@shot.Alt" loading="lazy" /></a><figcaption>@shot.Alt</figcaption></figure>
+                    <figure><a href="@shot.Url" data-image-preview aria-haspopup="dialog" aria-label="@($"Open full-size screenshot: {shot.Alt}")"><img src="@shot.Url" alt="@shot.Alt" loading="lazy" /></a><figcaption>@shot.Alt</figcaption></figure>
                 }
                 </div>
             </section>

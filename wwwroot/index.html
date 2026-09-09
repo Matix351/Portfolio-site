@@ -16,6 +16,7 @@
     <script src="route-restore.js"></script>
     <link rel="preload" id="webassembly" />
     <link rel="stylesheet" href="css/portfolio.css" />
+    <link rel="stylesheet" href="css/image-preview.css" />
     <link href="Portfolio.styles.css" rel="stylesheet" />
     <script type="importmap"></script>
 </head>
@@ -30,6 +31,12 @@
         An unhandled error has occurred.
         <a href="." class="reload">Reload</a>
     </div>
+    <dialog id="image-preview" aria-label="Full-size screenshot" aria-describedby="image-preview-hint">
+        <button class="image-preview-close" type="button" aria-label="Close screenshot" autofocus>×</button>
+        <img id="image-preview-image" alt="" />
+        <p id="image-preview-hint">Click anywhere or press Escape to close.</p>
+    </dialog>
+    <script src="image-preview.js"></script>
     <script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
 </body>
 
