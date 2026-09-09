@@ -62,7 +62,7 @@
                 <div class="screenshot-gallery @(project.Screenshots.Count == 1 ? "single-image" : "")">
                 @foreach (var shot in project.Screenshots)
                 {
-                    <figure><a href="@shot.Url" data-image-preview aria-haspopup="dialog" aria-label="@($"Open full-size screenshot: {shot.Alt}")"><img src="@shot.Url" alt="@shot.Alt" loading="lazy" /></a><figcaption>@shot.Alt</figcaption></figure>
+                    <figure><a href="@shot.Url" data-image-preview aria-haspopup="dialog" aria-label="@($"Open full-size screenshot: {shot.Alt}")"><img src="@shot.Url" alt="@shot.Alt" loading="lazy" /></a>@if (project.ShowScreenshotCaptions) { <figcaption>@shot.Alt</figcaption> }</figure>
                 }
                 </div>
             </section>
