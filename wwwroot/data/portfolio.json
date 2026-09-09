@@ -69,7 +69,7 @@
       "status": "WorkInProgress",
       "role": "Developer",
       "tags": ["Unity", "C#", "3D", "HLSL surface shaders", "compute shaders", "command buffers", "ScriptableObjects"],
-      "image": "images/power-washer-hero.png",
+      "image": "images/power-washer-hero/cover-v2.png",
       "imageAlt": "Power Washer Hero title artwork showing a car being pressure-washed in a garage",
       "overview": ["I built a reusable Unity cleaning pipeline with GPU-painted dirt masks, compute-shader coverage tracking, per-part and overall progression, animated UI feedback, and configurable procedural dirt materials. Editor tools rapidly convert multi-part models into calibrated cleaning targets."],
       "videos": [{ "title": "Power Washer Hero · Gameplay", "youtubeId": "TyXwk_wfsAI" }],
@@ -188,14 +188,178 @@
       ]
     },
     {
-      "slug": "macster-framework", "title": "MaCster Unity Framework", "category": "games/tools", "summary": "A modular foundation for gameplay, from inventories and interactions to node-based dialogue tools.",
-      "status": "Private library", "role": "Systems & tools developer", "tags": ["Unity", "C#", "Editor tools"], "art": "framework", "featured": true,
-      "overview": ["A private C#/Unity library of reusable gameplay systems and editor tools.", "Includes saving, object pooling, inventory management, shop/cart logic, 3D interaction, player movement, and dialogue graphs.", "Uses ScriptableObject data, interface-based contracts, and event-driven UI flows. The xNode dialogue tooling supports conditional branches, player responses, action nodes, and runtime playback."]
-    },
+        "slug": "macster-framework",
+        "title": "MaCster Framework",
+        "subtitle": "Modular Unity Gameplay Systems Library",
+        "category": "games/tools",
+        "summary": "A reusable, data-driven collection of Unity gameplay systems for dialogue, inventory, commerce, and grid-based construction.",
+        "status": "Private library",
+        "role": "Systems & tools developer",
+        "technologies": "Unity 6, C#, ScriptableObjects, custom editor tooling",
+        "focusAreas": "Gameplay systems, editor tooling, node graphs, data-driven design, UI programming, rapid prototyping",
+        "tags": [
+          "Unity 6",
+          "C#",
+          "ScriptableObjects",
+          "Node Graphs",
+          "Gameplay UI",
+          "Editor Tooling"
+        ],
+        "featured": true,
+        "art": "framework",
+        "overview": [
+          "MaCster is a modular collection of gameplay tools designed to make recurring RPG and simulation systems faster to author and easier to reuse. Its dialogue system provides a visual graph for composing conversations, responses, conditional branches, and gameplay-triggered actions. Inventory and shop modules cover item storage, container transfers, category-based browsing, cart quantities, and purchase validation. A grid-building prototype adds snapped floor, wall, and door placement with live previews and socket-occupancy rules. The framework favors inspector-configurable components and reusable data assets so content can be assembled without hard-coding each scene."
+        ],
+        "sections": [
+          {
+            "title": "Dialogue System",
+            "summary": "A visual conversation-authoring workflow combining NPC text, player responses, branching paths, reusable Boolean conditions, and custom gameplay action hooks.",
+            "image": {
+              "url": "images/macster-framework/dialogue-graph-editor.png",
+              "alt": "Unity node graph showing branching dialogue, an action node, and a Boolean condition.",
+              "caption": "Branching graph with response, action, condition, and text nodes.",
+              "width": 1280,
+              "height": 648
+            },
+            "caption": "Branching graph with response, action, condition, and text nodes.",
+            "gallery": [
+              {
+                "url": "images/macster-framework/dialogue-action-node.png",
+                "alt": "Custom dialogue action node in the Unity graph editor.",
+                "caption": "Reusable gameplay action hook.",
+                "width": 1728,
+                "height": 986
+              },
+              {
+                "url": "images/macster-framework/dialogue-conditional-branch.png",
+                "alt": "Boolean condition splitting dialogue into true and false branches.",
+                "caption": "True and false conversation flow.",
+                "width": 1920,
+                "height": 984
+              },
+              {
+                "url": "images/macster-framework/dialogue-runtime.png",
+                "alt": "Dialogue playing in the Unity Game view.",
+                "caption": "Runtime dialogue playback.",
+                "width": 1728,
+                "height": 986
+              }
+            ]
+          },
+          {
+            "title": "Inventory System",
+            "summary": "A slot-based player and container inventory supporting item quantities, chest selection, and movement between storage and quick-access slots.",
+            "gallery": [
+              {
+                "url": "images/macster-framework/inventory-chest-transfer.png",
+                "alt": "Chest and player inventories displaying stored item quantities.",
+                "caption": "Container and player storage.",
+                "width": 1920,
+                "height": 1014
+              },
+              {
+                "url": "images/macster-framework/inventory-item-movement.png",
+                "alt": "An item being moved between chest and player inventory slots.",
+                "caption": "Item transfer workflow.",
+                "width": 1920,
+                "height": 1014
+              }
+            ]
+          },
+          {
+            "title": "Shop System",
+            "summary": "A categorized storefront with item cards, prices, quantity controls, a live cart, and purchase checks for both currency and available inventory capacity.",
+            "gallery": [
+              {
+                "url": "images/macster-framework/shop-catalog.png",
+                "alt": "Shop catalog with category filters and purchasable item cards.",
+                "caption": "Category-driven item catalog.",
+                "width": 1920,
+                "height": 984
+              },
+              {
+                "url": "images/macster-framework/shop-cart.png",
+                "alt": "Shop cart containing multiple item quantities and purchase validation messages.",
+                "caption": "Quantity cart and purchase validation.",
+                "width": 1920,
+                "height": 984
+              }
+            ]
+          },
+          {
+            "title": "Grid Building",
+            "badge": "Prototype",
+            "summary": "A grid-and-socket construction prototype for placing floors, walls, and doors with snapping, live valid-placement previews, and occupied-socket handling.",
+            "gallery": [
+              {
+                "url": "images/macster-framework/grid-building-placement.png",
+                "alt": "Unity Game view showing a green wall-placement preview on a grid-built room.",
+                "caption": "Snapped placement preview.",
+                "width": 1920,
+                "height": 938
+              },
+              {
+                "url": "images/macster-framework/grid-building-layout.png",
+                "alt": "Unity Scene view showing the resulting grid-built room layout.",
+                "caption": "Generated floor and wall layout.",
+                "width": 1920,
+                "height": 938
+              }
+            ]
+          }
+        ],
+        "showDevelopmentNotice": false
+      },
     {
-      "slug": "mobile-commerce", "title": "Mobile E-Commerce App", "category": "android", "summary": "An Android shopping application covering products, purchases, and order tracking.",
-      "status": "Personal project", "role": "Application developer", "tags": ["Kotlin", "Firebase", "Android"], "art": "mobile", "featured": true,
-      "overview": ["Built a mobile e-commerce application in Kotlin with Android Studio and Google Firebase.", "Implemented product and order management, user registration, purchasing, and order tracking/history. Designed and implemented the Firebase database."]
+      "slug": "mobile-commerce",
+      "title": "Mobile E-Commerce App",
+      "category": "android",
+      "summary": "Two Android apps connect customers and store owners through one Firebase-backed shopping workflow.",
+      "status": "Academic project",
+      "role": "Android application developer",
+      "tags": ["Kotlin", "Android", "Firebase Authentication", "Cloud Firestore", "Firebase Storage", "RecyclerView", "Glide"],
+      "image": "images/mobile-commerce/commerce-showcase-v3.png",
+      "imageAlt": "AI-assisted presentation composite based on the documented customer catalog and owner product editor, connected through Firebase",
+      "featured": true,
+      "overview": [
+        "I developed a two-app mobile store: a customer application for shopping and a dedicated owner application for catalog and order management. The customer flow covers registration, bilingual Polish and English UI, product browsing, cart updates, delivery addresses, checkout, and order history.",
+        "The project uses Kotlin activities and fragments, RecyclerView adapters, and a FireStoreClass data-access layer in both apps. Firebase Authentication handles accounts and password reset, Cloud Firestore stores commerce records, and Firebase Storage and Glide handle uploaded images.",
+        "The showcase visuals are AI-assisted presentation composites based on the project report's screens. Original screenshots are included below."
+      ],
+      "links": [
+        { "label": "View client prototype on GitHub", "url": "https://github.com/Matix351/SklepInternetowyKlient" }
+      ],
+      "showDevelopmentNotice": false,
+      "sections": [
+        {
+          "title": "One backend, two focused apps",
+          "summary": "Customer and owner interfaces share the same cloud data while keeping their workflows separate.",
+          "paragraphs": [
+            "Both apps use FireStoreClass methods for account data, products, carts, addresses, and orders. RecyclerView adapters display the returned records, while activities and fragments handle navigation, form validation, and UI updates."
+          ],
+          "image": { "url": "images/mobile-commerce/firebase-architecture.svg", "alt": "Customer and shop owner Android apps each use Kotlin data-access code to connect to Firebase Authentication, Cloud Firestore, and Firebase Storage" },
+          "caption": "FireStoreClass runs in each app; both applications use the same Firebase services."
+        },
+        {
+          "title": "From catalog to checkout",
+          "summary": "Product browsing, cart quantities, delivery addresses, and order review form one customer workflow.",
+          "paragraphs": [
+            "The cart loads product and cart records, updates displayed availability, and calculates subtotal, shipping, and total values. Customers select a delivery address, review the order, and place it through CheckoutActivity. Order history exposes the items, delivery details, totals, and current status."
+          ],
+          "image": { "url": "images/mobile-commerce/customer-flow-v2.png", "alt": "AI-assisted presentation composite of the documented customer catalog and shopping cart" },
+          "caption": "Presentation composite based on the report's catalog and cart screenshots; original screens appear below."
+        },
+        {
+          "title": "Products move from upload to storefront",
+          "summary": "The owner selects an image, validates product details, and publishes the record to the shared catalog.",
+          "paragraphs": [
+            "The owner validates product details and uploads the selected image to Firebase Storage. After upload succeeds, its URL is used in the product record saved to Firestore; Glide displays product imagery. Owners can delete products with confirmation and set an order's status to Pending, Sent, or Delivered."
+          ],
+          "image": { "url": "images/mobile-commerce/report-product-editor.png", "alt": "Original owner product editor with image selection and fields for title, price, description, and quantity" },
+          "caption": "Original product-entry screen from the project report."
+        }
+      ],
+      "screenshotGroups": [{"title":"Shop owner app screenshots","images":[{"url":"images/mobile-commerce/owner-products.png","alt":"Shop owner product management","cropStyle":"width:117.722%;height:127.596%;left:-9.114%;top:-13.371%;"},{"url":"images/mobile-commerce/report-product-editor.png","alt":"Add a new product","cropStyle":"width:112.911%;height:128.205%;left:-5.316%;top:-13.675%;"},{"url":"images/mobile-commerce/owner-product-filled.png","alt":"Product image and completed details","cropStyle":"width:115.190%;height:127.881%;left:-6.582%;top:-13.087%;"},{"url":"images/mobile-commerce/owner-delete-confirmation.png","alt":"Product deletion confirmation","cropStyle":"width:118.228%;height:127.454%;left:-8.608%;top:-12.376%;"},{"url":"images/mobile-commerce/owner-orders.png","alt":"Shop owner order list","cropStyle":"width:116.203%;height:129.161%;left:-8.354%;top:-14.083%;"},{"url":"images/mobile-commerce/report-order-status.png","alt":"Order status controls","cropStyle":"width:114.362%;height:125.075%;left:-9.309%;top:-10.360%;"}]},{"title":"Customer app screenshots","images":[{"url":"images/mobile-commerce/report-catalog.png","alt":"Product catalog","cropStyle":"width:116.709%;height:127.983%;left:-9.114%;top:-12.784%;"},{"url":"images/mobile-commerce/customer-product-details.png","alt":"Product details and add-to-cart action","cropStyle":"width:114.684%;height:127.881%;left:-8.101%;top:-13.087%;"},{"url":"images/mobile-commerce/customer-added-to-cart.png","alt":"Product added: go to cart","cropStyle":"width:115.443%;height:127.415%;left:-6.582%;top:-12.784%;"},{"url":"images/mobile-commerce/report-cart.png","alt":"Cart quantities and order total","cropStyle":"width:112.658%;height:126.743%;left:-6.076%;top:-12.376%;"}]}]
     },
     {
       "slug": "mobile-game-thesis", "title": "Mobile Game · Engineering Thesis", "category": "android", "summary": "A working Android game prototype exploring engagement and player retention through academic research.",
@@ -217,8 +381,12 @@
       "sections": [
         {
           "title": "Trained navigation agent",
-          "paragraphs": ["The trained agent navigates around obstacles to reach a target whose position changes between episodes."],
-          "image": { "url": "images/unity-ml-pathfinding/navigation-environment.png", "alt": "Blue cube and yellow sphere in a Unity navigation environment with a green platform" }
+          "paragraphs": ["The trained agent navigates around obstacles to reach a target whose position changes between episodes. The platform changes color to show the previous episode's outcome: green means the agent successfully reached the ball, while red means it failed."],
+          "image": { "url": "images/unity-ml-pathfinding/navigation-environment.png", "alt": "Green platform indicating that the agent successfully reached the ball during the previous episode" },
+          "caption": "Green indicates that the agent reached the ball in the previous episode.",
+          "additionalImages": [
+            { "url": "images/unity-ml-pathfinding/red-platform.png", "alt": "Red indicates that the agent failed to reach the ball in the previous episode." }
+          ]
         },
         {
           "title": "Parallel training environments",
@@ -233,7 +401,7 @@
       ],
       "screenshotsHeading": "Environment details.",
       "screenshots": [
-        { "url": "images/unity-ml-pathfinding/red-platform.png", "alt": "Navigation environment showing the cube and sphere on a red platform." },
+        { "url": "images/unity-ml-pathfinding/red-platform.png", "alt": "Red platform indicating that the agent failed to reach the ball during the previous episode." },
         { "url": "images/unity-ml-pathfinding/yellow-sphere.png", "alt": "Close-up of the yellow sphere used in the training environment." },
         { "url": "images/unity-ml-pathfinding/blue-cube.png", "alt": "Close-up of the blue cube used in the training environment." }
       ]

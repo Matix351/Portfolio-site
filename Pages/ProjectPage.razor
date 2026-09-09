@@ -5,10 +5,10 @@
     else
     {
         <PageTitle>@project.Title — Mateusz Ciszek</PageTitle>
-        <section class="page-heading detail-heading"><a class="eyebrow breadcrumb" href="@project.Category">← @PortfolioContent.Categories.First(c => c.Path == project.Category).Name.ToUpperInvariant()</a><h1>@project.Title</h1><p>@project.Summary</p><div class="tags">@foreach (var tag in project.Tags) { <span>@tag</span> }</div></section>
-        @if (!string.IsNullOrWhiteSpace(project.Image)) { <div class="detail-cover"><img src="@project.Image" alt="@project.ImageAlt" /></div> }
+        <section class="page-heading detail-heading"><a class="eyebrow breadcrumb" href="@project.Category">← @PortfolioContent.Categories.First(c => c.Path == project.Category).Name.ToUpperInvariant()</a><h1>@project.Title</h1>@if (!string.IsNullOrWhiteSpace(project.Subtitle)) { <p class="project-subtitle">@project.Subtitle</p> }<p>@project.Summary</p><div class="tags">@foreach (var tag in project.Tags) { <span>@tag</span> }</div></section>
+        @if (!string.IsNullOrWhiteSpace(project.Image)) { <div class="detail-cover @(project.ImageWidth.HasValue ? "natural-cover" : "")"><img src="@project.Image" alt="@project.ImageAlt" width="@project.ImageWidth" height="@project.ImageHeight" /></div> }
         else { <div class="detail-cover illustrated"><ProjectArt Project="project" /></div> }
-        <div class="detail-layout"><aside><div class="detail-meta"><span class="eyebrow">MY ROLE</span><p>@project.Role</p><span class="eyebrow">PROJECT STATUS</span><p>@project.Status</p></div>@foreach (var link in project.Links.Where(l => !string.IsNullOrWhiteSpace(l.Url))) { <a class="button secondary" href="@link.Url" target="_blank" rel="noopener noreferrer">@link.Label ↗</a> }</aside><article class="project-story"><p class="eyebrow">THE PROJECT</p><h2>Behind the build.</h2>@foreach (var paragraph in project.Overview) { <p>@paragraph</p> }
+        <div class="detail-layout"><aside><div class="detail-meta"><span class="eyebrow">MY ROLE</span><p>@project.Role</p><span class="eyebrow">PROJECT STATUS</span><p>@project.Status</p>@if (!string.IsNullOrWhiteSpace(project.Technologies)) { <span class="eyebrow">TECHNOLOGIES</span><p>@project.Technologies</p> }@if (!string.IsNullOrWhiteSpace(project.FocusAreas)) { <span class="eyebrow">FOCUS AREAS</span><p>@project.FocusAreas</p> }</div>@foreach (var link in project.Links.Where(l => !string.IsNullOrWhiteSpace(l.Url))) { <a class="button secondary" href="@link.Url" target="_blank" rel="noopener noreferrer">@link.Label ↗</a> }</aside><article class="project-story"><p class="eyebrow">THE PROJECT</p><h2>Behind the build.</h2>@foreach (var paragraph in project.Overview) { <p>@paragraph</p> }
         @if (project.Videos.Count > 0)
         {
             <h2>@project.VideosHeading</h2>
@@ -17,14 +17,33 @@
         @foreach (var section in project.Sections)
         {
             <section class="technical-section">
-                <h2>@section.Title</h2>
+                <h2 class="system-heading">@section.Title @if (!string.IsNullOrWhiteSpace(section.Badge)) { <span class="tags"><span>@section.Badge</span></span> }</h2>
                 @if (!string.IsNullOrWhiteSpace(section.Summary)) { <p class="section-summary">@section.Summary</p> }
                 @foreach (var paragraph in section.Paragraphs) { <p>@paragraph</p> }
                 @if (section.Image is not null)
                 {
                     <figure>
-                        <a href="@section.Image.Url" data-image-preview aria-haspopup="dialog" aria-label="@($"Open full-size image: {section.Title}")"><img src="@section.Image.Url" alt="@section.Image.Alt" loading="lazy" /></a>
+                        <a href="@section.Image.Url" data-image-preview aria-haspopup="dialog" aria-label="@($"Open full-size image: {section.Title}")"><img src="@section.Image.Url" alt="@section.Image.Alt" width="@section.Image.Width" height="@section.Image.Height" loading="lazy" /></a>
                         @if (!string.IsNullOrWhiteSpace(section.Caption)) { <figcaption>@section.Caption</figcaption> }
+                    </figure>
+                }
+                @if (section.Gallery.Count > 0)
+                {
+                    <div class="screenshot-gallery system-gallery">
+                        @foreach (var shot in section.Gallery)
+                        {
+                            <figure>
+                                <a href="@shot.Url" data-image-preview aria-haspopup="dialog" aria-label="@($"Open full-size screenshot: {shot.Alt}")"><img src="@shot.Url" alt="@shot.Alt" width="@shot.Width" height="@shot.Height" loading="lazy" /></a>
+                                <figcaption>@shot.Caption</figcaption>
+                            </figure>
+                        }
+                    </div>
+                }
+                @foreach (var additionalImage in section.AdditionalImages)
+                {
+                    <figure>
+                        <a href="@additionalImage.Url" data-image-preview aria-haspopup="dialog" aria-label="@($"Open full-size image: {additionalImage.Alt}")"><img src="@additionalImage.Url" alt="@additionalImage.Alt" loading="lazy" /></a>
+                        <figcaption>@additionalImage.Alt</figcaption>
                     </figure>
                 }
             </section>
@@ -64,6 +83,21 @@
                 {
                     <figure><a href="@shot.Url" data-image-preview aria-haspopup="dialog" aria-label="@($"Open full-size screenshot: {shot.Alt}")"><img src="@shot.Url" alt="@shot.Alt" loading="lazy" /></a>@if (project.ShowScreenshotCaptions) { <figcaption>@shot.Alt</figcaption> }</figure>
                 }
+                </div>
+            </section>
+        }
+        @foreach (var group in project.ScreenshotGroups)
+        {
+            <section class="screenshots-section">
+                <h2>@group.Title</h2>
+                <div class="screenshot-gallery app-screens">
+                    @foreach (var shot in group.Images)
+                    {
+                        <figure>
+                            <a class="screen-crop" href="@shot.Url" data-image-preview aria-haspopup="dialog" aria-label="@($"Open full-size screenshot: {shot.Alt}")"><img src="@shot.Url" alt="@shot.Alt" style="@shot.CropStyle" loading="lazy" /></a>
+                            <figcaption>@shot.Alt</figcaption>
+                        </figure>
+                    }
                 </div>
             </section>
         }

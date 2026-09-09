@@ -2,6 +2,7 @@ using System.Net.Http.Json;
 using Microsoft.AspNetCore.Components.WebAssembly.Http;
 
 namespace Portfolio.Data;
+
 public sealed class PortfolioContent(HttpClient http)
 {
     private Task<Content>? pending;
@@ -50,6 +51,11 @@ public sealed class Project
     public string Title { get; set; } = "";
     public string Category { get; set; } = "";
     public string Summary { get; set; } = "";
+    public string? Subtitle { get; set; }
+    public string? Technologies { get; set; }
+    public string? FocusAreas { get; set; }
+    public int? ImageWidth { get; set; }
+    public int? ImageHeight { get; set; }
     public string Status { get; set; } = "";
     public string Role { get; set; } = "";
     public string[] Tags { get; set; } = [];
@@ -64,6 +70,7 @@ public sealed class Project
     public bool Featured { get; set; }
     public List<ProjectLink> Links { get; set; } = [];
     public List<ProjectImage> Screenshots { get; set; } = [];
+    public List<ScreenshotGroup> ScreenshotGroups { get; set; } = [];
     public bool ShowScreenshotCaptions { get; set; } = true;
     public string ScreenshotsHeading { get; set; } = "Gameplay screenshots.";
     public List<MiniGame> MiniGames { get; set; } = [];
@@ -74,10 +81,13 @@ public sealed class Project
 }
 public sealed class ProjectSection
 {
+    public string? Badge { get; set; }
+    public List<ProjectImage> Gallery { get; set; } = [];
     public string Title { get; set; } = "";
     public string Summary { get; set; } = "";
     public string[] Paragraphs { get; set; } = [];
     public ProjectImage? Image { get; set; }
+    public List<ProjectImage> AdditionalImages { get; set; } = [];
     public string? Caption { get; set; }
 }
 public sealed class MiniGame
@@ -90,4 +100,5 @@ public sealed class MiniGame
 }
 public record GameVideo(string Title, string YoutubeId);
 public record ProjectLink(string Label, string Url);
-public record ProjectImage(string Url, string Alt);
+public record ProjectImage(string Url, string Alt, string? CropStyle = null, string? Caption = null, int? Width = null, int? Height = null);
+public record ScreenshotGroup(string Title, List<ProjectImage> Images);
