@@ -67,6 +67,7 @@ public sealed class Project
     public List<MiniGame> MiniGames { get; set; } = [];
     public List<ProjectSection> Sections { get; set; } = [];
     public List<GameVideo> Videos { get; set; } = [];
+    public string VideosHeading { get; set; } = "Gameplay.";
     public bool ShowDevelopmentNotice { get; set; } = true;
 }
 public sealed class ProjectSection

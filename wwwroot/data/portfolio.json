@@ -171,11 +171,20 @@
       "slug": "a-game-about-clicking-a-rock", "title": "A Game About Clicking A Rock", "category": "games/3d",
       "summary": "One rock. A growing mining operation. A 3D incremental game about turning a simple click into an automated empire.",
       "status": "Steam · Coming soon", "role": "Game design & programming", "tags": ["Unity", "C#", "3D", "Incremental"], "featured": true,
-      "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4740410/87027dfc07b812e2c01e049518beab6a32aafdec/header.jpg",
-      "imageAlt": "A Game About Clicking A Rock official game artwork",
+      "image": "images/clicking-a-rock/cover.png",
+      "imageAlt": "A Game About Clicking A Rock title artwork with colorful desert cliffs, ore rocks, and mine tracks",
+      "videosHeading": "Trailer.",
+      "videos": [{ "title": "A Game About Clicking A Rock · Trailer", "youtubeId": "VRA_NkZ5um8" }],
       "overview": ["A personal Unity project built around mining, upgrades, and automated workers. Available to explore on itch.io, with a Steam store page for the upcoming PC release.", "Built data-driven ore balancing and progression using ScriptableObjects, event-driven resource updates, English/Polish localization, and a guided first-run tutorial.", "Implemented autosave, JSON save/load, exportable encoded save codes, and finite-state-machine worker AI with node-based movement."],
       "links": [{ "label": "Wishlist on Steam", "url": "https://store.steampowered.com/app/4740410/A_Game_About_Clicking_A_Rock/" }, { "label": "Play on itch.io", "url": "https://sleeplessdogstudio.itch.io/a-game-about-clicking-a-rock" }],
-      "screenshots": [{ "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4740410/ddce3fce9ef370b03cc54aad8e80bc6ae6525708/ss_ddce3fce9ef370b03cc54aad8e80bc6ae6525708.1920x1080.jpg", "alt": "Official gameplay screenshot from A Game About Clicking A Rock on Steam" }]
+      "screenshots": [
+        { "url": "images/clicking-a-rock/mining-effects.png", "alt": "Workers mining colorful ore around the mine entrance, with hit effects and resource counters." },
+        { "url": "images/clicking-a-rock/mining-workers.png", "alt": "Blue miners in yellow hard hats working across a field of ore deposits." },
+        { "url": "images/clicking-a-rock/gemstone-shop.png", "alt": "Magical Gemstone Shop offering extraction, pickaxe, and ore upgrades." },
+        { "url": "images/clicking-a-rock/character-customization.png", "alt": "Character customization with a 3D preview and hat, skin, pants, and shoes options." },
+        { "url": "images/clicking-a-rock/snowy-mine.png", "alt": "Workers gathering ore around a mine entrance in a snowy landscape." },
+        { "url": "images/clicking-a-rock/ore-shop.png", "alt": "Ore selling shop with quantity sliders, sale values, and a cat shopkeeper." }
+      ]
     },
     {
       "slug": "macster-framework", "title": "MaCster Unity Framework", "category": "games/tools", "summary": "A modular foundation for gameplay, from inventories and interactions to node-based dialogue tools.",

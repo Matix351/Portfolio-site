@@ -11,7 +11,7 @@
         <div class="detail-layout"><aside><div class="detail-meta"><span class="eyebrow">MY ROLE</span><p>@project.Role</p><span class="eyebrow">PROJECT STATUS</span><p>@project.Status</p></div>@foreach (var link in project.Links.Where(l => !string.IsNullOrWhiteSpace(l.Url))) { <a class="button secondary" href="@link.Url" target="_blank" rel="noopener noreferrer">@link.Label ↗</a> }</aside><article class="project-story"><p class="eyebrow">THE PROJECT</p><h2>Behind the build.</h2>@foreach (var paragraph in project.Overview) { <p>@paragraph</p> }
         @if (project.Videos.Count > 0)
         {
-            <h2>Gameplay.</h2>
+            <h2>@project.VideosHeading</h2>
             <div class="game-videos @(project.Videos.Count == 1 ? "single-video" : "")">@foreach (var video in project.Videos) { <GameplayVideo @key="video.YoutubeId" Video="video" /> }</div>
         }
         @foreach (var section in project.Sections)
