@@ -65,13 +65,46 @@
       "slug": "power-washer-hero",
       "title": "Power Washer Hero",
       "category": "games/3d",
-      "summary": "A 3D power-washing game currently in development. More gameplay and project details coming soon.",
+      "summary": "A reusable Unity cleaning pipeline with GPU-painted dirt masks, compute-shader coverage tracking, and editor tools for configuring multi-part cleaning targets.",
       "status": "WorkInProgress",
       "role": "Developer",
-      "tags": ["3D"],
+      "tags": ["Unity", "C#", "3D", "HLSL", "Compute shaders", "RenderTextures", "ScriptableObjects"],
       "image": "images/power-washer-hero.png",
       "imageAlt": "Power Washer Hero title artwork showing a car being pressure-washed in a garage",
-      "overview": ["Power Washer Hero is a work-in-progress 3D game. This page will be updated with gameplay, features, and development notes as the project progresses."],
+      "overview": ["I built a reusable Unity cleaning pipeline with GPU-painted dirt masks, compute-shader coverage tracking, per-part and overall progression, animated UI feedback, and configurable procedural dirt materials. Editor tools rapidly convert multi-part models into calibrated cleaning targets."],
+      "videos": [{ "title": "Power Washer Hero · Gameplay", "youtubeId": "TyXwk_wfsAI" }],
+      "showDevelopmentNotice": false,
+      "sections": [
+        {
+          "title": "GPU-driven washable surfaces",
+          "paragraphs": ["Each washable mesh owns a runtime dirt mask stored in a RenderTexture. The pressure washer projects a world-space brush onto the target, while a custom shader uses surface normals to reject backfaces and prevent the spray from cleaning through corners. Dirt is removed cumulatively, producing persistent, localized cleaning across complex shapes."],
+          "image": { "url": "images/power-washer-hero/cleaning-pipeline-showcase.png", "alt": "Power Washer cleaning pipeline showcase with gameplay, Unity material setup, and per-part calibration data" },
+          "caption": "GPU-driven cleaning connects persistent dirt masks, per-part progress, and reusable authoring tools."
+        },
+        {
+          "title": "Real-time coverage measurement",
+          "paragraphs": ["A compute shader reduces the dirt-mask pixels into coverage data. The result is converted into a normalized completion percentage for every individual car part, giving the game accurate progress values without relying on trigger counts or hand-authored checkpoints."]
+        },
+        {
+          "title": "Configurable dirt materials",
+          "paragraphs": ["The washable surface shader blends clean albedo with procedural dirt using tunable noise, tint, scale, opacity, smoothness, and metallic controls. This lets one cleaning system support varied materials and grime patterns while preserving the original look of each model."],
+          "image": { "url": "images/power-washer-hero/procedural-dirt-shader.png", "alt": "Procedural dirt shader breakdown showing Unity material settings, clean albedo, dirt noise, a runtime paint mask, and the layered result" },
+          "caption": "Clean albedo and procedural dirt are blended through a runtime paint mask, with configurable noise and surface properties."
+        },
+        {
+          "title": "Reachability calibration tool",
+          "paragraphs": ["A generated ScriptableObject stores the maximum realistically cleanable percentage for every mesh part and records the last percentage reached during testing. Designers can compensate for UV seams, hidden geometry, or inaccessible pixels, so a visually clean part can still reach 100% in gameplay."]
+        },
+        {
+          "title": "Technology",
+          "paragraphs": ["Unity, C#, HLSL surface shaders, compute shaders, RenderTextures, command buffers, ScriptableObjects, physics queries, TextMesh Pro, animation and audio feedback."]
+        }
+      ],
+      "screenshots": [
+        { "url": "images/power-washer-hero/car-cleaning-progress.jpg", "alt": "Partially cleaned car with individual part percentages and overall cleaning progress." },
+        { "url": "images/power-washer-hero/multipart-cleaning-target.jpg", "alt": "A multi-part cleaning target with localized dirt removal and overall progress feedback." },
+        { "url": "images/power-washer-hero/car-cleaning-front.jpg", "alt": "Front view of a car with cleaned patches revealing its paint and windshield beneath the dirt." }
+      ],
       "featured": false
     },
     {
