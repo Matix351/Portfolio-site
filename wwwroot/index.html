@@ -12,17 +12,18 @@
     <meta property="og:description" content="Games, tools, and the systems behind them. Explore my development portfolio." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://matix351.github.io/Portfolio-site/" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="icon" type="image/jpeg" href="images/profile/my-photo-mini-v2.jpg" />
     <script src="route-restore.js"></script>
     <link rel="preload" id="webassembly" />
     <link rel="stylesheet" href="css/portfolio.css" />
-    <link href="Portfolio.styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/image-preview.css" />
+    <link href="Portfolio.styles.css?v=workbench-padding-20260910" rel="stylesheet" />
     <script type="importmap"></script>
 </head>
 
 <body>
     <div id="app">
-        <div class="boot-screen" role="status"><span class="brand-mark">m<span>.</span>c</span><p>Loading the portfolio…</p></div>
+        <div class="boot-screen" role="status"><img src="images/profile/my-photo-mini-v2.jpg" alt="" width="80" height="80" style="border-radius:50%" /><p>Loading the portfolio…</p></div>
         <noscript>This portfolio runs with WebAssembly and JavaScript. Please enable JavaScript, or visit <a href="https://github.com/Matix351">my GitHub profile</a>.</noscript>
     </div>
 
@@ -30,6 +31,12 @@
         An unhandled error has occurred.
         <a href="." class="reload">Reload</a>
     </div>
+    <dialog id="image-preview" aria-label="Full-size screenshot" aria-describedby="image-preview-hint">
+        <button class="image-preview-close" type="button" aria-label="Close screenshot" autofocus>×</button>
+        <img id="image-preview-image" alt="" />
+        <p id="image-preview-hint">Click anywhere or press Escape to close.</p>
+    </dialog>
+    <script src="image-preview.js?v=20260910"></script>
     <script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
 </body>
 

@@ -1,4 +1,19 @@
 .minigame-list { margin-top: 28px; }
+.screenshot-gallery.app-screens { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.app-screens .screen-crop { position: relative; aspect-ratio: 9 / 16; overflow: hidden; background: #202020; border: 1px solid var(--line); }
+.app-screens .screen-crop img { position: absolute; max-width: none; border: 0; border-radius: 0; }
+@media (max-width: 700px) { .screenshot-gallery.app-screens { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 380px) { .screenshot-gallery.app-screens { grid-template-columns: minmax(0, 1fr); } }
+.screenshots-section { margin-top: 42px; padding-top: 14px; border-top: 1px solid var(--line); }
+.screenshot-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 16px; }
+.screenshot-gallery figure { margin: 0; min-width: 0; }
+.screenshot-gallery a { display: block; border-radius: 12px; }
+.screenshot-gallery img { display: block; width: 100%; height: auto; }
+.screenshot-gallery.single-image { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 600px) { .screenshot-gallery { grid-template-columns: minmax(0, 1fr); } }
+.technical-section { margin-top: 42px; padding-top: 14px; border-top: 1px solid var(--line); }
+.technical-section .section-summary { padding: 14px 18px; border-left: 2px solid var(--accent); background: var(--panel); color: var(--text); font-size: 15px; }
+.technical-section figure { margin-top: 24px; }
 .game-videos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 20px 0; }
 .game-videos.single-video { grid-template-columns: minmax(0, 1fr); }
 @media (max-width: 600px) { .game-videos { grid-template-columns: minmax(0, 1fr); } }
@@ -9,3 +24,11 @@
 .minigame-entry li { padding-left: 4px; margin-bottom: 10px; }
 .minigame-entry li::marker { color: var(--accent); }
 .minigame-entry .button { margin-top: 15px; }
+
+.detail-heading .project-subtitle { color: var(--text); margin-bottom: 14px; }
+.detail-cover.natural-cover > img { height: auto; max-height: none; }
+.technical-section > figure img { height: auto; }
+.system-heading { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+.system-heading .tags { letter-spacing: normal; line-height: 1.65; }
+.system-gallery figure { margin: 0; }
+.system-gallery figure:last-child:nth-child(odd) { grid-column: 1 / -1; }

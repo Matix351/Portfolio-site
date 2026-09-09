@@ -12,10 +12,21 @@ for name in ['404.html', 'route-restore.js', '.nojekyll', 'css/portfolio.css', '
     assert (root / name).is_file(), f'Missing asset: {name}'
 scripts = re.findall(r'<script[^>]+src="([^"]+)"', index)
 for src in scripts:
-    assert (root / src).is_file(), f'Missing entry script: {src}'
+    assert (root / urlparse(src).path).is_file(), f'Missing entry script: {src}'
 assert any((root / '_framework').glob('*.wasm')), 'Missing WebAssembly assets'
 data = json.loads((root / 'data/portfolio.json').read_text(encoding='utf-8'))
 slugs = [p['slug'] for p in data['projects']]
+def check_media(value):
+    if isinstance(value, dict):
+        for child in value.values():
+            check_media(child)
+    elif isinstance(value, list):
+        for child in value:
+            check_media(child)
+    elif isinstance(value, str) and value.startswith('images/'):
+        assert (root / value).is_file(), f'Missing project image: {value}'
+
+check_media(data)
 assert len(slugs) == len(set(slugs)), 'Project slugs must be unique'
 categories = {'games/2d', 'games/3d', 'games/tools', 'android', 'other'}
 for project in data['projects']:

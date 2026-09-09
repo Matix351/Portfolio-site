@@ -8,6 +8,102 @@
   },
   "projects": [
     {
+      "slug": "bonnies-farmville",
+      "title": "Bonnie's Farmville",
+      "category": "games/2d",
+      "summary": "A Unity farming-economy minigame for the upcoming Nintendo Switch 2 title 40in1 GameCollection Vol3, featuring a data-driven farming grid and autonomous companion AI.",
+      "status": "WorkInProgress",
+      "role": "Gameplay systems & tools developer",
+      "tags": ["Unity", "C#", "2D", "Nintendo Switch 2", "ScriptableObjects", "A* Pathfinding"],
+      "image": "images/bonnies-farmville.png",
+      "imageAlt": "Bonnie's Farmville title artwork featuring a rabbit with a watering can, vegetable plots, and farm animals",
+      "overview": ["Bonnie's Farmville connects a data-driven world grid with autonomous companion AI. Gameplay configuration is separated from runtime logic, so new farm layouts, crops, items, prices, and upgrades can be authored without rewriting the underlying systems."],
+      "videos": [{ "title": "Bonnie's Farmville · Gameplay", "youtubeId": "GD5AzCywbek" }],
+      "screenshots": [
+        { "url": "images/bonnies-farmville/screenshots/01_farming_loop_and_pet.jpg", "alt": "Bonnie and a companion beside growing crops and the inventory toolbar." },
+        { "url": "images/bonnies-farmville/screenshots/02_seed_shop_and_economy.png", "alt": "Crop shop showing seed prices, buy/sell tabs, and the player's inventory." },
+        { "url": "images/bonnies-farmville/screenshots/03_upgrades_and_pets.png", "alt": "Upgrade shop with tool levels and an unlockable bunny companion." },
+        { "url": "images/bonnies-farmville/screenshots/04_run_statistics.png", "alt": "End-of-run statistics showing crop quantities and their total value." },
+        { "url": "images/bonnies-farmville/screenshots/05_crop_growth_and_companion.jpg", "alt": "Bonnie and a companion among planted seeds, growing crops, and mature berry plants." },
+        { "url": "images/bonnies-farmville/screenshots/06_watering_and_bunny.jpg", "alt": "Watering a farm plot with a bunny companion nearby." }
+      ],
+      "showDevelopmentNotice": false,
+      "sections": [
+        {
+          "title": "Data-driven farming grid",
+          "summary": "A reusable authoring pipeline that turns visual tile painting into structured runtime data for farming interactions and navigation.",
+          "paragraphs": [
+            "I created a tile-based data layer that converts painted Unity Tilemaps into reusable gameplay properties for individual grid cells. Designers can mark diggable areas, walkable paths, water sources, placement zones, and NPC obstacles directly in the Scene view. An editor component collects these layers into a serialized ScriptableObject containing the coordinates and property values used at runtime.",
+            "The runtime grid manager translates between world and cell coordinates, combines multiple properties for each cell, validates player actions, and stores temporary state such as dug soil, watering, planted seeds, and crop growth. The same data source is shared with other systems."
+          ],
+          "image": { "url": "images/bonnies-farmville/01_data_driven_farming_grid_portfolio.png", "alt": "Unity Scene views showing painted Diggable and Path tilemap layers beside a serialized grid-property list in the Inspector" },
+          "caption": "Painted Diggable and Path layers are converted into a serialized per-cell property list used by gameplay systems at runtime."
+        },
+        {
+          "title": "Companion AI and pathfinding",
+          "summary": "Lightweight companion behaviour combining authored navigation data, A* routing, movement states, avoidance, and recovery logic.",
+          "paragraphs": [
+            "I developed an unlockable companion system with grid-aware A* pathfinding. Pets roam near the player, begin following when the distance becomes too large, and stop at a comfortable range instead of overlapping the character. Their movement queries the same walkability and obstacle data used by the farming grid.",
+            "The behaviour includes safe spawn selection, player avoidance, directional animation, idle timing, failed-path handling, and teleport recovery when the companion is separated by an extreme distance. Paths are calculated only when a new destination is selected, avoiding unnecessary searches every frame while still responding to player movement."
+          ],
+          "image": { "url": "images/bonnies-farmville/02_companion_ai_pathfinding_portfolio.png", "alt": "In-game companion beside the player, paired with the authored navigation tilemap and serialized grid data in Unity" },
+          "caption": "The companion uses the authored Path and obstacle layers for A* navigation while roaming near and following the player."
+        },
+        {
+          "title": "Item and crop definitions",
+          "summary": "Shared ScriptableObject definitions connect inventory, shops, crops, and progression.",
+          "paragraphs": [
+            "I built a shared item-data pipeline that drives inventory limits, seed prices, crop rewards, tool tiers, and shop presentation. Item and crop definitions are stored in ScriptableObjects, making it straightforward to add new items without changing the underlying gameplay systems."
+          ],
+          "image": { "url": "images/bonnies-farmville/03_economy_shops_progression_portfolio.png", "alt": "Runtime crop shop beside Unity Inspector panels for Item and Crop ScriptableObject configuration" },
+          "caption": "The runtime shop uses shared Item and Crop ScriptableObject definitions for prices, inventory limits, crop rewards, and upgrades."
+        }
+      ],
+      "featured": false
+    },
+    {
+      "slug": "power-washer-hero",
+      "title": "Power Washer Hero",
+      "category": "games/3d",
+      "summary": "A reusable Unity cleaning pipeline with GPU-painted dirt masks, compute-shader coverage tracking, and editor tools for configuring multi-part cleaning targets.",
+      "status": "WorkInProgress",
+      "role": "Developer",
+      "tags": ["Unity", "C#", "3D", "HLSL surface shaders", "compute shaders", "command buffers", "ScriptableObjects"],
+      "image": "images/power-washer-hero/cover-v2.png",
+      "imageAlt": "Power Washer Hero title artwork showing a car being pressure-washed in a garage",
+      "overview": ["I built a reusable Unity cleaning pipeline with GPU-painted dirt masks, compute-shader coverage tracking, per-part and overall progression, animated UI feedback, and configurable procedural dirt materials. Editor tools rapidly convert multi-part models into calibrated cleaning targets."],
+      "videos": [{ "title": "Power Washer Hero · Gameplay", "youtubeId": "TyXwk_wfsAI" }],
+      "showDevelopmentNotice": false,
+      "sections": [
+        {
+          "title": "GPU-driven washable surfaces",
+          "paragraphs": ["Each washable mesh owns a runtime dirt mask stored in a RenderTexture. The pressure washer projects a world-space brush onto the target, while a custom shader uses surface normals to reject backfaces and prevent the spray from cleaning through corners. Dirt is removed cumulatively, producing persistent, localized cleaning across complex shapes."],
+          "image": { "url": "images/power-washer-hero/cleaning-pipeline-showcase.png", "alt": "Power Washer cleaning pipeline showcase with gameplay, Unity material setup, and per-part calibration data" },
+          "caption": "GPU-driven cleaning connects persistent dirt masks, per-part progress, and reusable authoring tools."
+        },
+        {
+          "title": "Real-time coverage measurement",
+          "paragraphs": ["A compute shader reduces the dirt-mask pixels into coverage data. The result is converted into a normalized completion percentage for every individual car part, giving the game accurate progress values without relying on trigger counts or hand-authored checkpoints."]
+        },
+        {
+          "title": "Configurable dirt materials",
+          "paragraphs": ["The washable surface shader blends clean albedo with procedural dirt using tunable noise, tint, scale, opacity, smoothness, and metallic controls. This lets one cleaning system support varied materials and grime patterns while preserving the original look of each model."],
+          "image": { "url": "images/power-washer-hero/procedural-dirt-shader.png", "alt": "Procedural dirt shader breakdown showing Unity material settings, clean albedo, dirt noise, a runtime paint mask, and the layered result" },
+          "caption": "Clean albedo and procedural dirt are blended through a runtime paint mask, with configurable noise and surface properties."
+        },
+        {
+          "title": "Reachability calibration tool",
+          "paragraphs": ["A generated ScriptableObject stores the maximum realistically cleanable percentage for every mesh part and records the last percentage reached during testing. Designers can compensate for UV seams, hidden geometry, or inaccessible pixels, so a visually clean part can still reach 100% in gameplay."]
+        }
+      ],
+      "screenshots": [
+        { "url": "images/power-washer-hero/car-cleaning-progress.jpg", "alt": "Partially cleaned car with individual part percentages and overall cleaning progress." },
+        { "url": "images/power-washer-hero/multipart-cleaning-target.jpg", "alt": "A multi-part cleaning target with localized dirt removal and overall progress feedback." },
+        { "url": "images/power-washer-hero/car-cleaning-front.jpg", "alt": "Front view of a car with cleaned patches revealing its paint and windshield beneath the dirt." }
+      ],
+      "featured": false
+    },
+    {
       "slug": "100-in-1-game-collection",
       "title": "100 in 1 Game Collection",
       "videoUrl": "https://www.youtube.com/playlist?list=PLZmCU3JJnpCQ",
@@ -75,21 +171,195 @@
       "slug": "a-game-about-clicking-a-rock", "title": "A Game About Clicking A Rock", "category": "games/3d",
       "summary": "One rock. A growing mining operation. A 3D incremental game about turning a simple click into an automated empire.",
       "status": "Steam · Coming soon", "role": "Game design & programming", "tags": ["Unity", "C#", "3D", "Incremental"], "featured": true,
-      "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4740410/87027dfc07b812e2c01e049518beab6a32aafdec/header.jpg",
-      "imageAlt": "A Game About Clicking A Rock official game artwork",
+      "image": "images/clicking-a-rock/cover.png",
+      "imageAlt": "A Game About Clicking A Rock title artwork with colorful desert cliffs, ore rocks, and mine tracks",
+      "videosHeading": "Trailer.",
+      "showScreenshotCaptions": false,
+      "videos": [{ "title": "A Game About Clicking A Rock · Trailer", "youtubeId": "VRA_NkZ5um8" }],
       "overview": ["A personal Unity project built around mining, upgrades, and automated workers. Available to explore on itch.io, with a Steam store page for the upcoming PC release.", "Built data-driven ore balancing and progression using ScriptableObjects, event-driven resource updates, English/Polish localization, and a guided first-run tutorial.", "Implemented autosave, JSON save/load, exportable encoded save codes, and finite-state-machine worker AI with node-based movement."],
       "links": [{ "label": "Wishlist on Steam", "url": "https://store.steampowered.com/app/4740410/A_Game_About_Clicking_A_Rock/" }, { "label": "Play on itch.io", "url": "https://sleeplessdogstudio.itch.io/a-game-about-clicking-a-rock" }],
-      "screenshots": [{ "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4740410/ddce3fce9ef370b03cc54aad8e80bc6ae6525708/ss_ddce3fce9ef370b03cc54aad8e80bc6ae6525708.1920x1080.jpg", "alt": "Official gameplay screenshot from A Game About Clicking A Rock on Steam" }]
+      "screenshots": [
+        { "url": "images/clicking-a-rock/mining-effects.png", "alt": "Workers mining colorful ore around the mine entrance, with hit effects and resource counters." },
+        { "url": "images/clicking-a-rock/mining-workers.png", "alt": "Blue miners in yellow hard hats working across a field of ore deposits." },
+        { "url": "images/clicking-a-rock/gemstone-shop.png", "alt": "Magical Gemstone Shop offering extraction, pickaxe, and ore upgrades." },
+        { "url": "images/clicking-a-rock/character-customization.png", "alt": "Character customization with a 3D preview and hat, skin, pants, and shoes options." },
+        { "url": "images/clicking-a-rock/snowy-mine.png", "alt": "Workers gathering ore around a mine entrance in a snowy landscape." },
+        { "url": "images/clicking-a-rock/ore-shop.png", "alt": "Ore selling shop with quantity sliders, sale values, and a cat shopkeeper." }
+      ]
     },
     {
-      "slug": "macster-framework", "title": "MaCster Unity Framework", "category": "games/tools", "summary": "A modular foundation for gameplay, from inventories and interactions to node-based dialogue tools.",
-      "status": "Private library", "role": "Systems & tools developer", "tags": ["Unity", "C#", "Editor tools"], "art": "framework", "featured": true,
-      "overview": ["A private C#/Unity library of reusable gameplay systems and editor tools.", "Includes saving, object pooling, inventory management, shop/cart logic, 3D interaction, player movement, and dialogue graphs.", "Uses ScriptableObject data, interface-based contracts, and event-driven UI flows. The xNode dialogue tooling supports conditional branches, player responses, action nodes, and runtime playback."]
-    },
+        "slug": "macster-framework",
+        "title": "MaCster Framework",
+        "subtitle": "Modular Unity Gameplay Systems Library",
+        "category": "games/tools",
+        "summary": "A reusable, data-driven collection of Unity gameplay systems for dialogue, inventory, commerce, and grid-based construction.",
+        "status": "Private library",
+        "role": "Systems & tools developer",
+        "technologies": "Unity 6, C#, ScriptableObjects, custom editor tooling",
+        "focusAreas": "Gameplay systems, editor tooling, node graphs, data-driven design, UI programming, rapid prototyping",
+        "tags": [
+          "Unity 6",
+          "C#",
+          "ScriptableObjects",
+          "Node Graphs",
+          "Gameplay UI",
+          "Editor Tooling"
+        ],
+        "featured": true,
+        "art": "framework",
+        "overview": [
+          "MaCster is a modular collection of gameplay tools designed to make recurring RPG and simulation systems faster to author and easier to reuse. Its dialogue system provides a visual graph for composing conversations, responses, conditional branches, and gameplay-triggered actions. Inventory and shop modules cover item storage, container transfers, category-based browsing, cart quantities, and purchase validation. A grid-building prototype adds snapped floor, wall, and door placement with live previews and socket-occupancy rules. The framework favors inspector-configurable components and reusable data assets so content can be assembled without hard-coding each scene."
+        ],
+        "sections": [
+          {
+            "title": "Dialogue System",
+            "summary": "A visual conversation-authoring workflow combining NPC text, player responses, branching paths, reusable Boolean conditions, and custom gameplay action hooks.",
+            "image": {
+              "url": "images/macster-framework/dialogue-graph-editor.png",
+              "alt": "Unity node graph showing branching dialogue, an action node, and a Boolean condition.",
+              "caption": "Branching graph with response, action, condition, and text nodes.",
+              "width": 1280,
+              "height": 648
+            },
+            "caption": "Branching graph with response, action, condition, and text nodes.",
+            "gallery": [
+              {
+                "url": "images/macster-framework/dialogue-action-node.png",
+                "alt": "Custom dialogue action node in the Unity graph editor.",
+                "caption": "Reusable gameplay action hook.",
+                "width": 1728,
+                "height": 986
+              },
+              {
+                "url": "images/macster-framework/dialogue-conditional-branch.png",
+                "alt": "Boolean condition splitting dialogue into true and false branches.",
+                "caption": "True and false conversation flow.",
+                "width": 1920,
+                "height": 984
+              },
+              {
+                "url": "images/macster-framework/dialogue-runtime.png",
+                "alt": "Dialogue playing in the Unity Game view.",
+                "caption": "Runtime dialogue playback.",
+                "width": 1728,
+                "height": 986
+              }
+            ]
+          },
+          {
+            "title": "Inventory System",
+            "summary": "A slot-based player and container inventory supporting item quantities, chest selection, and movement between storage and quick-access slots.",
+            "gallery": [
+              {
+                "url": "images/macster-framework/inventory-chest-transfer.png",
+                "alt": "Chest and player inventories displaying stored item quantities.",
+                "caption": "Container and player storage.",
+                "width": 1920,
+                "height": 1014
+              },
+              {
+                "url": "images/macster-framework/inventory-item-movement.png",
+                "alt": "An item being moved between chest and player inventory slots.",
+                "caption": "Item transfer workflow.",
+                "width": 1920,
+                "height": 1014
+              }
+            ]
+          },
+          {
+            "title": "Shop System",
+            "summary": "A categorized storefront with item cards, prices, quantity controls, a live cart, and purchase checks for both currency and available inventory capacity.",
+            "gallery": [
+              {
+                "url": "images/macster-framework/shop-catalog.png",
+                "alt": "Shop catalog with category filters and purchasable item cards.",
+                "caption": "Category-driven item catalog.",
+                "width": 1920,
+                "height": 984
+              },
+              {
+                "url": "images/macster-framework/shop-cart.png",
+                "alt": "Shop cart containing multiple item quantities and purchase validation messages.",
+                "caption": "Quantity cart and purchase validation.",
+                "width": 1920,
+                "height": 984
+              }
+            ]
+          },
+          {
+            "title": "Grid Building",
+            "badge": "Prototype",
+            "summary": "A grid-and-socket construction prototype for placing floors, walls, and doors with snapping, live valid-placement previews, and occupied-socket handling.",
+            "gallery": [
+              {
+                "url": "images/macster-framework/grid-building-placement.png",
+                "alt": "Unity Game view showing a green wall-placement preview on a grid-built room.",
+                "caption": "Snapped placement preview.",
+                "width": 1920,
+                "height": 938
+              },
+              {
+                "url": "images/macster-framework/grid-building-layout.png",
+                "alt": "Unity Scene view showing the resulting grid-built room layout.",
+                "caption": "Generated floor and wall layout.",
+                "width": 1920,
+                "height": 938
+              }
+            ]
+          }
+        ],
+        "showDevelopmentNotice": false
+      },
     {
-      "slug": "mobile-commerce", "title": "Mobile E-Commerce App", "category": "android", "summary": "An Android shopping application covering products, purchases, and order tracking.",
-      "status": "Personal project", "role": "Application developer", "tags": ["Kotlin", "Firebase", "Android"], "art": "mobile", "featured": true,
-      "overview": ["Built a mobile e-commerce application in Kotlin with Android Studio and Google Firebase.", "Implemented product and order management, user registration, purchasing, and order tracking/history. Designed and implemented the Firebase database."]
+      "slug": "mobile-commerce",
+      "title": "Mobile E-Commerce App",
+      "category": "android",
+      "summary": "Two Android apps connect customers and store owners through one Firebase-backed shopping workflow.",
+      "status": "Academic project",
+      "role": "Android application developer",
+      "tags": ["Kotlin", "Android", "Firebase Authentication", "Cloud Firestore", "Firebase Storage", "RecyclerView", "Glide"],
+      "image": "images/mobile-commerce/commerce-showcase-v3.png",
+      "imageAlt": "AI-assisted presentation composite based on the documented customer catalog and owner product editor, connected through Firebase",
+      "featured": true,
+      "overview": [
+        "I developed a two-app mobile store: a customer application for shopping and a dedicated owner application for catalog and order management. The customer flow covers registration, bilingual Polish and English UI, product browsing, cart updates, delivery addresses, checkout, and order history.",
+        "The project uses Kotlin activities and fragments, RecyclerView adapters, and a FireStoreClass data-access layer in both apps. Firebase Authentication handles accounts and password reset, Cloud Firestore stores commerce records, and Firebase Storage and Glide handle uploaded images.",
+        "The showcase visuals are AI-assisted presentation composites based on the project report's screens. Original screenshots are included below."
+      ],
+      "links": [
+        { "label": "View client prototype on GitHub", "url": "https://github.com/Matix351/SklepInternetowyKlient" }
+      ],
+      "showDevelopmentNotice": false,
+      "sections": [
+        {
+          "title": "One backend, two focused apps",
+          "summary": "Customer and owner interfaces share the same cloud data while keeping their workflows separate.",
+          "paragraphs": [
+            "Both apps use FireStoreClass methods for account data, products, carts, addresses, and orders. RecyclerView adapters display the returned records, while activities and fragments handle navigation, form validation, and UI updates."
+          ],
+          "image": { "url": "images/mobile-commerce/firebase-architecture.svg", "alt": "Customer and shop owner Android apps each use Kotlin data-access code to connect to Firebase Authentication, Cloud Firestore, and Firebase Storage" },
+          "caption": "FireStoreClass runs in each app; both applications use the same Firebase services."
+        },
+        {
+          "title": "From catalog to checkout",
+          "summary": "Product browsing, cart quantities, delivery addresses, and order review form one customer workflow.",
+          "paragraphs": [
+            "The cart loads product and cart records, updates displayed availability, and calculates subtotal, shipping, and total values. Customers select a delivery address, review the order, and place it through CheckoutActivity. Order history exposes the items, delivery details, totals, and current status."
+          ],
+          "image": { "url": "images/mobile-commerce/customer-flow-v2.png", "alt": "AI-assisted presentation composite of the documented customer catalog and shopping cart" },
+          "caption": "Presentation composite based on the report's catalog and cart screenshots; original screens appear below."
+        },
+        {
+          "title": "Products move from upload to storefront",
+          "summary": "The owner selects an image, validates product details, and publishes the record to the shared catalog.",
+          "paragraphs": [
+            "The owner validates product details and uploads the selected image to Firebase Storage. After upload succeeds, its URL is used in the product record saved to Firestore; Glide displays product imagery. Owners can delete products with confirmation and set an order's status to Pending, Sent, or Delivered."
+          ],
+          "image": { "url": "images/mobile-commerce/report-product-editor.png", "alt": "Original owner product editor with image selection and fields for title, price, description, and quantity" },
+          "caption": "Original product-entry screen from the project report."
+        }
+      ],
+      "screenshotGroups": [{"title":"Shop owner app screenshots","images":[{"url":"images/mobile-commerce/owner-products.png","alt":"Shop owner product management","cropStyle":"width:117.722%;height:127.596%;left:-9.114%;top:-13.371%;"},{"url":"images/mobile-commerce/report-product-editor.png","alt":"Add a new product","cropStyle":"width:112.911%;height:128.205%;left:-5.316%;top:-13.675%;"},{"url":"images/mobile-commerce/owner-product-filled.png","alt":"Product image and completed details","cropStyle":"width:115.190%;height:127.881%;left:-6.582%;top:-13.087%;"},{"url":"images/mobile-commerce/owner-delete-confirmation.png","alt":"Product deletion confirmation","cropStyle":"width:118.228%;height:127.454%;left:-8.608%;top:-12.376%;"},{"url":"images/mobile-commerce/owner-orders.png","alt":"Shop owner order list","cropStyle":"width:116.203%;height:129.161%;left:-8.354%;top:-14.083%;"},{"url":"images/mobile-commerce/report-order-status.png","alt":"Order status controls","cropStyle":"width:114.362%;height:125.075%;left:-9.309%;top:-10.360%;"}]},{"title":"Customer app screenshots","images":[{"url":"images/mobile-commerce/report-catalog.png","alt":"Product catalog","cropStyle":"width:116.709%;height:127.983%;left:-9.114%;top:-12.784%;"},{"url":"images/mobile-commerce/customer-product-details.png","alt":"Product details and add-to-cart action","cropStyle":"width:114.684%;height:127.881%;left:-8.101%;top:-13.087%;"},{"url":"images/mobile-commerce/customer-added-to-cart.png","alt":"Product added: go to cart","cropStyle":"width:115.443%;height:127.415%;left:-6.582%;top:-12.784%;"},{"url":"images/mobile-commerce/report-cart.png","alt":"Cart quantities and order total","cropStyle":"width:112.658%;height:126.743%;left:-6.076%;top:-12.376%;"}]}]
     },
     {
       "slug": "mobile-game-thesis", "title": "Mobile Game · Engineering Thesis", "category": "android", "summary": "A working Android game prototype exploring engagement and player retention through academic research.",
@@ -97,9 +367,44 @@
       "overview": ["Bachelor’s thesis: Using Social Engineering Methods in a Mobile Game.", "Developed the game concept, MVP design, and a working Android prototype with a responsive UI that adapts to different screen resolutions.", "Researched scientific literature and mobile games to analyze engagement, retention, and monetization techniques."]
     },
     {
-      "slug": "ai-pathfinding", "title": "Learning to Find a Path", "category": "other", "summary": "A reinforcement learning experiment that trains an agent to navigate toward a moving target.",
-      "status": "Proof of concept", "role": "Developer", "tags": ["Unity", "C#", "Reinforcement learning"], "art": "path",
-      "overview": ["A Unity/C# proof of concept using reinforcement learning to train an AI agent to navigate toward a dynamically changing target."]
+      "slug": "ai-pathfinding", "title": "Unity ML-Agents Pathfinding", "category": "other",
+      "summary": "A Unity ML-Agents navigation simulation trained with PPO across 20 parallel environments for 500,000 steps, achieving a peak mean reward of 0.951.",
+      "status": "Proof of concept", "role": "Developer",
+      "tags": ["Unity", "Unity ML-Agents", "Reinforcement Learning", "PPO", "Neural Networks", "TensorBoard"],
+      "image": "images/unity-ml-pathfinding/parallel-environments.png",
+      "imageAlt": "Twenty Unity training environments with blue cubes and yellow spheres on red, green, and dark platforms",
+      "overview": [
+        "This project explores how reinforcement learning can solve a dynamic pathfinding task. I created a Unity training environment in which an autonomous agent moves along the X and Z axes, searches for a randomly placed target, and learns to avoid obstacle walls. Reaching the target gives the agent a +1 reward, while hitting a wall results in a -1 penalty and resets the episode.",
+        "To speed up learning, I ran 20 training environments in parallel and trained the agent with Proximal Policy Optimization (PPO) for 500,000 steps. The experiment reached a peak mean reward of 0.951 and maintained a mean reward of approximately 0.9 near the end of training, demonstrating reliable learned navigation."
+      ],
+      "showDevelopmentNotice": false,
+      "sections": [
+        {
+          "title": "Trained navigation agent",
+          "paragraphs": ["The trained agent navigates around obstacles to reach a target whose position changes between episodes. The platform changes color to show the previous episode's outcome: green means the agent successfully reached the ball, while red means it failed."],
+          "image": { "url": "images/unity-ml-pathfinding/navigation-environment.png", "alt": "Green platform indicating that the agent successfully reached the ball during the previous episode" },
+          "caption": "Green indicates that the agent reached the ball in the previous episode.",
+          "additionalImages": [
+            { "url": "images/unity-ml-pathfinding/red-platform.png", "alt": "Red indicates that the agent failed to reach the ball in the previous episode." }
+          ]
+        },
+        {
+          "title": "Parallel training environments",
+          "paragraphs": ["Twenty copies of the environment run simultaneously, allowing the model to collect experience faster and encounter more starting conditions during training."],
+          "image": { "url": "images/unity-ml-pathfinding/parallel-environments.png", "alt": "Twenty copies of the navigation environment running in a five-by-four arrangement" }
+        },
+        {
+          "title": "Training results",
+          "paragraphs": ["The recorded training metrics show a clear improvement in cumulative reward and shorter episodes as the agent learns a more effective navigation policy."],
+          "image": { "url": "images/unity-ml-pathfinding/training-results.png", "alt": "PPO training results over 500,000 steps: cumulative reward rises toward 0.9 with a peak mean reward of 0.951, while episode length decreases" }
+        }
+      ],
+      "screenshotsHeading": "Environment details.",
+      "screenshots": [
+        { "url": "images/unity-ml-pathfinding/red-platform.png", "alt": "Red platform indicating that the agent failed to reach the ball during the previous episode." },
+        { "url": "images/unity-ml-pathfinding/yellow-sphere.png", "alt": "Close-up of the yellow sphere used in the training environment." },
+        { "url": "images/unity-ml-pathfinding/blue-cube.png", "alt": "Close-up of the blue cube used in the training environment." }
+      ]
     }
   ]
 }
