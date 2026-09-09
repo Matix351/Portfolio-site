@@ -68,7 +68,7 @@
       "summary": "A reusable Unity cleaning pipeline with GPU-painted dirt masks, compute-shader coverage tracking, and editor tools for configuring multi-part cleaning targets.",
       "status": "WorkInProgress",
       "role": "Developer",
-      "tags": ["Unity", "C#", "3D", "HLSL", "Compute shaders", "RenderTextures", "ScriptableObjects"],
+      "tags": ["Unity", "C#", "3D", "HLSL surface shaders", "compute shaders", "command buffers", "ScriptableObjects"],
       "image": "images/power-washer-hero.png",
       "imageAlt": "Power Washer Hero title artwork showing a car being pressure-washed in a garage",
       "overview": ["I built a reusable Unity cleaning pipeline with GPU-painted dirt masks, compute-shader coverage tracking, per-part and overall progression, animated UI feedback, and configurable procedural dirt materials. Editor tools rapidly convert multi-part models into calibrated cleaning targets."],
@@ -94,10 +94,6 @@
         {
           "title": "Reachability calibration tool",
           "paragraphs": ["A generated ScriptableObject stores the maximum realistically cleanable percentage for every mesh part and records the last percentage reached during testing. Designers can compensate for UV seams, hidden geometry, or inaccessible pixels, so a visually clean part can still reach 100% in gameplay."]
-        },
-        {
-          "title": "Technology",
-          "paragraphs": ["Unity, C#, HLSL surface shaders, compute shaders, RenderTextures, command buffers, ScriptableObjects, physics queries, TextMesh Pro, animation and audio feedback."]
         }
       ],
       "screenshots": [
