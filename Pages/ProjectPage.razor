@@ -55,7 +55,19 @@
             }
             </div>
         }
-        @if (project.Screenshots.Count > 0) { <h2>A look inside.</h2>@foreach (var shot in project.Screenshots) { <figure><a href="@shot.Url" target="_blank" rel="noopener noreferrer"><img src="@shot.Url" alt="@shot.Alt" loading="lazy" /></a><figcaption>@shot.Alt</figcaption></figure> } }
+        @if (project.Screenshots.Count > 0)
+        {
+            <section class="screenshots-section" aria-labelledby="screenshots-heading">
+                <h2 id="screenshots-heading">Gameplay screenshots.</h2>
+                <p>Select an image to view it full size.</p>
+                <div class="screenshot-gallery @(project.Screenshots.Count == 1 ? "single-image" : "")">
+                @foreach (var shot in project.Screenshots)
+                {
+                    <figure><a href="@shot.Url" target="_blank" rel="noopener noreferrer" aria-label="@($"Open full-size screenshot: {shot.Alt}")"><img src="@shot.Url" alt="@shot.Alt" loading="lazy" /></a><figcaption>@shot.Alt</figcaption></figure>
+                }
+                </div>
+            </section>
+        }
         @if (!string.IsNullOrWhiteSpace(project.VideoUrl)) { <a class="button secondary" href="@project.VideoUrl" target="_blank" rel="noopener noreferrer">Watch gameplay ↗</a> }
         @if (project.ShowDevelopmentNotice) { <div class="project-update"><span class="status-dot"></span> Detailed development notes and additional media coming soon.</div> }</article></div>
     }

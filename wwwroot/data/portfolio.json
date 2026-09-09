@@ -19,6 +19,14 @@
       "imageAlt": "Bonnie's Farmville title artwork featuring a rabbit with a watering can, vegetable plots, and farm animals",
       "overview": ["Bonnie's Farmville connects a data-driven world grid with autonomous companion AI. Gameplay configuration is separated from runtime logic, so new farm layouts, crops, items, prices, and upgrades can be authored without rewriting the underlying systems."],
       "videos": [{ "title": "Bonnie's Farmville · Gameplay", "youtubeId": "GD5AzCywbek" }],
+      "screenshots": [
+        { "url": "images/bonnies-farmville/screenshots/01_farming_loop_and_pet.jpg", "alt": "Bonnie and a companion beside growing crops and the inventory toolbar." },
+        { "url": "images/bonnies-farmville/screenshots/02_seed_shop_and_economy.png", "alt": "Crop shop showing seed prices, buy/sell tabs, and the player's inventory." },
+        { "url": "images/bonnies-farmville/screenshots/03_upgrades_and_pets.png", "alt": "Upgrade shop with tool levels and an unlockable bunny companion." },
+        { "url": "images/bonnies-farmville/screenshots/04_run_statistics.png", "alt": "End-of-run statistics showing crop quantities and their total value." },
+        { "url": "images/bonnies-farmville/screenshots/05_crop_growth_and_companion.jpg", "alt": "Bonnie and a companion among planted seeds, growing crops, and mature berry plants." },
+        { "url": "images/bonnies-farmville/screenshots/06_watering_and_bunny.jpg", "alt": "Watering a farm plot with a bunny companion nearby." }
+      ],
       "showDevelopmentNotice": false,
       "sections": [
         {

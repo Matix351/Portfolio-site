@@ -1,4 +1,11 @@
 .minigame-list { margin-top: 28px; }
+.screenshots-section { margin-top: 42px; padding-top: 14px; border-top: 1px solid var(--line); }
+.screenshot-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 16px; }
+.screenshot-gallery figure { margin: 0; min-width: 0; }
+.screenshot-gallery a { display: block; border-radius: 12px; }
+.screenshot-gallery img { display: block; width: 100%; height: auto; }
+.screenshot-gallery.single-image { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 600px) { .screenshot-gallery { grid-template-columns: minmax(0, 1fr); } }
 .technical-section { margin-top: 42px; padding-top: 14px; border-top: 1px solid var(--line); }
 .technical-section .section-summary { padding: 14px 18px; border-left: 2px solid var(--accent); background: var(--panel); color: var(--text); font-size: 15px; }
 .technical-section figure { margin-top: 24px; }
