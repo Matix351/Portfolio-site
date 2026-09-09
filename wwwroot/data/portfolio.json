@@ -8,6 +8,19 @@
   },
   "projects": [
     {
+      "slug": "power-washer-hero",
+      "title": "Power Washer Hero",
+      "category": "games/3d",
+      "summary": "A 3D power-washing game currently in development. More gameplay and project details coming soon.",
+      "status": "WorkInProgress",
+      "role": "Developer",
+      "tags": ["3D"],
+      "image": "images/power-washer-hero.png",
+      "imageAlt": "Power Washer Hero title artwork showing a car being pressure-washed in a garage",
+      "overview": ["Power Washer Hero is a work-in-progress 3D game. This page will be updated with gameplay, features, and development notes as the project progresses."],
+      "featured": false
+    },
+    {
       "slug": "100-in-1-game-collection",
       "title": "100 in 1 Game Collection",
       "videoUrl": "https://www.youtube.com/playlist?list=PLZmCU3JJnpCQ",
