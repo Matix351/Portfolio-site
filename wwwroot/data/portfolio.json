@@ -323,8 +323,7 @@
       "featured": true,
       "overview": [
         "I developed a two-app mobile store: a customer application for shopping and a dedicated owner application for catalog and order management. The customer flow covers registration, bilingual Polish and English UI, product browsing, cart updates, delivery addresses, checkout, and order history.",
-        "The project uses Kotlin activities and fragments, RecyclerView adapters, and a FireStoreClass data-access layer in both apps. Firebase Authentication handles accounts and password reset, Cloud Firestore stores commerce records, and Firebase Storage and Glide handle uploaded images.",
-        "The showcase visuals are AI-assisted presentation composites based on the project report's screens. Original screenshots are included below."
+        "The project uses Kotlin activities and fragments, RecyclerView adapters, and a FireStoreClass data-access layer in both apps. Firebase Authentication handles accounts and password reset, Cloud Firestore stores commerce records, and Firebase Storage and Glide handle uploaded images."
       ],
       "links": [
         { "label": "View client prototype on GitHub", "url": "https://github.com/Matix351/SklepInternetowyKlient" }
