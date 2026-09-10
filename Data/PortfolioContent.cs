@@ -41,6 +41,7 @@ public sealed class Profile
     public string Github { get; set; } = "https://github.com/Matix351";
     public string? ContactEmail { get; set; }
     public string? ContactUrl { get; set; }
+    public string? LinkedIn { get; set; }
     public string[] Skills { get; set; } = [];
     public List<Experience> Experience { get; set; } = [];
 }

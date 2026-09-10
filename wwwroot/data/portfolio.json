@@ -3,6 +3,7 @@
     "name": "Mateusz Ciszek", "role": "C# & Unity Developer",
     "bio": "I build games and the systems behind them. My work spans 2D and 3D gameplay, reusable Unity tools, and Android applications. I care about responsive interactions, maintainable code, and giving a good idea room to grow.",
     "github": "https://github.com/Matix351", "contactEmail": null, "contactUrl": null,
+    "linkedIn": "https://www.linkedin.com/in/mateusz-ciszek-15080b355/",
     "skills": ["C#", "Unity", ".NET", "Kotlin", "Java", "Firebase", "HLSL / ShaderLab", "Compute shaders", "ScriptableObjects", "Editor tooling", "Git", "Profiling & optimization"],
     "experience": []
   },
