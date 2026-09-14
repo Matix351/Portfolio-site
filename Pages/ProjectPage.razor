@@ -12,7 +12,13 @@
         @if (project.Videos.Count > 0)
         {
             <h2>@project.VideosHeading</h2>
-            <div class="game-videos @(project.Videos.Count == 1 ? "single-video" : "")">@foreach (var video in project.Videos) { <GameplayVideo @key="video.YoutubeId" Video="video" /> }</div>
+            <div class="game-videos @(project.Videos.Count == 1 ? "single-video" : "")">
+                @for (var index = 0; index < project.Videos.Count; index++)
+                {
+                    var video = project.Videos[index];
+                    <div @key="video.YoutubeId" class="@(project.FeatureFirstVideo && index == 0 ? "featured-video" : "")"><GameplayVideo Video="video" /></div>
+                }
+            </div>
         }
         @foreach (var section in project.Sections)
         {

@@ -19,7 +19,7 @@
       "image": "images/bonnies-farmville.png",
       "imageAlt": "Bonnie's Farmville title artwork featuring a rabbit with a watering can, vegetable plots, and farm animals",
       "overview": ["Bonnie's Farmville connects a data-driven world grid with autonomous companion AI. Gameplay configuration is separated from runtime logic, so new farm layouts, crops, items, prices, and upgrades can be authored without rewriting the underlying systems."],
-      "videos": [{ "title": "Bonnie's Farmville · Gameplay", "youtubeId": "GD5AzCywbek" }],
+      "videos": [{ "title": "Bonnie's Farmville · Gameplay", "youtubeId": "sbWJIB616sg" }],
       "screenshots": [
         { "url": "images/bonnies-farmville/screenshots/01_farming_loop_and_pet.jpg", "alt": "Bonnie and a companion beside growing crops and the inventory toolbar." },
         { "url": "images/bonnies-farmville/screenshots/02_seed_shop_and_economy.png", "alt": "Crop shop showing seed prices, buy/sell tabs, and the player's inventory." },
@@ -37,8 +37,11 @@
             "I created a tile-based data layer that converts painted Unity Tilemaps into reusable gameplay properties for individual grid cells. Designers can mark diggable areas, walkable paths, water sources, placement zones, and NPC obstacles directly in the Scene view. An editor component collects these layers into a serialized ScriptableObject containing the coordinates and property values used at runtime.",
             "The runtime grid manager translates between world and cell coordinates, combines multiple properties for each cell, validates player actions, and stores temporary state such as dug soil, watering, planted seeds, and crop growth. The same data source is shared with other systems."
           ],
-          "image": { "url": "images/bonnies-farmville/01_data_driven_farming_grid_portfolio.png", "alt": "Unity Scene views showing painted Diggable and Path tilemap layers beside a serialized grid-property list in the Inspector" },
-          "caption": "Painted Diggable and Path layers are converted into a serialized per-cell property list used by gameplay systems at runtime."
+          "image": { "url": "images/bonnies-farmville/data-driven-farming-grid-v8.png", "alt": "Painted Diggable tiles, the grid authoring component, and the serialized grid-property list in Unity" },
+          "caption": "Painted tilemap layers are converted into a serialized per-cell property list used by gameplay systems at runtime.",
+          "additionalImages": [
+            { "url": "images/bonnies-farmville/grid-manager-runtime-dictionary-v2.png", "alt": "Grid Manager converts authored ScriptableObject data into a coordinate-keyed runtime dictionary for digging, watering, planting, and pathfinding" }
+          ]
         },
         {
           "title": "Companion AI and pathfinding",
@@ -47,7 +50,7 @@
             "I developed an unlockable companion system with grid-aware A* pathfinding. Pets roam near the player, begin following when the distance becomes too large, and stop at a comfortable range instead of overlapping the character. Their movement queries the same walkability and obstacle data used by the farming grid.",
             "The behaviour includes safe spawn selection, player avoidance, directional animation, idle timing, failed-path handling, and teleport recovery when the companion is separated by an extreme distance. Paths are calculated only when a new destination is selected, avoiding unnecessary searches every frame while still responding to player movement."
           ],
-          "image": { "url": "images/bonnies-farmville/02_companion_ai_pathfinding_portfolio.png", "alt": "In-game companion beside the player, paired with the authored navigation tilemap and serialized grid data in Unity" },
+          "image": { "url": "images/bonnies-farmville/companion-ai-pathfinding-v7.png", "alt": "In-game companion beside the player, paired with the NPC obstacle tilemap and serialized grid data in Unity" },
           "caption": "The companion uses the authored Path and obstacle layers for A* navigation while roaming near and following the player."
         },
         {
@@ -56,8 +59,18 @@
           "paragraphs": [
             "I built a shared item-data pipeline that drives inventory limits, seed prices, crop rewards, tool tiers, and shop presentation. Item and crop definitions are stored in ScriptableObjects, making it straightforward to add new items without changing the underlying gameplay systems."
           ],
-          "image": { "url": "images/bonnies-farmville/03_economy_shops_progression_portfolio.png", "alt": "Runtime crop shop beside Unity Inspector panels for Item and Crop ScriptableObject configuration" },
+          "image": { "url": "images/bonnies-farmville/economy-shops-progression-v8.png", "alt": "Runtime crop shop beside Unity Inspector panels for Item and Crop ScriptableObject configuration" },
           "caption": "The runtime shop uses shared Item and Crop ScriptableObject definitions for prices, inventory limits, crop rewards, and upgrades."
+        },
+        {
+          "title": "Crop Details Generator",
+          "paragraphs": ["Automatically generates crop definitions from the shared item database, linking seed IDs to harvest rewards, growth times, and growth-stage sprites. Built-in validation identifies missing or invalid crop data directly in the Unity Inspector."],
+          "image": { "url": "images/bonnies-farmville/crop-details-generator-v3.png", "alt": "Crop Details Generator showing shared generator settings, context-menu generation commands, and validation feedback for missing growth sprites" }
+        },
+        {
+          "title": "Custom Item Property Drawer",
+          "paragraphs": ["Displays human-readable item names beside numeric IDs in the Unity Inspector, making data entry faster and reducing reference mistakes."],
+          "image": { "url": "images/bonnies-farmville/custom-item-id-property-drawer.png", "alt": "Custom Item ID Property Drawer showing the ItemCodeDescription attribute, Inspector item-name feedback, and shared item database" }
         }
       ],
       "featured": false
@@ -177,8 +190,8 @@
       "videosHeading": "Trailer.",
       "showScreenshotCaptions": false,
       "videos": [{ "title": "A Game About Clicking A Rock · Trailer", "youtubeId": "VRA_NkZ5um8" }],
-      "overview": ["A personal Unity project built around mining, upgrades, and automated workers. Available to explore on itch.io, with a Steam store page for the upcoming PC release.", "Built data-driven ore balancing and progression using ScriptableObjects, event-driven resource updates, English/Polish localization, and a guided first-run tutorial.", "Implemented autosave, JSON save/load, exportable encoded save codes, and finite-state-machine worker AI with node-based movement."],
-      "links": [{ "label": "Wishlist on Steam", "url": "https://store.steampowered.com/app/4740410/A_Game_About_Clicking_A_Rock/" }, { "label": "Play on itch.io", "url": "https://sleeplessdogstudio.itch.io/a-game-about-clicking-a-rock" }],
+      "overview": ["A personal Unity project built around mining, upgrades, and automated workers, with a Steam store page for the upcoming PC release.", "Built data-driven ore balancing and progression using ScriptableObjects, event-driven resource updates, English/Polish localization, and a guided first-run tutorial.", "Implemented autosave, JSON save/load, exportable encoded save codes, and finite-state-machine worker AI with node-based movement."],
+      "links": [{ "label": "Wishlist on Steam", "url": "https://store.steampowered.com/app/4740410/A_Game_About_Clicking_A_Rock/" }],
       "screenshots": [
         { "url": "images/clicking-a-rock/mining-effects.png", "alt": "Workers mining colorful ore around the mine entrance, with hit effects and resource counters." },
         { "url": "images/clicking-a-rock/mining-workers.png", "alt": "Blue miners in yellow hard hats working across a field of ore deposits." },
@@ -327,7 +340,15 @@
         "The project uses Kotlin activities and fragments, RecyclerView adapters, and a FireStoreClass data-access layer in both apps. Firebase Authentication handles accounts and password reset, Cloud Firestore stores commerce records, and Firebase Storage and Glide handle uploaded images."
       ],
       "links": [
-        { "label": "View client prototype on GitHub", "url": "https://github.com/Matix351/SklepInternetowyKlient" }
+        { "label": "View client prototype on GitHub", "url": "https://github.com/Matix351/SklepInternetowyKlient" },
+        { "label": "Watch the full demo playlist", "url": "https://www.youtube.com/playlist?list=PLTFJhPEbHxyA" }
+      ],
+      "videosHeading": "App demonstrations.",
+      "videos": [
+        { "title": "Products and multiple accounts", "youtubeId": "7ggUqPlGboA" },
+        { "title": "Email and password reset", "youtubeId": "H0kk9Welrco" },
+        { "title": "Polish language support", "youtubeId": "U2FV49tDqsQ" },
+        { "title": "Account creation and addresses", "youtubeId": "eb7d3ggrFWk" }
       ],
       "showDevelopmentNotice": false,
       "sections": [
@@ -339,6 +360,37 @@
           ],
           "image": { "url": "images/mobile-commerce/firebase-architecture.svg", "alt": "Customer and shop owner Android apps each use Kotlin data-access code to connect to Firebase Authentication, Cloud Firestore, and Firebase Storage" },
           "caption": "FireStoreClass runs in each app; both applications use the same Firebase services."
+        },
+        {
+          "title": "Database design",
+          "paragraphs": ["The design diagram maps users, delivery addresses, products, cart items, and orders. It documents their relationships using relational notation; the application stores its commerce records in Cloud Firestore."],
+          "image": {
+            "url": "images/mobile-commerce/database-diagram.png",
+            "alt": "Database design diagram showing users, addresses, products, cart items, orders, and linking tables",
+            "width": 1144,
+            "height": 1181
+          },
+          "caption": "Original data model showing the relationships between accounts, addresses, shopping carts, products, and orders."
+        },
+        {
+          "title": "Customer and owner use cases",
+          "paragraphs": ["These design diagrams outline the customer shopping journey and the owner's product and order responsibilities."],
+          "gallery": [
+            {
+              "url": "images/mobile-commerce/customer-use-case-diagram.png",
+              "alt": "Customer and administrator use-case diagram covering product search, cart, payment, order submission, and preparation",
+              "caption": "Customer workflow design: finding products, using the cart, and submitting an order for preparation.",
+              "width": 1036,
+              "height": 1036
+            },
+            {
+              "url": "images/mobile-commerce/owner-use-case-diagram.png",
+              "alt": "Administrator use-case diagram showing item creation and changes to the order status visible to the customer",
+              "caption": "Owner workflow design: adding items and updating order status for the customer.",
+              "width": 1029,
+              "height": 1029
+            }
+          ]
         },
         {
           "title": "From catalog to checkout",
@@ -373,6 +425,13 @@
       "tags": ["Unity", "Unity ML-Agents", "Reinforcement Learning", "PPO", "Neural Networks", "TensorBoard"],
       "image": "images/unity-ml-pathfinding/parallel-environments.png",
       "imageAlt": "Twenty Unity training environments with blue cubes and yellow spheres on red, green, and dark platforms",
+      "videosHeading": "Simulation videos.",
+      "featureFirstVideo": true,
+      "videos": [
+        { "title": "Unity ML-Agents PathFinding - VisualizationOfModelTraining", "youtubeId": "oD_1WF8UPek" },
+        { "title": "Unity ML-Agents PathFinding - Trained Model In Action v1", "youtubeId": "6AZEgdCWrQc" },
+        { "title": "Unity ML-Agents PathFinding - TrainedModelInAction v2", "youtubeId": "xVCHw1yxLgk" }
+      ],
       "overview": [
         "This project explores how reinforcement learning can solve a dynamic pathfinding task. I created a Unity training environment in which an autonomous agent moves along the X and Z axes, searches for a randomly placed target, and learns to avoid obstacle walls. Reaching the target gives the agent a +1 reward, while hitting a wall results in a -1 penalty and resets the episode.",
         "To speed up learning, I ran 20 training environments in parallel and trained the agent with Proximal Policy Optimization (PPO) for 500,000 steps. The experiment reached a peak mean reward of 0.951 and maintained a mean reward of approximately 0.9 near the end of training, demonstrating reliable learned navigation."
