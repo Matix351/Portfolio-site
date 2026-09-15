@@ -386,7 +386,7 @@
         "summary": "A reusable, data-driven collection of Unity gameplay systems for dialogue, inventory, commerce, and grid-based construction.",
         "status": "Private library",
         "role": "Systems & tools developer",
-        "technologies": "Unity 6, C#, ScriptableObjects, custom editor tooling",
+        "technologies": "Unity 6, C#, ScriptableObjects, xNode, Unity UI, custom editor tooling",
         "focusAreas": "Gameplay systems, editor tooling, node graphs, data-driven design, UI programming, rapid prototyping",
         "tags": [
           "Unity 6",
@@ -398,10 +398,30 @@
         ],
         "featured": true,
         "art": "framework",
+        "overviewAsList": true,
         "overview": [
-          "MaCster is a modular collection of gameplay tools designed to make recurring RPG and simulation systems faster to author and easier to reuse. Its dialogue system provides a visual graph for composing conversations, responses, conditional branches, and gameplay-triggered actions. Inventory and shop modules cover item storage, container transfers, category-based browsing, cart quantities, and purchase validation. A grid-building prototype adds snapped floor, wall, and door placement with live previews and socket-occupancy rules. The framework favors inspector-configurable components and reusable data assets so content can be assembled without hard-coding each scene."
+          "Dialogue — Visual node graphs with branching choices, Boolean conditions, and gameplay action hooks.",
+          "Inventory — Item stacks, toolbar slots, container transfers, and configurable chest capacity.",
+          "Shops — Category filters, quantity-based carts, and purchase-validation callbacks.",
+          "Construction prototype — Socket snapping, placement previews, and occupancy checks.",
+          "Reusable tools — ScriptableObject data, Inspector tooling, interaction, JSON saving, and object pooling."
         ],
         "sections": [
+          {
+            "title": "From authoring to runtime",
+            "summary": "Reusable assets hold content; scene components run the systems and present their UI.",
+            "paragraphs": [
+              "The dialogue architecture separates authored content from playback and presentation. Custom nodes describe the conversation, DialoguePlayer decides what happens next, and the viewer renders the active node. This makes the authoring workflow visible in Unity while keeping gameplay actions and conditions extensible."
+            ],
+            "image": {
+              "url": "images/macster-framework/dialogue-architecture.svg?v=3",
+              "alt": "Diagram showing custom xNode dialogue assets, text and response nodes, Boolean conditions, and UnityEvents feeding DialoguePlayer and DialogBoxViewer.",
+              "caption": "Code-derived diagram: dialogue authoring, traversal, and presentation.",
+              "width": 960,
+              "height": 830
+            },
+            "caption": "Code-derived diagram: dialogue authoring, traversal, and presentation."
+          },
           {
             "title": "Dialogue System",
             "summary": "A visual conversation-authoring workflow combining NPC text, player responses, branching paths, reusable Boolean conditions, and custom gameplay action hooks.",
@@ -435,11 +455,42 @@
                 "width": 1728,
                 "height": 986
               }
-            ]
+            ],
+            "paragraphs": [
+              "Visual authoring — The dialogue editor extends xNode with entry, text, player-response, Boolean-condition, and action nodes. Text nodes carry dialogue lines, a speaker name, and a portrait; response nodes generate an output port for each choice so authors can connect distinct conversation paths.",
+              "Conditions and gameplay hooks — Boolean conditions are ScriptableObject assets with a Validate() contract. The runtime follows the true or false output automatically, while action nodes invoke UnityEvents that can be wired to gameplay behaviour in the Inspector. DialoguePlayer handles traversal; DialogBoxViewer presents text, portraits, and response buttons through the INodeViewable interface."
+            ],
+            "videos": [
+              {
+                "title": "Dialogue — graph creation",
+                "youtubeId": "2rCHgSXTiQA"
+              },
+              {
+                "title": "Dialogue — Boolean conditions",
+                "youtubeId": "RUeJ9a4Pf8g"
+              },
+              {
+                "title": "Dialogue — gameplay action hooks",
+                "youtubeId": "v6U9IDQWqp8"
+              },
+              {
+                "title": "Dialogue player — Boolean conditions",
+                "youtubeId": "QMKnOmmMYO8",
+                "fullWidth": true,
+                "thumbnailUrl": "https://i.ytimg.com/vi/QMKnOmmMYO8/maxresdefault.jpg"
+              },
+              {
+                "title": "Dialogue player — gameplay action hook",
+                "youtubeId": "Y3FSI0Gn5FI",
+                "fullWidth": true,
+                "thumbnailUrl": "https://i.ytimg.com/vi/Y3FSI0Gn5FI/maxresdefault.jpg"
+              }
+            ],
+            "detailsAsList": true
           },
           {
             "title": "Inventory System",
-            "summary": "A slot-based player and container inventory supporting item quantities, chest selection, and movement between storage and quick-access slots.",
+            "summary": "A shared slot model for player storage, quick-access slots, and chests, with item quantities, stack limits, splitting, merging, and transfers.",
             "gallery": [
               {
                 "url": "images/macster-framework/inventory-chest-transfer.png",
@@ -449,17 +500,48 @@
                 "height": 1014
               },
               {
-                "url": "images/macster-framework/inventory-item-movement.png",
-                "alt": "An item being moved between chest and player inventory slots.",
-                "caption": "Item transfer workflow.",
-                "width": 1920,
-                "height": 1014
+                "url": "images/macster-framework/unity-inventory-split-transfer.jpg",
+                "alt": "Unity Game view after splitting one sword into chest storage, leaving five items in the quick-access slot.",
+                "caption": "Unity capture: one item transferred, five retained.",
+                "width": 2560,
+                "height": 1392
+              }
+            ],
+            "paragraphs": [
+              "Item data and slot interactions — SOItemData defines an item’s name, icon, ID, and maximum stack size. InventoryManager connects toolbar, inventory, and chest views to slot data, with a separate mouse-held slot for moving items. Clicking supports pickup, placement, merging matching stacks, and swapping different items.",
+              "Item database — SOItemDatabase keeps a shared catalog of SOItemData assets and provides GetItem(id) to retrieve an item by its ID. Its editor-only Set IDs command collects item assets from Resources/ItemData, builds the catalog, and assigns available IDs to items that do not yet have one. Designers can maintain item definitions as reusable assets instead of recreating them for each inventory or chest.",
+              "Stack controls and containers — Right-click splitting and mouse-wheel adjustments let the player move part of a stack. Opening a chest supplies its own slot data and shows the appropriate number of container slots. Selection and inventory-open events give other gameplay components a way to respond without owning the UI.",
+              "Sample workflow — The transfer example shows one item in the opened chest and five retained in the player toolbar.",
+              "Modular chests — Each InventoryChest component owns its own slot array. Set the Inventory Slot Data size in the Inspector to configure that chest’s capacity; the inventory UI displays the slots supplied by the opened chest. The example below uses seven slots."
+            ],
+            "videos": [
+              {
+                "title": "Inventory — stacks, containers, and transfers",
+                "youtubeId": "2Xn1MHAvwg8"
+              }
+            ],
+            "detailsAsList": true,
+            "image": {
+              "url": "images/macster-framework/inventory-layout-labeled.svg",
+              "alt": "Annotated inventory layout identifying the opened chest, player inventory, toolbar, and red selected slot representing the item in the player hand.",
+              "caption": "Original Unity capture with labels for the inventory panels and selected toolbar slot.",
+              "width": 1600,
+              "height": 900
+            },
+            "caption": "Original Unity capture with labels for the inventory panels and selected toolbar slot.",
+            "additionalImages": [
+              {
+                "url": "images/macster-framework/chest-capacity-labeled.svg",
+                "alt": "Annotated Unity example connecting a seven-slot opened chest to Inventory Slot Data size 7 in the Inventory Chest Inspector.",
+                "caption": "Original Unity captures: the opened chest uses seven slots, configured through Inventory Slot Data in the Inspector.",
+                "width": 1600,
+                "height": 1010
               }
             ]
           },
           {
             "title": "Shop System",
-            "summary": "A categorized storefront with item cards, prices, quantity controls, a live cart, and purchase checks for both currency and available inventory capacity.",
+            "summary": "A categorized storefront with item cards, quantity controls, a live cart, and callback-based checks for funds and inventory capacity.",
             "gallery": [
               {
                 "url": "images/macster-framework/shop-catalog.png",
@@ -475,12 +557,32 @@
                 "width": 1920,
                 "height": 984
               }
-            ]
+            ],
+            "paragraphs": [
+              "Catalog and cart — The shop reads item prices and categories through IItemTradeable and IItemType. ShopManager creates catalog cards and category filters from the supplied assets. Adding an item again updates its cart quantity; changing quantities recalculates line prices and the total.",
+              "Purchase validation — When the cart changes, separate callbacks check currency and available inventory space. All registered validators must agree. A purchase callback receives the item quantities and total price, and a successful result clears the cart. This keeps the game’s economy and inventory integration outside the storefront UI.",
+              "Game integration — The included sample uses Inspector-controlled Boolean responses to demonstrate validation and purchase outcomes. It demonstrates the integration hooks; a game supplies the actual currency deduction and item-delivery behaviour."
+            ],
+            "videos": [
+              {
+                "title": "Shop — catalog, quantities, and validation",
+                "youtubeId": "GDHG5AVHrWA"
+              }
+            ],
+            "image": {
+              "url": "images/macster-framework/shop-integration.svg?v=2",
+              "alt": "Diagram of shared item assets feeding catalog and cart, then currency and capacity callbacks, and finally a game-supplied purchase handler.",
+              "caption": "Code-derived diagram: the shop exposes integration hooks for game-specific rules.",
+              "width": 960,
+              "height": 950
+            },
+            "caption": "Code-derived diagram: the shop exposes integration hooks for game-specific rules.",
+            "detailsAsList": true
           },
           {
             "title": "Grid Building",
             "badge": "Prototype",
-            "summary": "A grid-and-socket construction prototype for placing floors, walls, and doors with snapping, live valid-placement previews, and occupied-socket handling.",
+            "summary": "An unfinished construction prototype for floor, wall, and door prefabs, with compatible-socket snapping, placement previews, and occupied-socket checks.",
             "gallery": [
               {
                 "url": "images/macster-framework/grid-building-placement.png",
@@ -496,10 +598,41 @@
                 "width": 1920,
                 "height": 938
               }
-            ]
+            ],
+            "paragraphs": [
+              "Snapping and previews — SimpleBuildPlacer casts from the pointer into socket layers, checks which sockets accept the active piece type, and chooses the closest compatible hit. Each socket supplies a placement position and rotation. The preview uses separate valid and ghost materials, and its colliders are disabled.",
+              "Placement and prototype scope — Placing a part instantiates the active prefab and records the occupied socket. Floor and wall socket components define compatibility. The supplied revision includes grid-size settings and a grid-rounding helper, but the free-placement branches are disabled; the active placement flow is socket-based. The two videos document unfinished iterations."
+            ],
+            "videos": [
+              {
+                "title": "Grid building — socket placement prototype",
+                "youtubeId": "6toosXVRjnw"
+              },
+              {
+                "title": "Grid building — early prototype iteration",
+                "youtubeId": "lLkHYvyw-TY"
+              }
+            ],
+            "detailsAsList": true
+          },
+          {
+            "title": "Supporting tools",
+            "summary": "Small, reusable utilities support the sample systems and everyday prototyping.",
+            "paragraphs": [
+              "Item authoring — The item database provides an editor context-menu action to collect item assets and assign IDs, with a custom read-only Inspector drawer for generated fields. Item definitions expose stack size, icons, and names as authoring data.",
+              "Pooling and persistence — A generic queue-based object pool supports preallocation, reuse, reset hooks, and return-to-pool behaviour. GameSaverManager serializes save data with Newtonsoft.Json to Unity’s persistent data directory.",
+              "Player interaction — The interaction module uses camera-directed sphere casts, an IInteractable contract, prompts, and press-versus-hold behaviour. Movement controllers and small UI helpers round out the library."
+            ],
+            "detailsAsList": true
           }
         ],
-        "showDevelopmentNotice": false
+        "showDevelopmentNotice": false,
+        "links": [
+          {
+            "label": "Watch the demo playlist",
+            "url": "https://www.youtube.com/playlist?list=PLXOGrvvQKH8I"
+          }
+        ]
       },
     {
       "slug": "mobile-commerce",

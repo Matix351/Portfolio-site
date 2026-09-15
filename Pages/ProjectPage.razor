@@ -8,7 +8,20 @@
         <section class="page-heading detail-heading"><a class="eyebrow breadcrumb" href="@project.Category">← @PortfolioContent.Categories.First(c => c.Path == project.Category).Name.ToUpperInvariant()</a><h1>@project.Title</h1>@if (!string.IsNullOrWhiteSpace(project.Subtitle)) { <p class="project-subtitle">@project.Subtitle</p> }<p>@project.Summary</p><div class="tags">@foreach (var tag in project.Tags) { <span>@tag</span> }</div></section>
         @if (!string.IsNullOrWhiteSpace(project.Image)) { <div class="detail-cover @(project.ImageWidth.HasValue ? "natural-cover" : "")"><img src="@project.Image" alt="@project.ImageAlt" width="@project.ImageWidth" height="@project.ImageHeight" /></div> }
         else { <div class="detail-cover illustrated"><ProjectArt Project="project" /></div> }
-        <div class="detail-layout"><aside><div class="detail-meta"><span class="eyebrow">MY ROLE</span><p>@project.Role</p><span class="eyebrow">PROJECT STATUS</span><p>@project.Status</p>@if (!string.IsNullOrWhiteSpace(project.Technologies)) { <span class="eyebrow">TECHNOLOGIES</span><p>@project.Technologies</p> }@if (!string.IsNullOrWhiteSpace(project.FocusAreas)) { <span class="eyebrow">FOCUS AREAS</span><p>@project.FocusAreas</p> }</div>@foreach (var link in project.Links.Where(l => !string.IsNullOrWhiteSpace(l.Url))) { <a class="button secondary" href="@link.Url" target="_blank" rel="noopener noreferrer">@link.Label ↗</a> }</aside><article class="project-story"><p class="eyebrow">THE PROJECT</p><h2>Behind the build.</h2>@foreach (var paragraph in project.Overview) { <p>@paragraph</p> }
+        <div class="detail-layout"><aside><div class="detail-meta"><span class="eyebrow">MY ROLE</span><p>@project.Role</p><span class="eyebrow">PROJECT STATUS</span><p>@project.Status</p>@if (!string.IsNullOrWhiteSpace(project.Technologies)) { <span class="eyebrow">TECHNOLOGIES</span><p>@project.Technologies</p> }@if (!string.IsNullOrWhiteSpace(project.FocusAreas)) { <span class="eyebrow">FOCUS AREAS</span><p>@project.FocusAreas</p> }</div>@foreach (var link in project.Links.Where(l => !string.IsNullOrWhiteSpace(l.Url))) { <a class="button secondary" href="@link.Url" target="_blank" rel="noopener noreferrer">@link.Label ↗</a> }</aside><article class="project-story"><p class="eyebrow">THE PROJECT</p><h2>Behind the build.</h2>@if (project.OverviewAsList)
+        {
+            <ul class="feature-list">
+                @foreach (var feature in project.Overview)
+                {
+                    var separator = feature.IndexOf(" — ", StringComparison.Ordinal);
+                    <li>@if (separator >= 0) { <strong>@feature[..separator]</strong><span> — @feature[(separator + 3)..]</span> } else { @feature }</li>
+                }
+            </ul>
+        }
+        else
+        {
+            @foreach (var paragraph in project.Overview) { <p>@paragraph</p> }
+        }
         @if (project.Videos.Count > 0)
         {
             <h2>@project.VideosHeading</h2>
@@ -25,7 +38,7 @@
             <section class="technical-section">
                 <h2 class="system-heading">@section.Title @if (!string.IsNullOrWhiteSpace(section.Badge)) { <span class="tags"><span>@section.Badge</span></span> }</h2>
                 @if (!string.IsNullOrWhiteSpace(section.Summary)) { <p class="section-summary">@section.Summary</p> }
-                @if (section.Title.Equals("Features", StringComparison.OrdinalIgnoreCase))
+                @if (section.DetailsAsList || section.Title.Equals("Features", StringComparison.OrdinalIgnoreCase))
                 {
                     <ul class="feature-list">
                         @foreach (var feature in section.Paragraphs)
@@ -58,6 +71,16 @@
                     @foreach (var paragraph in section.AfterTableParagraphs) { <p>@paragraph</p> }
                 }
                 @foreach (var link in section.Links) { <p><a class="text-link" href="@link.Url" target="_blank" rel="noopener noreferrer">@link.Label ↗</a></p> }
+                @if (section.Videos.Count > 0)
+                {
+                    <div class="game-videos @(section.Videos.Count == 1 ? "single-video" : "")">
+                        @for (var index = 0; index < section.Videos.Count; index++)
+                        {
+                            var video = section.Videos[index];
+                            <div @key="video.YoutubeId" class="@(video.FullWidth || (section.Videos.Count % 2 == 1 && index == 0) ? "featured-video" : "")"><GameplayVideo Video="video" /></div>
+                        }
+                    </div>
+                }
                 @if (section.Image is not null)
                 {
                     <figure>
@@ -80,8 +103,8 @@
                 @foreach (var additionalImage in section.AdditionalImages)
                 {
                     <figure>
-                        <a href="@additionalImage.Url" data-image-preview aria-haspopup="dialog" aria-label="@($"Open full-size image: {additionalImage.Alt}")"><img src="@additionalImage.Url" alt="@additionalImage.Alt" loading="lazy" /></a>
-                        <figcaption>@additionalImage.Alt</figcaption>
+                        <a href="@additionalImage.Url" data-image-preview aria-haspopup="dialog" aria-label="@($"Open full-size image: {additionalImage.Alt}")"><img src="@additionalImage.Url" alt="@additionalImage.Alt" width="@additionalImage.Width" height="@additionalImage.Height" loading="lazy" /></a>
+                        <figcaption>@(additionalImage.Caption ?? additionalImage.Alt)</figcaption>
                     </figure>
                 }
             </section>

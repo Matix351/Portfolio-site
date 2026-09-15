@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="830" viewBox="0 0 960 830" role="img" aria-labelledby="title desc">
+  <title id="title">MaCster dialogue architecture</title>
+  <desc id="desc">Unity-authored graph nodes feed DialoguePlayer traversal and DialogBoxViewer presentation.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10Z" fill="#c0ed76" />
+    </marker>
+  </defs>
+  <rect width="960" height="830" rx="12" fill="#101110" />
+  <g font-family="'DM Sans', Arial, sans-serif" text-anchor="middle">
+    <text x="480" y="47" fill="#efeee8" font-size="32">MaCster / Dialogue architecture</text>
+    <text x="480" y="84" fill="#a3a79f" font-size="22">Author assets. Traverse nodes. Present the conversation.</text>
+    <rect x="40" y="125" width="880" height="113" rx="10" fill="#181b18" stroke="#45513b" />
+    <text x="480" y="162" fill="#c0ed76" font-size="25">01   Author in Unity</text>
+    <text x="480" y="199" fill="#a3a79f" font-size="21">
+      <tspan fill="#f2c879">DialogueGraph</tspan>
+      <tspan fill="#a3a79f"> (asset) · custom nodes built on xNode</tspan>
+    </text>
+    <path d="M480 238 V277" fill="none" stroke="#c0ed76" stroke-width="2" marker-end="url(#arrow)" />
+    <rect x="40" y="280" width="275" height="150" rx="10" fill="#181b18" stroke="#45513b" />
+    <text x="177.5" y="317" fill="#c0ed76" font-size="25">Text &amp; responses</text>
+    <text x="177.5" y="354" fill="#a3a79f" font-size="21">Lines and portraits</text>
+    <text x="177.5" y="382" fill="#a3a79f" font-size="21">Dynamic choice ports</text>
+    <rect x="342" y="280" width="275" height="150" rx="10" fill="#181b18" stroke="#45513b" />
+    <text x="479.5" y="317" fill="#c0ed76" font-size="25">Conditions</text>
+    <text x="479.5" y="354" fill="#a3a79f" font-size="20">
+      <tspan fill="#f2c879">BooleanCondition</tspan>
+      <tspan fill="#a3a79f"> (asset)</tspan>
+    </text>
+    <text x="479.5" y="382" fill="#a3a79f" font-size="21">Validate() → true / false</text>
+    <rect x="644" y="280" width="276" height="150" rx="10" fill="#181b18" stroke="#45513b" />
+    <text x="782" y="317" fill="#c0ed76" font-size="25">Gameplay actions</text>
+    <text x="782" y="354" fill="#a3a79f" font-size="21">
+      <tspan fill="#c0ed76">NodeAction</tspan>
+      <tspan fill="#a3a79f"> (node)</tspan>
+    </text>
+    <text x="782" y="382" fill="#a3a79f" font-size="21">
+      <tspan fill="#d8b4fe">UnityEvents</tspan>
+      <tspan fill="#a3a79f"> (hooks)</tspan>
+    </text>
+    <path d="M177.5 430 V466 H782 V430" fill="none" stroke="#c0ed76" stroke-width="2" />
+    <path d="M480 430 V501" fill="none" stroke="#c0ed76" stroke-width="2" marker-end="url(#arrow)" />
+    <rect x="40" y="505" width="880" height="105" rx="10" fill="#181b18" stroke="#45513b" />
+    <text x="480" y="542" fill="#c0ed76" font-size="25">
+      <tspan fill="#c0ed76">02   </tspan>
+      <tspan fill="#c0ed76">DialoguePlayer</tspan>
+      <tspan fill="#a3a79f"> (traversal)</tspan>
+    </text>
+    <text x="480" y="579" fill="#a3a79f" font-size="21">Follow ports · evaluate conditions · invoke actions</text>
+    <path d="M480 610 V650" fill="none" stroke="#c0ed76" stroke-width="2" marker-end="url(#arrow)" />
+    <rect x="40" y="653" width="880" height="85" rx="10" fill="#181b18" stroke="#45513b" />
+    <text x="480" y="690" fill="#c0ed76" font-size="25">
+      <tspan fill="#c0ed76">03   </tspan>
+      <tspan fill="#c0ed76">DialogBoxViewer</tspan>
+      <tspan fill="#a3a79f"> (presentation)</tspan>
+    </text>
+    <text x="480" y="719" fill="#a3a79f" font-size="21">
+      <tspan fill="#8dcaff">INodeViewable</tspan>
+      <tspan fill="#a3a79f"> (view contract) → text, portrait, responses</tspan>
+    </text>
+    <circle cx="65" cy="800" r="4" fill="#f2c879" />
+    <text x="145" y="806" font-size="18" fill="#f2c879">Data assets</text>
+    <circle cx="270" cy="800" r="4" fill="#8dcaff" />
+    <text x="350" y="806" font-size="18" fill="#8dcaff">Interfaces</text>
+    <circle cx="457" cy="800" r="4" fill="#c0ed76" />
+    <text x="565" y="806" font-size="18" fill="#c0ed76">Nodes / components</text>
+    <circle cx="730" cy="800" r="4" fill="#d8b4fe" />
+    <text x="810" y="806" font-size="18" fill="#d8b4fe">Events / callbacks</text>
+  </g>
+</svg>

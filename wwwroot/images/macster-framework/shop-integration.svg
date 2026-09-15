@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="950" viewBox="0 0 960 950" role="img" aria-labelledby="title desc">
+  <title id="title">MaCster shop integration</title>
+  <desc id="desc">Cart changes invoke currency and capacity validators. Both must pass before the purchase callback. The sample uses Boolean test responses.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10Z" fill="#c0ed76" />
+    </marker>
+  </defs>
+  <rect width="960" height="950" rx="12" fill="#101110" />
+  <g font-family="'DM Sans', Arial, sans-serif" text-anchor="middle">
+    <text x="480" y="47" fill="#efeee8" font-size="32">MaCster / Shop integration</text>
+    <text x="480" y="84" fill="#a3a79f" font-size="22">Shared item assets, with game-specific purchase rules.</text>
+    <rect x="40" y="124" width="880" height="111" rx="10" fill="#181b18" stroke="#45513b" />
+    <text x="480" y="161" fill="#c0ed76" font-size="25">01   Item assets → catalog → cart</text>
+    <text x="480" y="198" fill="#a3a79f" font-size="20">
+      <tspan fill="#f2c879">SOItemData</tspan>
+      <tspan fill="#a3a79f"> (item data) · </tspan>
+      <tspan fill="#8dcaff">IItemType</tspan>
+      <tspan fill="#a3a79f"> (categories) · </tspan>
+      <tspan fill="#8dcaff">IItemTradeable</tspan>
+      <tspan fill="#a3a79f"> (prices)</tspan>
+    </text>
+    <path d="M480 235 V274" fill="none" stroke="#c0ed76" stroke-width="2" marker-end="url(#arrow)" />
+    <rect x="40" y="278" width="880" height="105" rx="10" fill="#181b18" stroke="#45513b" />
+    <text x="480" y="315" fill="#c0ed76" font-size="25">02   Quantity changes recalculate the total</text>
+    <text x="480" y="352" fill="#a3a79f" font-size="21">Cart lines → item quantities + total price</text>
+    <path d="M480 383 V413 H250 V448" fill="none" stroke="#c0ed76" stroke-width="2" marker-end="url(#arrow)" />
+    <path d="M480 413 H710 V448" fill="none" stroke="#c0ed76" stroke-width="2" marker-end="url(#arrow)" />
+    <rect x="40" y="452" width="420" height="115" rx="10" fill="#181b18" stroke="#45513b" />
+    <text x="250" y="489" fill="#d8b4fe" font-size="25">Currency callback</text>
+    <text x="250" y="526" fill="#a3a79f" font-size="21">Can the player afford the total?</text>
+    <rect x="500" y="452" width="420" height="115" rx="10" fill="#181b18" stroke="#45513b" />
+    <text x="710" y="489" fill="#d8b4fe" font-size="25">Capacity callback</text>
+    <text x="710" y="526" fill="#a3a79f" font-size="21">Can the items fit in storage?</text>
+    <path d="M250 567 V603 H710 V567" fill="none" stroke="#c0ed76" stroke-width="2" />
+    <path d="M480 603 V639" fill="none" stroke="#c0ed76" stroke-width="2" marker-end="url(#arrow)" />
+    <rect x="40" y="643" width="880" height="121" rx="10" fill="#181b18" stroke="#45513b" />
+    <text x="480" y="680" fill="#c0ed76" font-size="25">
+      <tspan fill="#c0ed76">03   Both pass → </tspan>
+      <tspan fill="#d8b4fe">purchase callback</tspan>
+    </text>
+    <text x="480" y="717" fill="#a3a79f" font-size="21">The game handles payment and item delivery.</text>
+    <text x="480" y="745" fill="#a3a79f" font-size="21">A successful result clears the cart.</text>
+    <text x="480" y="811" fill="#c0ed76" font-size="23">A failed check shows feedback and blocks the purchase.</text>
+    <text x="480" y="849" fill="#a3a79f" font-size="21">Sample scene: Inspector toggles simulate the callback results.</text>
+    <circle cx="65" cy="920" r="4" fill="#f2c879" />
+    <text x="145" y="926" font-size="18" fill="#f2c879">Data assets</text>
+    <circle cx="270" cy="920" r="4" fill="#8dcaff" />
+    <text x="350" y="926" font-size="18" fill="#8dcaff">Interfaces</text>
+    <circle cx="457" cy="920" r="4" fill="#c0ed76" />
+    <text x="565" y="926" font-size="18" fill="#c0ed76">Nodes / components</text>
+    <circle cx="730" cy="920" r="4" fill="#d8b4fe" />
+    <text x="810" y="926" font-size="18" fill="#d8b4fe">Events / callbacks</text>
+  </g>
+</svg>
