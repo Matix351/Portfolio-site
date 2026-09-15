@@ -41,6 +41,8 @@ Project records, skills, experience, bio, and optional contact links live in `ww
 
 To add a project, copy an existing object and set a unique lowercase hyphenated `slug`. Available categories are `games/2d`, `games/3d`, `games/tools`, `android`, and `other`. Setting `featured` to true includes it on the home page. Its detail route is automatically `projects/{slug}`. Add that URL to `wwwroot/sitemap.xml`.
 
+Keep `category` as the project's primary category. Optionally add `"additionalCategories": ["games/tools"]` to show the same project in another category without duplicating its data or detail page. Omit this field or use `[]` for projects with only one category.
+
 Optional fields:
 
 - `image`, `imageAlt`: card and detail cover. Use a path such as `images/my-game/cover.webp` (without a leading slash) for files under `wwwroot`.

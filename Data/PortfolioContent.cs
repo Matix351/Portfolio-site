@@ -51,6 +51,7 @@ public sealed class Project
     public string Slug { get; set; } = "";
     public string Title { get; set; } = "";
     public string Category { get; set; } = "";
+    public string[] AdditionalCategories { get; set; } = [];
     public string Summary { get; set; } = "";
     public string? Subtitle { get; set; }
     public string? Technologies { get; set; }
@@ -78,11 +79,19 @@ public sealed class Project
     public List<ProjectSection> Sections { get; set; } = [];
     public List<GameVideo> Videos { get; set; } = [];
     public bool FeatureFirstVideo { get; set; }
+    public bool StackVideos { get; set; }
     public string VideosHeading { get; set; } = "Gameplay.";
     public bool ShowDevelopmentNotice { get; set; } = true;
 }
 public sealed class ProjectSection
 {
+    public string? Code { get; set; }
+    public string? CodeCaption { get; set; }
+    public string? TableCaption { get; set; }
+    public string[] TableHeaders { get; set; } = [];
+    public List<string[]> TableRows { get; set; } = [];
+    public string[] AfterTableParagraphs { get; set; } = [];
+    public List<ProjectLink> Links { get; set; } = [];
     public string? Badge { get; set; }
     public List<ProjectImage> Gallery { get; set; } = [];
     public string Title { get; set; } = "";
