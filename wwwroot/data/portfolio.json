@@ -14,7 +14,7 @@
       "category": "other",
       "summary": "A real-time robotics platform connecting an ESP32-C3 tracked robot to a Blazor dashboard for remote driving, depth visualization, and telemetry history.",
       "status": "Academic project",
-      "role": "Contributor",
+      "role": "Co-author",
       "tags": ["C#", "ASP.NET Core", "Blazor", "SignalR", "SQL Server", "Entity Framework Core", "ESP32-C3", "IoT"],
       "image": "images/smartbot-api/smartbot-field-test.jpg",
       "imageAlt": "SmartBot tracked robot during a corridor driving test",
@@ -37,7 +37,7 @@
         },
         {
           "title": "LIDAR / ToF obstacle detection",
-          "paragraphs": ["I developed the obstacle-detection and movement-stop algorithm demonstrated in the video. The VL53L5CX is an 8×8 multizone time-of-flight depth sensor: it measures nearby surfaces in front of the robot to support local obstacle awareness, rather than global positioning or autonomous mapping.", "The firmware samples depth at 15 Hz and evaluates the average distance in the central 4×4 region. When that distance drops below 400 mm, it inhibits forward movement to reduce the risk of a collision, while allowing the operator to reverse away. This is a proximity guard, not a guarantee of collision avoidance in every situation."],
+          "paragraphs": ["Obstacle-detection and movement-stop algorithm demonstrated in the video. The VL53L5CX is an 8×8 multizone time-of-flight depth sensor: it measures nearby surfaces in front of the robot to support local obstacle awareness, rather than global positioning or autonomous mapping.", "The firmware samples depth at 15 Hz and evaluates the average distance in the central 4×4 region. When that distance drops below 400 mm, it inhibits forward movement to reduce the risk of a collision, while allowing the operator to reverse away. This is a proximity guard, not a guarantee of collision avoidance in every situation."],
           "links": [{ "label": "Watch web steering and obstacle detection", "url": "https://www.youtube.com/watch?v=cAaiVYFb87Y" }]
         },
         {
@@ -45,7 +45,7 @@
           "paragraphs": ["Remote driving — proportional joystick and arrow-key controls send independent motor PWM commands, with two gauges showing commanded motor output.", "Live depth visualization — an 8×8 sensor frame is rendered as a heatmap and bilinearly interpolated into a 32×32 matrix.", "Telemetry history — date-filtered charts show temperature, average distance, acceleration, and rotation, backed by SQL Server.", "Firmware safeguards — a 700 ms command timeout stops the motors, and a proximity guard inhibits forward movement near obstacles. The firmware supports fallback Wi-Fi networks and reconnects its WebSocket connection.", "Authenticated access — dashboard operators use ASP.NET Core Identity; the robot uses a separate API key. Production communication uses TLS/WSS.", "Deployment support — Docker packaging and GitHub Actions provide build, test, and artifact workflows. Azure App Service was used for the presentation deployment."]
         },
         {
-          "title": "One-joystick differential drive",
+          "title": "One-joystick differential drive and keyboard input",
           "paragraphs": ["JoystickInputHandler converts on-screen input into proportional throttle and steering, with positive y representing forward motion. A center dead zone prevents accidental movement, while a steering dead zone keeps near-vertical input moving straight. Outside these zones, the controller continuously mixes both axes rather than snapping to the direction shown by the UI label."],
           "code": "// Differential-drive mixing (pseudocode)\nif abs(x) < 0.15 and abs(y) < 0.15:\n    left = right = 0\nelse if abs(x) < 0.35:\n    left = right = y\nelse:\n    left  = y + x\n    right = y - x\n\nleftPWM  = clamp(left,  -1, 1) * 255\nrightPWM = clamp(right, -1, 1) * 255",
           "codeCaption": "Equal motor values drive straight; unequal values create a curve; opposite values at y = 0 rotate the robot in place. PWM ranges from −255 to +255: the sign selects direction and the magnitude sets duty cycle.",
@@ -99,7 +99,16 @@
         },
         {
           "title": "Tech Stack",
-          "paragraphs": ["Web: C#, ASP.NET Core 8, Blazor Interactive Server and WebAssembly, MudBlazor, Bootstrap, and ASP.NET Core Identity.", "Communication and data: SignalR over WebSocket/TLS, Entity Framework Core, SQL Server, and ImageSharp for heatmaps and depth interpolation.", "Firmware: Arduino on ESP32-C3, ArduinoJson, SparkFun VL53L5CX, Adafruit MPU6050, and the WebSockets library.", "Hardware: ESP32-C3 DevKitM-1, VL53L5CX ToF sensor, MPU6050 IMU, TB6612FNG motor driver, custom carrier PCB, and NeoPixel status LED.", "Delivery: Docker, GitHub Actions, and Azure App Service for the past presentation deployment."]
+          "tableHeaders": ["Layer", "Technologies"],
+          "tableRows": [
+            ["Web", "C#, ASP.NET Core 8, Blazor Interactive Server and WebAssembly, MudBlazor, Bootstrap"],
+            ["Authentication", "ASP.NET Core Identity"],
+            ["Real-time transport", "SignalR over WebSocket/TLS"],
+            ["Data and visualization", "Entity Framework Core, SQL Server, ImageSharp for heatmaps and depth interpolation"],
+            ["Firmware", "Arduino on ESP32-C3, ArduinoJson, SparkFun VL53L5CX, Adafruit MPU6050, WebSockets library"],
+            ["Hardware", "ESP32-C3 DevKitM-1, VL53L5CX ToF sensor, MPU6050 IMU, TB6612FNG motor driver, custom carrier PCB, NeoPixel status LED"],
+            ["Delivery", "Docker, GitHub Actions, Azure App Service (past presentation deployment)"]
+          ]
         }
       ],
       "screenshotsHeading": "Physical robot.",
@@ -141,7 +150,19 @@
           "title": "Architecture",
           "paragraphs": ["The architecture below reproduces the connections in the repository README: REST + JWT for the dashboard, HTTP state polling for ESP32, Mongoose for MongoDB, and an independent Firebase SDK connection for the mobile prototype."],
           "image": { "url": "images/smart-city-hub/architecture.svg", "alt": "React dashboard and ESP32 communicate with the Express TypeScript API, which connects to MongoDB through Mongoose. Separately, the React Native app connects to Firebase Auth and Firestore." },
-          "caption": "Architecture from the Smart City Hub README, redrawn for readability."
+          "caption": "Architecture Diagram of the Smart City Hub"
+        },
+        {
+          "title": "Tech Stack",
+          "tableHeaders": ["Layer", "Technologies"],
+          "tableRows": [
+            ["Backend", "Node.js, Express, TypeScript, Mongoose"],
+            ["Database", "MongoDB / MongoDB Atlas"],
+            ["Web dashboard", "React, Vite, React Router, axios, Tailwind CSS, react-toastify"],
+            ["Authentication and validation", "JWT, bcrypt, Joi"],
+            ["Embedded", "ESP32, Arduino, MCP23017 expanders, ArduinoJson, Wi-Fi, HTTPClient, I²C"],
+            ["Mobile prototype", "React Native, React Navigation, Firebase Authentication and Firestore (independent backend)"]
+          ]
         },
         {
           "title": "Technical documentation",

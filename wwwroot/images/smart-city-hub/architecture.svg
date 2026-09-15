@@ -27,6 +27,5 @@
     <g font-size="17" fill="#c3ea78"><text x="395" y="125">REST + JWT</text><text x="398" y="363">HTTP state polling</text><text x="792" y="220">Mongoose</text><text x="550" y="520">Firebase SDK</text></g>
     <path d="M40 427H1060" stroke="#465244" stroke-dasharray="7 7"/>
     <text x="550" y="462" font-size="17" fill="#b6c1b0">INDEPENDENT MOBILE PROTOTYPE</text>
-    <text x="550" y="626" font-size="15" fill="#b6c1b0">Source: Kamilr616/smart_city_hub — README architecture</text>
   </g>
 </svg>

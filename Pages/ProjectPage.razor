@@ -25,7 +25,20 @@
             <section class="technical-section">
                 <h2 class="system-heading">@section.Title @if (!string.IsNullOrWhiteSpace(section.Badge)) { <span class="tags"><span>@section.Badge</span></span> }</h2>
                 @if (!string.IsNullOrWhiteSpace(section.Summary)) { <p class="section-summary">@section.Summary</p> }
-                @foreach (var paragraph in section.Paragraphs) { <p>@paragraph</p> }
+                @if (section.Title.Equals("Features", StringComparison.OrdinalIgnoreCase))
+                {
+                    <ul class="feature-list">
+                        @foreach (var feature in section.Paragraphs)
+                        {
+                            var separator = feature.IndexOf(" — ", StringComparison.Ordinal);
+                            <li>@if (separator >= 0) { <strong>@feature[..separator]</strong><span> — @feature[(separator + 3)..]</span> } else { @feature }</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    @foreach (var paragraph in section.Paragraphs) { <p>@paragraph</p> }
+                }
                 @if (!string.IsNullOrWhiteSpace(section.Code))
                 {
                     <figure class="code-example">

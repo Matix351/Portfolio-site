@@ -1,4 +1,8 @@
 .minigame-list { margin-top: 28px; }
+.feature-list { margin: 20px 0; padding-left: 24px; list-style: disc; color: var(--muted); line-height: 1.8; }
+.feature-list li { padding-left: 8px; margin-bottom: 16px; }
+.feature-list li::marker { color: var(--accent); font-size: 1.15em; }
+.feature-list strong { color: var(--text); font-weight: 600; }
 .section-table-scroll { max-width: 100%; overflow-x: auto; margin: 24px 0; }
 .section-table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .section-table caption { text-align: left; color: var(--muted); padding-bottom: 16px; line-height: 1.7; }
