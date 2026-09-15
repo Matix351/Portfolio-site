@@ -620,7 +620,8 @@
             "summary": "Small, reusable utilities support the sample systems and everyday prototyping.",
             "paragraphs": [
               "Item authoring — The item database provides an editor context-menu action to collect item assets and assign IDs, with a custom read-only Inspector drawer for generated fields. Item definitions expose stack size, icons, and names as authoring data.",
-              "Pooling and persistence — A generic queue-based object pool supports preallocation, reuse, reset hooks, and return-to-pool behaviour. GameSaverManager serializes save data with Newtonsoft.Json to Unity’s persistent data directory.",
+              "Object pooling — A generic queue-based object pool supports preallocation, reuse, reset hooks, and return-to-pool behaviour.",
+              "Save/load persistence — GameSaverManager serializes save data with Newtonsoft.Json to Unity’s persistent data directory.",
               "Player interaction — The interaction module uses camera-directed sphere casts, an IInteractable contract, prompts, and press-versus-hold behaviour. Movement controllers and small UI helpers round out the library."
             ],
             "detailsAsList": true
