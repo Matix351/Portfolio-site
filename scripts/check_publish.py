@@ -31,6 +31,10 @@ assert len(slugs) == len(set(slugs)), 'Project slugs must be unique'
 categories = {'games/2d', 'games/3d', 'games/tools', 'android', 'other'}
 for project in data['projects']:
     assert project['category'] in categories
+    additional = project.get('additionalCategories', [])
+    assert isinstance(additional, list), 'Additional categories must be a list'
+    assert all(category in categories for category in additional), 'Unknown additional category'
+    assert len(additional) == len(set(additional)), 'Additional categories must be unique'
     assert re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', project['slug'])
     for link in project.get('links', []):
         assert urlparse(link['url']).scheme == 'https', 'Use HTTPS project links'

@@ -1,4 +1,14 @@
 .minigame-list { margin-top: 28px; }
+.section-table-scroll { max-width: 100%; overflow-x: auto; margin: 24px 0; }
+.section-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.section-table caption { text-align: left; color: var(--muted); padding-bottom: 16px; line-height: 1.7; }
+.section-table th, .section-table td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.section-table thead { background: var(--panel); color: var(--accent); }
+.section-table tbody th { font-weight: 500; white-space: nowrap; }
+.section-table-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.code-example pre { max-width: 100%; overflow-x: auto; padding: 22px; border: 1px solid var(--line); border-radius: 10px; background: #141a18; color: var(--text); font-size: 14px; line-height: 1.7; tab-size: 4; }
+.code-example code { font-family: Consolas, "Courier New", monospace; white-space: pre; }
+.code-example pre:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .screenshot-gallery.app-screens { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .app-screens .screen-crop { position: relative; aspect-ratio: 9 / 16; overflow: hidden; background: #202020; border: 1px solid var(--line); }
 .app-screens .screen-crop img { position: absolute; max-width: none; border: 0; border-radius: 0; }

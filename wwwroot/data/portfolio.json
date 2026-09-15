@@ -9,9 +9,164 @@
   },
   "projects": [
     {
+      "slug": "smartbot-api",
+      "title": "SmartBotAPI",
+      "category": "other",
+      "summary": "A real-time robotics platform connecting an ESP32-C3 tracked robot to a Blazor dashboard for remote driving, depth visualization, and telemetry history.",
+      "status": "Academic project",
+      "role": "Contributor",
+      "tags": ["C#", "ASP.NET Core", "Blazor", "SignalR", "SQL Server", "Entity Framework Core", "ESP32-C3", "IoT"],
+      "image": "images/smartbot-api/smartbot-field-test.jpg",
+      "imageAlt": "SmartBot tracked robot during a corridor driving test",
+      "overview": ["Developed in 2024–2025, SmartBotAPI connects a physical ESP32-C3 robot to an authenticated web interface. With the robot and server online and the server reachable over the internet, an authorized operator can control the robot remotely from anywhere with an internet connection, using a joystick or keyboard.", "The robot streams an 8×8 time-of-flight depth map, 6-axis IMU data, and temperature over a secure WebSocket/SignalR channel. Measurements are persisted to SQL Server and visualized as live heatmaps, interpolated depth matrices, and historical charts.", "The system was demonstrated using Azure App Service, but that deployment is no longer hosted. The recordings below show the project in action."],
+      "links": [
+        { "label": "View source on GitHub", "url": "https://github.com/Kamilr616/SmartBotAPI" },
+        { "label": "Documentation on GitHub", "url": "https://github.com/Kamilr616/SmartBotAPI/blob/main/docs/architecture.md" }
+      ],
+      "videosHeading": "Project demos.",
+      "stackVideos": true,
+      "videos": [
+        { "title": "SmartBot Web Steering and LIDAR", "youtubeId": "cAaiVYFb87Y" },
+        { "title": "SmartBot driving demo music", "youtubeId": "L9FZEDhjk6o" }
+      ],
+      "sections": [
+        {
+          "title": "System Overview",
+          "paragraphs": ["Robot: the VL53L5CX depth sensor and MPU6050 IMU connect to the ESP32-C3 over I²C. The controller drives the motors through a TB6612FNG using PWM.", "Server: ASP.NET Core hosts the /signalhub SignalR hub. Incoming telemetry feeds the depth visualizations and a measurement service backed by SQL Server.", "Dashboard: authenticated Blazor pages exchange live data and movement commands with the hub. Sensor data travels from robot to dashboard; control commands travel back to the robot."],
+          "image": { "url": "images/smartbot-api/system-overview.svg", "alt": "Sensors feed the ESP32-C3, which drives the motors and exchanges SignalR messages with the ASP.NET Core server. The server supplies depth views, stores telemetry in SQL Server, and connects to the authenticated Blazor dashboard." }
+        },
+        {
+          "title": "LIDAR / ToF obstacle detection",
+          "paragraphs": ["I developed the obstacle-detection and movement-stop algorithm demonstrated in the video. The VL53L5CX is an 8×8 multizone time-of-flight depth sensor: it measures nearby surfaces in front of the robot to support local obstacle awareness, rather than global positioning or autonomous mapping.", "The firmware samples depth at 15 Hz and evaluates the average distance in the central 4×4 region. When that distance drops below 400 mm, it inhibits forward movement to reduce the risk of a collision, while allowing the operator to reverse away. This is a proximity guard, not a guarantee of collision avoidance in every situation."],
+          "links": [{ "label": "Watch web steering and obstacle detection", "url": "https://www.youtube.com/watch?v=cAaiVYFb87Y" }]
+        },
+        {
+          "title": "Features",
+          "paragraphs": ["Remote driving — proportional joystick and arrow-key controls send independent motor PWM commands, with two gauges showing commanded motor output.", "Live depth visualization — an 8×8 sensor frame is rendered as a heatmap and bilinearly interpolated into a 32×32 matrix.", "Telemetry history — date-filtered charts show temperature, average distance, acceleration, and rotation, backed by SQL Server.", "Firmware safeguards — a 700 ms command timeout stops the motors, and a proximity guard inhibits forward movement near obstacles. The firmware supports fallback Wi-Fi networks and reconnects its WebSocket connection.", "Authenticated access — dashboard operators use ASP.NET Core Identity; the robot uses a separate API key. Production communication uses TLS/WSS.", "Deployment support — Docker packaging and GitHub Actions provide build, test, and artifact workflows. Azure App Service was used for the presentation deployment."]
+        },
+        {
+          "title": "One-joystick differential drive",
+          "paragraphs": ["JoystickInputHandler converts on-screen input into proportional throttle and steering, with positive y representing forward motion. A center dead zone prevents accidental movement, while a steering dead zone keeps near-vertical input moving straight. Outside these zones, the controller continuously mixes both axes rather than snapping to the direction shown by the UI label."],
+          "code": "// Differential-drive mixing (pseudocode)\nif abs(x) < 0.15 and abs(y) < 0.15:\n    left = right = 0\nelse if abs(x) < 0.35:\n    left = right = y\nelse:\n    left  = y + x\n    right = y - x\n\nleftPWM  = clamp(left,  -1, 1) * 255\nrightPWM = clamp(right, -1, 1) * 255",
+          "codeCaption": "Equal motor values drive straight; unequal values create a curve; opposite values at y = 0 rotate the robot in place. PWM ranges from −255 to +255: the sign selects direction and the magnitude sets duty cycle.",
+          "tableCaption": "keyboardInputHandler provides a discrete fallback using the same motor-command contract.",
+          "tableHeaders": ["Input", "Left motor", "Right motor", "Motion"],
+          "tableRows": [
+            ["ArrowUp", "255", "255", "Forward"],
+            ["ArrowDown", "-255", "-255", "Reverse"],
+            ["ArrowLeft", "255", "-255", "Rotate left in place"],
+            ["ArrowRight", "-255", "255", "Rotate right in place"],
+            ["Pointer/key release", "0", "0", "Stop"]
+          ],
+          "afterTableParagraphs": ["The dashboard continuously samples the held joystick and throttles outgoing SignalR commands to one every 250 ms. Releasing the pointer or key sends (0, 0) immediately. The firmware independently clamps received values and stops both motors after 700 ms without a command, providing an automatic stop if browser or network control is lost."]
+        },
+        {
+          "title": "Remote control and live depth",
+          "paragraphs": ["SignalR carries telemetry toward the dashboard and motor commands back to the robot. An 8×8 ToF depth frame is displayed as a heatmap and an interpolated 32×32 matrix. SQL Server stores measurements for historical charts."],
+          "gallery": [
+            { "url": "images/smartbot-api/live-image.png", "alt": "SmartBot live depth heatmap and robot controls", "caption": "Live View Image. The README screenshot uses a ToF frame captured during a real system test." },
+            { "url": "images/smartbot-api/live-matrix.png", "alt": "SmartBot interpolated depth matrix and robot controls", "caption": "Live View Matrix: the captured depth frame displayed in a 32×32 grid." },
+            { "url": "images/smartbot-api/login.png", "alt": "SmartBotAPI login screen", "caption": "Authenticated dashboard login." },
+            { "url": "images/smartbot-api/measurements.png", "alt": "SmartBot telemetry history charts", "caption": "Historical telemetry charts with date-range selection." }
+          ]
+        },
+        {
+          "title": "Custom PCB and hardware",
+          "paragraphs": ["The robot uses a custom carrier PCB for the ESP32-C3 controller, motor-driver module, sensor connectors, power switch, and battery connection. The board integrates these components on the tracked chassis; its circuit schematic is shown below."],
+          "gallery": [
+            { "url": "images/smartbot-api/robot-pcb.jpg", "alt": "Custom SmartBot carrier PCB on the tracked chassis", "caption": "Custom carrier PCB connecting the controller, motor driver, sensors, and power." },
+            { "url": "images/smartbot-api/robot-pcb-schematic.png", "alt": "SmartBot custom carrier PCB circuit schematic", "caption": "Project circuit schematic." }
+          ]
+        },
+        {
+          "title": "Motor-driver reference",
+          "image": { "url": "images/smartbot-api/adafruit-tb6612-schematic.png", "alt": "Adafruit TB6612 motor-driver reference schematic" },
+          "caption": "Reference schematic by lady ada / Adafruit Industries, CC BY-SA 3.0. Copied unchanged; this is a third-party reference, not the project's custom PCB design.",
+          "links": [
+            { "label": "Original Adafruit schematic", "url": "https://learn.adafruit.com/assets/24267" },
+            { "label": "CC BY-SA 3.0 license", "url": "https://creativecommons.org/licenses/by-sa/3.0/" }
+          ]
+        },
+        {
+          "title": "Documentation and media credits",
+          "paragraphs": ["Project photos and screenshots are sourced from the SmartBotAPI repository. Project-authored material is provided under GPL v3; third-party material retains its own license."],
+          "links": [
+            { "label": "Server application documentation", "url": "https://github.com/Kamilr616/SmartBotAPI/blob/main/docs/server.md" },
+            { "label": "Architecture and communication", "url": "https://github.com/Kamilr616/SmartBotAPI/blob/main/docs/architecture.md" },
+            { "label": "Firmware and hardware documentation", "url": "https://github.com/Kamilr616/SmartBotAPI/blob/main/docs/firmware.md" },
+            { "label": "Getting started", "url": "https://github.com/Kamilr616/SmartBotAPI/blob/main/docs/getting-started.md" }
+          ]
+        },
+        {
+          "title": "Tech Stack",
+          "paragraphs": ["Web: C#, ASP.NET Core 8, Blazor Interactive Server and WebAssembly, MudBlazor, Bootstrap, and ASP.NET Core Identity.", "Communication and data: SignalR over WebSocket/TLS, Entity Framework Core, SQL Server, and ImageSharp for heatmaps and depth interpolation.", "Firmware: Arduino on ESP32-C3, ArduinoJson, SparkFun VL53L5CX, Adafruit MPU6050, and the WebSockets library.", "Hardware: ESP32-C3 DevKitM-1, VL53L5CX ToF sensor, MPU6050 IMU, TB6612FNG motor driver, custom carrier PCB, and NeoPixel status LED.", "Delivery: Docker, GitHub Actions, and Azure App Service for the past presentation deployment."]
+        }
+      ],
+      "screenshotsHeading": "Physical robot.",
+      "screenshots": [
+        { "url": "images/smartbot-api/smartbot-field-test.jpg", "alt": "SmartBot during a corridor driving test." },
+        { "url": "images/smartbot-api/smartbot-hardware.jpg", "alt": "SmartBot electronics and tracked chassis." }
+      ],
+      "showDevelopmentNotice": false,
+      "featured": false
+    },
+    {
+      "slug": "smart-city-hub",
+      "title": "Smart City Hub",
+      "category": "other",
+      "summary": "An IoT platform connecting a React dashboard, Node.js API, and ESP32 modules to control a physical LEGO city.",
+      "status": "Academic project",
+      "role": "Co-author",
+      "tags": ["IoT", "React", "TypeScript", "Node.js", "Express", "MongoDB", "ESP32"],
+      "image": "images/smart-city-hub/lego-city.jpg",
+      "imageAlt": "Illuminated LEGO city model used to demonstrate Smart City Hub",
+      "overview": ["Developed in 2024 and demonstrated at the KI AT student club, Smart City Hub connects a physical LEGO city to a web-based monitoring and control system. It combines ESP32-based IoT devices, a central Node.js/TypeScript API, and a React web dashboard.", "The web dashboard and ESP32 firmware share the Node.js/MongoDB API. The mobile prototype uses Firebase Auth and Firestore independently."],
+      "links": [{ "label": "View source on GitHub", "url": "https://github.com/Kamilr616/smart_city_hub" }, { "label": "Documentation on GitHub", "url": "https://github.com/Kamilr616/smart_city_hub/blob/main/docs/DOCUMENTATION.md" }],
+      "videosHeading": "Project demo.",
+      "videos": [{ "title": "SmartCityHub - lego city demo (Portfolio)", "youtubeId": "SQee5dXEI2U" }],
+      "sections": [
+        {
+          "title": "Web dashboard and authentication",
+          "paragraphs": ["JWT login separates administrator and user access. Administrators manage accounts and devices; users control their assigned devices."],
+          "gallery": [
+            { "url": "images/smart-city-hub/web-login.png", "alt": "Smart City Hub web login screen", "caption": "React web client login screen from the repository README." },
+            { "url": "images/smart-city-hub/web-admin-dashboard.png", "alt": "Smart City Hub administrator dashboard with device controls", "caption": "Dashboard rendered with representative local device data, as noted in the README." }
+          ]
+        },
+        {
+          "title": "Features",
+          "paragraphs": ["Device control — up to 96 digital outputs (6 MCP23017 expanders × 16 pins) controlled remotely from the web dashboard; the ESP32 periodically polls the API for states and drives the outputs.", "Sensor readings — temperature, pressure, and humidity stored in the database with a reading date and device ID.", "Roles and authentication — JWT login with separate admin / user roles; admins manage users and devices, users control their assigned devices.", "State history — every device keeps a timestamped on/off history."]
+        },
+        {
+          "title": "Architecture",
+          "paragraphs": ["The architecture below reproduces the connections in the repository README: REST + JWT for the dashboard, HTTP state polling for ESP32, Mongoose for MongoDB, and an independent Firebase SDK connection for the mobile prototype."],
+          "image": { "url": "images/smart-city-hub/architecture.svg", "alt": "React dashboard and ESP32 communicate with the Express TypeScript API, which connects to MongoDB through Mongoose. Separately, the React Native app connects to Firebase Auth and Firestore." },
+          "caption": "Architecture from the Smart City Hub README, redrawn for readability."
+        },
+        {
+          "title": "Technical documentation",
+          "paragraphs": ["The repository documentation covers the system overview, JWT authentication and roles, MongoDB data models, API endpoints, dashboard flow, ESP32 firmware, environment configuration, and known limitations.", "The API manages users, devices, state history, and sensor readings. The ESP32 consumes a deterministic 96-element state array; device IDs map to output positions. The mobile and main backends are not synchronized."],
+          "links": [
+            { "label": "Full technical documentation (English)", "url": "https://github.com/Kamilr616/smart_city_hub/blob/main/docs/DOCUMENTATION.md" },
+            { "label": "Technical documentation (Polish)", "url": "https://github.com/Kamilr616/smart_city_hub/blob/main/docs/DOCUMENTATION.pl.md" },
+            { "label": "Setup instructions and requirements", "url": "https://github.com/Kamilr616/smart_city_hub#quick-start" }
+          ]
+        }
+      ],
+      "screenshotsHeading": "Physical prototype.",
+      "screenshots": [
+        { "url": "images/smart-city-hub/lego-city-day.jpg", "alt": "LEGO smart-city model in daylight." },
+        { "url": "images/smart-city-hub/lego-city-connected.jpg", "alt": "Connected lighting prototype on the LEGO city model." },
+        { "url": "images/smart-city-hub/lego-city.jpg", "alt": "Illuminated LEGO smart-city model with its lighting system running." }
+      ],
+      "showDevelopmentNotice": false,
+      "featured": false
+    },
+    {
       "slug": "bonnies-farmville",
       "title": "Bonnie's Farmville",
       "category": "games/2d",
+      "additionalCategories": ["games/tools"],
       "summary": "A Unity farming-economy minigame for the upcoming Nintendo Switch 2 title 40in1 GameCollection Vol3, featuring a data-driven farming grid and autonomous companion AI.",
       "status": "WorkInProgress",
       "role": "Gameplay systems & tools developer",
@@ -79,6 +234,7 @@
       "slug": "power-washer-hero",
       "title": "Power Washer Hero",
       "category": "games/3d",
+      "additionalCategories": ["games/tools"],
       "summary": "A reusable Unity cleaning pipeline with GPU-painted dirt masks, compute-shader coverage tracking, and editor tools for configuring multi-part cleaning targets.",
       "status": "WorkInProgress",
       "role": "Developer",
