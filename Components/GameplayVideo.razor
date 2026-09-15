@@ -6,7 +6,7 @@
     else
     {
         <button class="video-preview" @onclick="() => playing = true" aria-label="@($"Play {Video.Title}")">
-            <img src="@($"https://i.ytimg.com/vi/{Video.YoutubeId}/hqdefault.jpg")" alt="" loading="lazy" />
+            <img src="@(Video.ThumbnailUrl ?? $"https://i.ytimg.com/vi/{Video.YoutubeId}/hqdefault.jpg")" alt="" loading="lazy" />
             <span class="play-icon" aria-hidden="true">▶</span>
         </button>
     }

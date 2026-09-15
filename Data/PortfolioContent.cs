@@ -62,6 +62,7 @@ public sealed class Project
     public string Role { get; set; } = "";
     public string[] Tags { get; set; } = [];
     public string[] Overview { get; set; } = [];
+    public bool OverviewAsList { get; set; }
     public string? Challenge { get; set; }
     public string? Solution { get; set; }
     public string? Lessons { get; set; }
@@ -85,6 +86,8 @@ public sealed class Project
 }
 public sealed class ProjectSection
 {
+    public bool DetailsAsList { get; set; }
+    public List<GameVideo> Videos { get; set; } = [];
     public string? Code { get; set; }
     public string? CodeCaption { get; set; }
     public string? TableCaption { get; set; }
@@ -109,7 +112,7 @@ public sealed class MiniGame
     public string[] TechnicalNotes { get; set; } = [];
     public string? VideoUrl { get; set; }
 }
-public record GameVideo(string Title, string YoutubeId);
+public record GameVideo(string Title, string YoutubeId, bool FullWidth = false, string? ThumbnailUrl = null);
 public record ProjectLink(string Label, string Url);
 public record ProjectImage(string Url, string Alt, string? CropStyle = null, string? Caption = null, int? Width = null, int? Height = null);
 public record ScreenshotGroup(string Title, List<ProjectImage> Images);

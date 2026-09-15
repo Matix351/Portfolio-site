@@ -24,7 +24,7 @@ def check_media(value):
         for child in value:
             check_media(child)
     elif isinstance(value, str) and value.startswith('images/'):
-        assert (root / value).is_file(), f'Missing project image: {value}'
+        assert (root / urlparse(value).path).is_file(), f'Missing project image: {value}'
 
 check_media(data)
 assert len(slugs) == len(set(slugs)), 'Project slugs must be unique'
