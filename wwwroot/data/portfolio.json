@@ -313,6 +313,7 @@
       "showDevelopmentNotice": false,
       "featured": false
     },
+
     {
       "slug": "bonnies-farmville",
       "title": "Bonnie's Farmville",
@@ -633,7 +634,8 @@
             "paragraphs": [
               "Item data and slot interactions — SOItemData defines an item’s name, icon, ID, and maximum stack size. InventoryManager connects toolbar, inventory, and chest views to slot data, with a separate mouse-held slot for moving items. Clicking supports pickup, placement, merging matching stacks, and swapping different items.",
               "Item database — SOItemDatabase keeps a shared catalog of SOItemData assets and provides GetItem(id) to retrieve an item by its ID. Its editor-only Set IDs command collects item assets from Resources/ItemData, builds the catalog, and assigns available IDs to items that do not yet have one. Designers can maintain item definitions as reusable assets instead of recreating them for each inventory or chest.",
-              "Stack controls and containers — Right-click splitting and mouse-wheel adjustments let the player move part of a stack. Opening a chest supplies its own slot data and shows the appropriate number of container slots. Selection and inventory-open events give other gameplay components a way to respond without owning the UI.",
+              "Stack controls and containers — Right-click splitting and mouse-wheel adjustments let the player move part of a stack. Opening a chest supplies its own slot data and shows the appropriate number of container slots.",
+              "Events and gameplay integration — Selection and inventory-open events notify subscribed components when the player changes their selected item or opens the inventory. These hooks let gameplay code react to inventory interactions without coupling those reactions to the slot UI, keeping the storage interface reusable across different games.",
               "Sample workflow — The transfer example shows one item in the opened chest and five retained in the player toolbar.",
               "Modular chests — Each InventoryChest component owns its own slot array. Set the Inventory Slot Data size in the Inspector to configure that chest’s capacity; the inventory UI displays the slots supplied by the opened chest. The example below uses seven slots."
             ],
@@ -684,6 +686,7 @@
             "paragraphs": [
               "Catalog and cart — The shop reads item prices and categories through IItemTradeable and IItemType. ShopManager creates catalog cards and category filters from the supplied assets. Adding an item again updates its cart quantity; changing quantities recalculates line prices and the total.",
               "Purchase validation — When the cart changes, separate callbacks check currency and available inventory space. All registered validators must agree. A purchase callback receives the item quantities and total price, and a successful result clears the cart. This keeps the game’s economy and inventory integration outside the storefront UI.",
+              "Callback-driven integration — Validation callbacks return whether the transaction is allowed, while the purchase callback delegates the transaction to game-specific code. The storefront manages catalog and cart interactions; the connected game decides how to check funds, verify storage capacity, deduct currency, and deliver items. This separates shop presentation from economy rules and inventory implementation.",
               "Game integration — The included sample uses Inspector-controlled Boolean responses to demonstrate validation and purchase outcomes. It demonstrates the integration hooks; a game supplies the actual currency deduction and item-delivery behaviour."
             ],
             "videos": [
