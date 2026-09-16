@@ -1,68 +1,105 @@
 # Mateusz Ciszek · Portfolio
 
-Standalone Blazor WebAssembly (.NET 10) portfolio for **https://matix351.github.io/Portfolio-site/**. Original repository purpose: My Portfolio web page.
+Portfolio of C#, Unity, Android, and software development projects, featuring technical case studies, screenshots, system diagrams, and video demonstrations.
+
+**[Visit the portfolio](https://matix351.github.io/Portfolio-site/)**
+
+Built with standalone **Blazor WebAssembly on .NET 10**, reusable Razor components, and custom responsive CSS. Content is stored in JSON. GitHub Actions builds and deploys the static site to GitHub Pages.
+
+## Featured work
+
+- **MaCster Framework** — reusable Unity dialogue, inventory, shop, and construction prototype systems, plus editor tooling and supporting utilities.
+- **Unity games** — 2D and 3D projects, including the 100 in 1 Game Collection and A Game About Clicking A Rock.
+- **Android applications** — mobile commerce and a mobile-game engineering thesis.
+- **Software and experiments** — SmartBot API, Smart City Hub, and Unity ML-Agents pathfinding.
 
 ## Run locally
 
-Install the .NET 10 SDK, then run from this directory:
+Requirements: **.NET 10 SDK**. **Python 3.9 or newer** is also needed for the publish checker and static preview scripts. No API keys or database are required.
+
+From the repository root:
 
 ```sh
 dotnet restore
 dotnet run -- --pathbase=/Portfolio-site
 ```
 
-Open the printed localhost address with `/Portfolio-site/` appended. The base path is intentionally identical to production. No database, server application, or API keys are needed.
+Open [localhost:5167/Portfolio-site/](http://localhost:5167/Portfolio-site/), or use the printed server address with `/Portfolio-site/` appended. This base path matches the production GitHub Pages subdirectory.
 
-## Publish and verify
+## Build and preview the release
 
 ```sh
+dotnet build Portfolio.csproj
 dotnet publish Portfolio.csproj -c Release -o publish
 python scripts/check_publish.py publish/wwwroot
 python scripts/serve_preview.py
 ```
 
-Open `http://localhost:5081/Portfolio-site/`. This local static server reproduces GitHub Pages 404 behavior, including redirecting deep links through `404.html`. Verify direct navigation and refresh at `/Portfolio-site/games/3d` and `/Portfolio-site/projects/a-game-about-clicking-a-rock`. Query strings and fragments survive the redirect. Unknown routes show an in-app 404. Stop the server with Ctrl+C.
+On Windows, `py -3` can replace `python` if that is how Python is installed.
 
-## GitHub Pages
+Open [localhost:5081/Portfolio-site/](http://localhost:5081/Portfolio-site/). The preview serves `publish/wwwroot`; publish again after edits to update it. Stop the preview with Ctrl+C.
 
-1. Push this project to the `main` branch of `Matix351/Portfolio-site`.
-2. In the repository, select **Settings → Pages → Build and deployment → Source → GitHub Actions**.
-3. Ensure Actions is enabled and the `github-pages` environment permits deployment from `main`.
-4. Run **Actions → Build and deploy portfolio → Run workflow**, or push a commit to `main`.
-5. Open the deployment URL displayed by the workflow.
+The checker validates the base path, entry scripts, local media, WebAssembly files, and project records. There is currently no dedicated automated test project. Check C# formatting with:
 
-The workflow builds pull requests without deploying them. Main-branch pushes publish the release `wwwroot` artifact. It uses the automatic GitHub token with scoped Pages permissions; no personal token is required. The `.nojekyll` file is included. Generated framework files are uploaded directly, avoiding Git line-ending changes to their integrity hashes.
+```sh
+dotnet format Portfolio.csproj --verify-no-changes
+```
 
-GitHub Free requires a public repository for Pages. A private repository requires an eligible paid plan. If Pages settings are unavailable, check the repository's plan/visibility before deployment; this project does not change visibility automatically.
+Before publishing, check desktop and mobile layouts, image previews, video playback, and direct navigation or refresh at `/Portfolio-site/projects/macster-framework`. The static preview reproduces the Pages `404.html` redirect for client-side routing. Unknown routes show the site's not-found page.
 
-## Edit your content
+## Repository structure
 
-Project records, skills, experience, bio, and optional contact links live in `wwwroot/data/portfolio.json`. No résumé or personal contact details are included. Set `profile.contactEmail` or `profile.contactUrl` only when you want that information public; null values hide the buttons.
+| Location | Purpose |
+| --- | --- |
+| `Pages/` | Home, categories, project details, about, and not-found routes |
+| `Components/` | Shared project cards, artwork, content loading, and video players |
+| `Layout/` | Navigation, branding, and footer |
+| `Data/PortfolioContent.cs` | Content models, JSON loading, and category definitions |
+| `wwwroot/data/portfolio.json` | Profile, experience, project copy, and media references |
+| `wwwroot/images/` | Screenshots, illustrations, and diagrams grouped by project |
+| `wwwroot/css/` | Shared visual tokens, responsive styles, and image-preview styling |
+| `scripts/` | Published-output validation and local static preview |
+| `.github/workflows/deploy.yml` | Release build and GitHub Pages deployment |
 
-To add a project, copy an existing object and set a unique lowercase hyphenated `slug`. Available categories are `games/2d`, `games/3d`, `games/tools`, `android`, and `other`. Setting `featured` to true includes it on the home page. Its detail route is automatically `projects/{slug}`. Add that URL to `wwwroot/sitemap.xml`.
+Component-specific styles live beside Razor components in `.razor.css` files.
 
-Keep `category` as the project's primary category. Optionally add `"additionalCategories": ["games/tools"]` to show the same project in another category without duplicating its data or detail page. Omit this field or use `[]` for projects with only one category.
+## Update project content
 
-Optional fields:
+Edit `wwwroot/data/portfolio.json`. Copy an existing project record, choose a unique lowercase hyphenated `slug`, and set its primary `category`. The detail route is generated as `projects/{slug}`. Add public routes to `wwwroot/sitemap.xml`.
 
-- `image`, `imageAlt`: card and detail cover. Use a path such as `images/my-game/cover.webp` (without a leading slash) for files under `wwwroot`.
-- `screenshots`: objects containing `url` and descriptive `alt` text.
-- `videoUrl`: an HTTPS YouTube/gameplay link; shown only when provided.
-- `links`: objects containing `label` and `url`, for source, demo, download, or store links. Use trusted HTTPS URLs.
-- `challenge`, `solution`, `lessons`: technical case-study sections, hidden until supplied.
-- `overview`: an array of paragraphs. `role`, `status`, `tags`, and `summary` describe the project.
-- `art`: `framework`, `mobile`, or `path` for an explicitly labelled concept illustration while screenshots are unavailable.
+Categories: `games/2d`, `games/3d`, `games/tools`, `android`, and `other`. Use `additionalCategories` to list a project in multiple categories without duplicating its record. Set `featured` to include it in the home page's selected work; the separate featured-game panel is configured in `Pages/Home.razor`.
 
-The 2D category includes the 100 in 1 Game Collection showcase, using the supplied cover, descriptions, and 14 YouTube clips. Edit its `miniGames` array to change individual game descriptions, `technicalNotes`, and `videos` (each with a `title` and `youtubeId`). Videos use click-to-load YouTube embeds and offer direct watch links. Other project descriptions come from the supplied professional résumé; the Steam listing supplies rock-game artwork and its coming-soon status. Update that status when the release changes.
+Common content options:
 
-The home featured game panel is in `Pages/Home.razor`; update it if you change the featured game. Site branding and footer are in `Layout/MainLayout.razor`. Visual tokens and responsive styling are in `wwwroot/css/portfolio.css`. UI uses native HTML/CSS, without a UI library dependency.
+- **Metadata:** `summary`, `subtitle`, `role`, `status`, `tags`, `technologies`, and `focusAreas`.
+- **Overview:** `overview` contains paragraphs; `overviewAsList: true` renders them as bullets.
+- **Sections:** `sections` support `title`, `summary`, `paragraphs`, optional `badge`, images, galleries, videos, links, code examples, and tables. `detailsAsList: true` renders paragraphs as bullets. Use an em dash surrounded by spaces between a bullet's bold label and its description.
+- **Images:** `image` and `imageAlt` define a project cover; `art` selects a labeled concept illustration. Section image objects use `url`, `alt`, `caption`, `width`, and `height`. Sections support `image`, `gallery`, and `additionalImages`; project-level collections include `screenshots` and `screenshotGroups`.
+- **Videos:** `videos` entries contain `title` and `youtubeId`, with optional `thumbnailUrl`. Within a section, `fullWidth: true` gives a video the full gallery width. Project-level video layouts use `featureFirstVideo` or `stackVideos`.
+- **Other options:** `miniGames` groups individual games and demonstrations; `links` adds external destinations. Set `showDevelopmentNotice: false` to hide the default additional-media notice.
 
-## Accessibility and external assets
+`Data/PortfolioContent.cs` defines the complete schema. Shared components handle presentation, so ordinary content edits do not require new page components.
 
-Includes a skip link, keyboard focus indicators, heading focus on navigation, mobile menu with expanded state, descriptive media text, and reduced-motion support. Steam artwork is loaded from Steam's CDN, and Google Fonts supplies optional typography with system fallbacks. Other project visuals are CSS concept illustrations, not screenshots. Replace external image URLs with owned local assets if desired.
+## Media and accessibility
 
-Standalone WebAssembly has an initial runtime download. Page titles update in the browser; social preview metadata is shared across routes because GitHub Pages cannot render project-specific metadata on a server. Contacts and links are public client-side data: never add credentials to this site.
+Keep local assets under `wwwroot/images/<project>/` and reference them as `images/<project>/file.png`, without a leading slash. Supply descriptive alternative text and dimensions where supported. Preserve screenshot aspect ratios and original UI content; use separate vector annotations for explanatory diagrams rather than redrawing screenshots.
 
-## Branch workflow
+Images open in the existing keyboard-accessible preview. Videos show thumbnails first and load a `youtube-nocookie.com` iframe after a click, with a direct YouTube link available. The site includes a skip link, visible focus states, responsive navigation, and reduced-motion support.
 
-`main` publishes the website. Make future content changes on `develop`, then merge them into `main` when ready to publish. This repository starts from a clean snapshot; no history from the earlier private repository is included.
+Local screenshots, SVG diagrams, and CSS concept illustrations appear alongside external media such as YouTube thumbnails and Steam artwork. Captions distinguish screenshots, diagrams, and illustrations. JSON content and static assets are public when deployed.
+
+Page titles update during navigation. Social preview metadata is shared across routes because this static deployment does not render project-specific metadata on a server.
+
+## Branches and deployment
+
+Make changes on `develop`, verify the release, then merge into `main` to publish.
+
+The **Build and deploy portfolio** workflow:
+
+1. Builds and checks pull requests targeting `main`, without deploying them.
+2. Publishes and validates release output on pushes to `main`.
+3. Uploads `publish/wwwroot` and deploys it to GitHub Pages.
+
+For setup, select **Settings → Pages → Build and deployment → Source → GitHub Actions** and allow the `github-pages` environment to deploy from `main`. The workflow uses GitHub's automatic token with scoped Pages permissions. It can also be started manually from the Actions tab.
+
+The production base path is `/Portfolio-site/`. If the repository name or hosting location changes, update the base path, route fallback, sitemap, metadata, preview script, and publish checks together.

@@ -498,13 +498,6 @@
                 "caption": "Container and player storage.",
                 "width": 1920,
                 "height": 1014
-              },
-              {
-                "url": "images/macster-framework/unity-inventory-split-transfer.jpg",
-                "alt": "Unity Game view after splitting one sword into chest storage, leaving five items in the quick-access slot.",
-                "caption": "Unity capture: one item transferred, five retained.",
-                "width": 2560,
-                "height": 1392
               }
             ],
             "paragraphs": [
