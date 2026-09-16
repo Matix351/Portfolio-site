@@ -249,7 +249,7 @@
           "image": { "url": "images/bonnies-farmville/custom-item-id-property-drawer.png", "alt": "Custom Item ID Property Drawer showing the ItemCodeDescription attribute, Inspector item-name feedback, and shared item database" }
         }
       ],
-      "featured": false
+      "featured": true
     },
     {
       "slug": "power-washer-hero",
@@ -361,7 +361,7 @@
     {
       "slug": "a-game-about-clicking-a-rock", "title": "A Game About Clicking A Rock", "category": "games/3d",
       "summary": "One rock. A growing mining operation. A 3D incremental game about turning a simple click into an automated empire.",
-      "status": "Steam · Coming soon", "role": "Game design & programming", "tags": ["Unity", "C#", "3D", "Incremental"], "featured": true,
+      "status": "Steam · Coming soon", "role": "Game design & programming", "tags": ["Unity", "C#", "3D", "Incremental"], "featured": false,
       "image": "images/clicking-a-rock/cover.png",
       "imageAlt": "A Game About Clicking A Rock title artwork with colorful desert cliffs, ore rocks, and mine tracks",
       "videosHeading": "Trailer.",
