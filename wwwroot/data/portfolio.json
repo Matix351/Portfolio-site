@@ -126,59 +126,189 @@
       "summary": "An IoT platform connecting a React dashboard, Node.js API, and ESP32 modules to control a physical LEGO city.",
       "status": "Academic project",
       "role": "Co-author",
-      "tags": ["IoT", "React", "TypeScript", "Node.js", "Express", "MongoDB", "ESP32"],
+      "tags": [
+        "IoT",
+        "React",
+        "TypeScript",
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "ESP32"
+      ],
       "image": "images/smart-city-hub/lego-city.jpg",
       "imageAlt": "Illuminated LEGO city model used to demonstrate Smart City Hub",
-      "overview": ["Developed in 2024 and demonstrated at the KI AT student club, Smart City Hub connects a physical LEGO city to a web-based monitoring and control system. It combines ESP32-based IoT devices, a central Node.js/TypeScript API, and a React web dashboard.", "The web dashboard and ESP32 firmware share the Node.js/MongoDB API. The mobile prototype uses Firebase Auth and Firestore independently."],
-      "links": [{ "label": "View source on GitHub", "url": "https://github.com/Kamilr616/smart_city_hub" }, { "label": "Documentation on GitHub", "url": "https://github.com/Kamilr616/smart_city_hub/blob/main/docs/DOCUMENTATION.md" }],
+      "overview": [
+        "Developed in 2024 and demonstrated at the KI AT student club, Smart City Hub connects a physical LEGO city to a web-based monitoring and control system. It combines ESP32-based IoT devices, a central Node.js/TypeScript API, and a React web dashboard.",
+        "The web dashboard and ESP32 firmware share a Node.js/MongoDB API for device control, sensor readings, and state history."
+      ],
+      "links": [
+        {
+          "label": "View source on GitHub",
+          "url": "https://github.com/Kamilr616/smart_city_hub"
+        },
+        {
+          "label": "Documentation on GitHub",
+          "url": "https://github.com/Kamilr616/smart_city_hub/blob/main/docs/DOCUMENTATION.md"
+        }
+      ],
       "videosHeading": "Project demo.",
-      "videos": [{ "title": "SmartCityHub - lego city demo (Portfolio)", "youtubeId": "SQee5dXEI2U" }],
+      "videos": [
+        {
+          "title": "SmartCityHub - lego city demo (Portfolio)",
+          "youtubeId": "SQee5dXEI2U"
+        }
+      ],
       "sections": [
         {
           "title": "Web dashboard and authentication",
-          "paragraphs": ["JWT login separates administrator and user access. Administrators manage accounts and devices; users control their assigned devices."],
+          "paragraphs": [
+            "JWT login separates administrator and user access. Administrators manage accounts and devices; users control their assigned devices."
+          ],
           "gallery": [
-            { "url": "images/smart-city-hub/web-login.png", "alt": "Smart City Hub web login screen", "caption": "React web client login screen from the repository README." },
-            { "url": "images/smart-city-hub/web-admin-dashboard.png", "alt": "Smart City Hub administrator dashboard with device controls", "caption": "Dashboard rendered with representative local device data, as noted in the README." }
+            {
+              "url": "images/smart-city-hub/web-login.png",
+              "alt": "Smart City Hub web login screen",
+              "caption": "React web client login screen from the repository README."
+            },
+            {
+              "url": "images/smart-city-hub/web-admin-dashboard.png",
+              "alt": "Smart City Hub administrator dashboard with device controls",
+              "caption": "Dashboard rendered with representative local device data, as noted in the README."
+            }
           ]
         },
         {
-          "title": "Features",
-          "paragraphs": ["Device control — up to 96 digital outputs (6 MCP23017 expanders × 16 pins) controlled remotely from the web dashboard; the ESP32 periodically polls the API for states and drives the outputs.", "Sensor readings — temperature, pressure, and humidity stored in the database with a reading date and device ID.", "Roles and authentication — JWT login with separate admin / user roles; admins manage users and devices, users control their assigned devices.", "State history — every device keeps a timestamped on/off history."]
-        },
-        {
           "title": "Architecture",
-          "paragraphs": ["The architecture below reproduces the connections in the repository README: REST + JWT for the dashboard, HTTP state polling for ESP32, Mongoose for MongoDB, and an independent Firebase SDK connection for the mobile prototype."],
-          "image": { "url": "images/smart-city-hub/architecture.svg", "alt": "React dashboard and ESP32 communicate with the Express TypeScript API, which connects to MongoDB through Mongoose. Separately, the React Native app connects to Firebase Auth and Firestore." },
+          "paragraphs": [
+            "The React dashboard communicates with the Express/TypeScript API over REST with JWT authentication. ESP32 polls the API for output states, while Mongoose connects the backend to MongoDB."
+          ],
+          "image": {
+            "url": "images/smart-city-hub/architecture.svg",
+            "alt": "React web dashboard and ESP32 communicate with the Express TypeScript API, which connects to MongoDB through Mongoose."
+          },
           "caption": "Architecture Diagram of the Smart City Hub"
         },
         {
+          "title": "Features",
+          "paragraphs": [
+            "Device control — up to 96 digital outputs (6 MCP23017 expanders × 16 pins) controlled remotely from the web dashboard; the ESP32 periodically polls the API for states and drives the outputs.",
+            "Sensor readings — temperature, pressure, and humidity stored in the database with a reading date and device ID.",
+            "Roles and authentication — JWT login with separate admin / user roles; admins manage users and devices, users control their assigned devices.",
+            "State history — every device keeps a timestamped on/off history."
+          ]
+        },
+        {
+          "title": "Class diagram",
+          "paragraphs": [
+            "The original design separates account access, device management, API communication, and data handling. EnvironmentalSensor and LightingSystem specialize Device, grouping sensor readings and lighting controls around a shared device model."
+          ],
+          "image": {
+            "url": "images/smart-city-hub/class-diagram.png",
+            "alt": "Original class diagram connecting Admin, User, DeviceManager, Device, EnvironmentalSensor, LightingSystem, APIManager, and DataManager.",
+            "caption": "Original class diagram from the project report, chapter 5."
+          },
+          "caption": "Original class diagram from the project report, chapter 5."
+        },
+        {
+          "title": "Key use cases",
+          "paragraphs": [
+            "The original use-case diagrams capture three core workflows: administrator device management, user lighting control, and temperature/humidity monitoring. Each starts with login and access to a device."
+          ],
+          "additionalImages": [
+            {
+              "url": "images/smart-city-hub/use-case-admin-devices.png",
+              "alt": "Administrator logs in to add, remove, or disable devices, then logs out.",
+              "caption": "Administrator — device management."
+            },
+            {
+              "url": "images/smart-city-hub/use-case-user-lighting.png",
+              "alt": "User logs in, selects a device, checks its state, and turns lighting on or off.",
+              "caption": "User — lighting control."
+            },
+            {
+              "url": "images/smart-city-hub/use-case-user-sensors.png",
+              "alt": "User logs in, selects a sensor, and reads temperature and humidity.",
+              "caption": "User — environmental monitoring."
+            }
+          ]
+        },
+        {
+          "title": "Database design",
+          "paragraphs": [
+            "The report models relationships between accounts, managed devices, lighting systems, and environmental sensors. This early relational design documents the planning work; the implemented backend uses MongoDB and Mongoose."
+          ],
+          "image": {
+            "url": "images/smart-city-hub/database-design.png",
+            "alt": "Original entity relationship design showing accounts, device management, lighting, environmental sensors, and API and data managers.",
+            "caption": "Original DBML entity relationship design from chapter 7; a design artifact, not the deployed MongoDB schema."
+          },
+          "caption": "Original DBML entity relationship design from chapter 7; a design artifact, not the deployed MongoDB schema."
+        },
+        {
           "title": "Tech Stack",
-          "tableHeaders": ["Layer", "Technologies"],
+          "tableHeaders": [
+            "Layer",
+            "Technologies"
+          ],
           "tableRows": [
-            ["Backend", "Node.js, Express, TypeScript, Mongoose"],
-            ["Database", "MongoDB / MongoDB Atlas"],
-            ["Web dashboard", "React, Vite, React Router, axios, Tailwind CSS, react-toastify"],
-            ["Authentication and validation", "JWT, bcrypt, Joi"],
-            ["Embedded", "ESP32, Arduino, MCP23017 expanders, ArduinoJson, Wi-Fi, HTTPClient, I²C"],
-            ["Mobile prototype", "React Native, React Navigation, Firebase Authentication and Firestore (independent backend)"]
+            [
+              "Backend",
+              "Node.js, Express, TypeScript, Mongoose"
+            ],
+            [
+              "Database",
+              "MongoDB / MongoDB Atlas"
+            ],
+            [
+              "Web dashboard",
+              "React, Vite, React Router, axios, Tailwind CSS, react-toastify"
+            ],
+            [
+              "Authentication and validation",
+              "JWT, bcrypt, Joi"
+            ],
+            [
+              "Embedded",
+              "ESP32, Arduino, MCP23017 expanders, ArduinoJson, Wi-Fi, HTTPClient, I²C"
+            ]
           ]
         },
         {
           "title": "Technical documentation",
-          "paragraphs": ["The repository documentation covers the system overview, JWT authentication and roles, MongoDB data models, API endpoints, dashboard flow, ESP32 firmware, environment configuration, and known limitations.", "The API manages users, devices, state history, and sensor readings. The ESP32 consumes a deterministic 96-element state array; device IDs map to output positions. The mobile and main backends are not synchronized."],
+          "paragraphs": [
+            "The repository documentation covers the system overview, JWT authentication and roles, MongoDB data models, API endpoints, dashboard flow, ESP32 firmware, environment configuration, and known limitations.",
+            "The API manages users, devices, state history, and sensor readings. The ESP32 consumes a deterministic 96-element state array; device IDs map to output positions."
+          ],
           "links": [
-            { "label": "Full technical documentation (English)", "url": "https://github.com/Kamilr616/smart_city_hub/blob/main/docs/DOCUMENTATION.md" },
-            { "label": "Technical documentation (Polish)", "url": "https://github.com/Kamilr616/smart_city_hub/blob/main/docs/DOCUMENTATION.pl.md" },
-            { "label": "Setup instructions and requirements", "url": "https://github.com/Kamilr616/smart_city_hub#quick-start" }
+            {
+              "label": "Full technical documentation (English)",
+              "url": "https://github.com/Kamilr616/smart_city_hub/blob/main/docs/DOCUMENTATION.md"
+            },
+            {
+              "label": "Technical documentation (Polish)",
+              "url": "https://github.com/Kamilr616/smart_city_hub/blob/main/docs/DOCUMENTATION.pl.md"
+            },
+            {
+              "label": "Setup instructions and requirements",
+              "url": "https://github.com/Kamilr616/smart_city_hub#quick-start"
+            }
           ]
         }
       ],
       "screenshotsHeading": "Physical prototype.",
       "screenshots": [
-        { "url": "images/smart-city-hub/lego-city-day.jpg", "alt": "LEGO smart-city model in daylight." },
-        { "url": "images/smart-city-hub/lego-city-connected.jpg", "alt": "Connected lighting prototype on the LEGO city model." },
-        { "url": "images/smart-city-hub/lego-city.jpg", "alt": "Illuminated LEGO smart-city model with its lighting system running." }
+        {
+          "url": "images/smart-city-hub/lego-city-day.jpg",
+          "alt": "LEGO smart-city model in daylight."
+        },
+        {
+          "url": "images/smart-city-hub/lego-city-connected.jpg",
+          "alt": "Connected lighting prototype on the LEGO city model."
+        },
+        {
+          "url": "images/smart-city-hub/lego-city.jpg",
+          "alt": "Illuminated LEGO smart-city model with its lighting system running."
+        }
       ],
       "showDevelopmentNotice": false,
       "featured": false
