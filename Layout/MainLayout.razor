@@ -4,7 +4,7 @@
 @inject NavigationManager Navigation
 <a class="skip-link" href="@(Navigation.Uri.Split('#')[0] + "#main")">Skip to content</a>
 <header class="site-header">
-    <a class="brand" href="" aria-label="Mateusz Ciszek home"><img class="brand-photo" src="images/profile/my-photo-mini-v2.jpg" alt="" width="52" height="52" /><span>Mateusz Ciszek<span class="brand-role">C# & Unity Developer</span></span></a>
+    <a class="brand" href="" aria-label="Mateusz Ciszek home"><img class="brand-photo" src="images/profile/my-photo-mini-v2.jpg" alt="" width="52" height="52" /><span>Mateusz Ciszek<span class="brand-role">Software Engineer & C# Developer</span></span></a>
     <button class="menu-toggle" aria-expanded="@menuOpen.ToString().ToLowerInvariant()" aria-controls="primary-nav" @onclick="() => menuOpen = !menuOpen">@(menuOpen ? "Close ×" : "Menu ☰")</button>
     <nav id="primary-nav" class="@(menuOpen ? "open" : "")" aria-label="Main navigation">
         <NavLink href="" Match="NavLinkMatch.All">Home</NavLink><NavLink href="games">Games</NavLink><NavLink href="android">Android</NavLink><NavLink href="other">Other projects</NavLink><NavLink href="about">About / Contact <span aria-hidden="true">↗</span></NavLink>

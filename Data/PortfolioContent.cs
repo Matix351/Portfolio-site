@@ -36,7 +36,7 @@ public sealed class Content
 public sealed class Profile
 {
     public string Name { get; set; } = "Mateusz Ciszek";
-    public string Role { get; set; } = "C# & Unity Developer";
+    public string Role { get; set; } = "Software Engineer & C# Developer";
     public string Bio { get; set; } = "";
     public string Github { get; set; } = "https://github.com/Matix351";
     public string? ContactEmail { get; set; }
