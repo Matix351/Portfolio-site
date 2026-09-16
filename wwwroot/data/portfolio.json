@@ -677,7 +677,7 @@
           "caption": "Original data model showing the relationships between accounts, addresses, shopping carts, products, and orders."
         },
         {
-          "title": "Customer and owner use cases",
+          "title": "Customer and owner use cases diagrams",
           "paragraphs": ["These design diagrams outline the customer shopping journey and the owner's product and order responsibilities."],
           "gallery": [
             {
