@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="650" viewBox="0 0 1100 650" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="410" viewBox="0 0 1100 410" role="img" aria-labelledby="title desc">
   <title id="title">Smart City Hub architecture</title>
-  <desc id="desc">Dashboard and ESP32 share an Express API and MongoDB. React Native uses Firebase independently. Connections reproduce the repository README diagram.</desc>
+  <desc id="desc">The React web dashboard and ESP32 share an Express TypeScript API backed by MongoDB through Mongoose.</desc>
   <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#c3ea78"/></marker></defs>
-  <rect width="1100" height="650" rx="20" fill="#141a18"/>
+  <rect width="1100" height="410" rx="20" fill="#141a18"/>
   <g fill="#f2f5ec" font-family="Arial, sans-serif" text-anchor="middle">
     <text x="550" y="55" font-size="28" font-weight="bold">SMART CITY HUB / ARCHITECTURE</text>
     <g fill="#222d26" stroke="#627c51" stroke-width="2">
@@ -10,22 +10,17 @@
       <rect x="30" y="280" width="280" height="100" rx="12"/>
       <rect x="490" y="190" width="220" height="110" rx="12"/>
       <rect x="875" y="190" width="195" height="110" rx="12"/>
-      <rect x="130" y="490" width="280" height="100" rx="12"/>
-      <rect x="690" y="490" width="280" height="100" rx="12"/>
     </g>
     <g font-size="23">
       <text x="170" y="143">React web dashboard</text><text x="170" y="177" font-size="19">admin / user</text>
       <text x="170" y="322">ESP32 + 6× MCP23017</text><text x="170" y="356" font-size="19">96 outputs</text>
       <text x="600" y="235">Express API</text><text x="600" y="269">TypeScript</text>
       <text x="972" y="253">MongoDB</text>
-      <text x="270" y="548">React Native app</text><text x="830" y="548">Auth + Firestore</text>
     </g>
     <g fill="none" stroke="#c3ea78" stroke-width="2.5" marker-start="url(#arrow)" marker-end="url(#arrow)">
       <path d="M320 150H440V215H480"/><path d="M320 330H440V275H480"/>
-      <path d="M720 245H865"/><path d="M420 540H680"/>
+      <path d="M720 245H865"/>
     </g>
-    <g font-size="17" fill="#c3ea78"><text x="395" y="125">REST + JWT</text><text x="398" y="363">HTTP state polling</text><text x="792" y="220">Mongoose</text><text x="550" y="520">Firebase SDK</text></g>
-    <path d="M40 427H1060" stroke="#465244" stroke-dasharray="7 7"/>
-    <text x="550" y="462" font-size="17" fill="#b6c1b0">INDEPENDENT MOBILE PROTOTYPE</text>
+    <g font-size="17" fill="#c3ea78"><text x="395" y="125">REST + JWT</text><text x="398" y="363">HTTP state polling</text><text x="792" y="220">Mongoose</text></g>
   </g>
 </svg>
